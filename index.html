@@ -5512,39 +5512,10 @@ textarea{resize:vertical}
   a,button,.project-card,[role=button],.modal-thumb,.mg-pair,.mg,.text-link,.site-nav nav a,.light-toggle{cursor:pointer;-webkit-tap-highlight-color:rgba(231,189,85,.25)}
   .project-card:active .project-art{transform:scale(.98)}
 
-/* ===== NAV ===== */
-
-
-
-/* ===== HERO ===== */
-
-
-
-/* ===== INTRO / STORY ===== */
-
-
-
-/* ===== ABOUT ===== */
-
-
-
-/* ===== WORK ===== */
-
-
-
-
-/* ===== APPROACH ===== */
-
-
-
-/* ===== CONTACT ===== */
-
-
-
-/* ===== MODAL ===== */
-
-
-
+/* The responsive/mobile layout for nav, hero, story, about, work,
+   approach, contact and modal lives in the dedicated
+   "RESPONSIVE / MOBILE LAYOUT (<=820px)" section at the bottom of
+   this stylesheet. */
 /* ============ PROJECT IMAGES ============ */
 .project-art .project-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:5}
 .project-art.design-cover{display:flex;align-items:flex-end;background:#15130f}
@@ -5742,131 +5713,187 @@ html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
   img,video,canvas{max-width:100%!important;height:auto}
   main > section[id]{scroll-margin-top:70px}
 
-  /* NAV */
-  .site-nav{height:60px;padding:0 18px}
-  .brand{font-size:22px}
-  .site-nav nav{gap:16px;font-size:9px;letter-spacing:.14em}
+  /* NAV — full-width bar with room to breathe. The same --sans /
+     --hand stacks from :root are inherited; only sizes change.   */
+  .site-nav{height:72px;padding:0 20px}
+  .site-nav nav{gap:20px;font-size:10px;letter-spacing:.16em}
 
-  /* HERO — keep the room, restack the copy above the desk */
-  .scene,.scene-hero{height:640px;min-height:640px}
-  .window{left:16px;top:84px;width:112px;height:130px;border-width:5px}
-  .wall-note{font-size:16px;line-height:1.1}
-  .note-left{left:16px;top:170px}
+  /* HERO — window + moon stay up top, the copy flows as its own
+     band, and the desk sits below it. No absolute overlap, so the
+     name never collides with the character.                       */
+  .scene,.scene-hero{height:680px;min-height:680px}
+  .scene-hero{display:flex;flex-direction:column;justify-content:flex-end}
+  .window{left:18px;top:76px;width:118px;height:138px;border-width:6px}
+  .wall-note{font-size:15px;line-height:1.1}
+  .note-left{left:18px;top:156px}
   .note-right{display:none!important}
+  .scene-hero .moon-control{right:16px;top:70px;width:84px;height:84px}
+  .scene-hero .moon-instruction{display:none!important}
   .scene-hero .room-copy{
-    left:20px;right:20px;width:auto;max-width:none;top:auto;
-    bottom:250px;transform:none;
+    position:relative;top:auto;bottom:auto;left:auto;right:auto;
+    width:auto;max-width:none;margin:0 22px 26px;text-align:left;
+    align-items:flex-start;
   }
-  .scene-hero .room-copy .eyebrow{white-space:normal;font-size:16px;margin:0 0 12px 2px;letter-spacing:0}
+  .scene-hero .room-copy .eyebrow{
+    white-space:normal;font-size:17px;letter-spacing:.2em;
+    margin:0 0 14px 2px;
+  }
   .scene-hero .room-copy h1{
-    white-space:normal;
-    font-size:clamp(46px,13.5vw,74px);
-    line-height:.85;
-    margin:0 0 16px;
+    white-space:normal;font-size:clamp(46px,14.5vw,76px);
+    line-height:.88;margin:0 0 16px;
   }
   .scene-hero .room-copy .hero-sub{
-    white-space:normal;max-width:none;font-size:10px;
-    letter-spacing:.12em;line-height:1.7;
+    white-space:normal;max-width:none;font-size:11px;
+    letter-spacing:.12em;line-height:1.8;
   }
-  .scene-hero .moon-control{right:16px;top:78px;width:72px;height:72px}
-  .scene-hero .moon-instruction{display:none!important}
-
-  .desk-scene{height:250px;min-height:250px}
-  .desk{height:28%}
+  .desk-scene{position:relative;left:auto;bottom:auto;width:100%;height:240px;min-height:240px}
+  .desk{height:30%}
   .scene-hero .character{
-    left:34%;bottom:6%;width:210px;height:270px;
-    transform:scale(.55);transform-origin:50% 100%;
+    left:32%;bottom:0;width:210px;height:270px;
+    transform:scale(.42);transform-origin:50% 100%;
   }
-  .scene-hero .laptop{left:52%;bottom:10%;transform:scale(.52);transform-origin:50% 100%}
-  .scene-hero .plant{left:70%;bottom:12%;transform:scale(.7);transform-origin:50% 100%}
+  .scene-hero .laptop{left:54%;bottom:6%;transform:scale(.45);transform-origin:50% 100%}
+  .scene-hero .plant{left:70%;bottom:9%;transform:scale(.65);transform-origin:50% 100%}
   .hero-scroll-text{
-    left:20px!important;bottom:18px!important;
-    font-size:14px!important;opacity:.85!important;
     display:block!important;
+    left:22px!important;bottom:18px!important;
+    z-index:80!important;
+    font:500 14px/1 var(--hand)!important;
+    color:#d8c8aa!important;opacity:.85!important;
   }
 
   /* STORY */
-  .story-section{min-height:auto;padding:96px 22px 120px}
-  .story-number{top:60px;right:22px}
-  .split{grid-template-columns:1fr;gap:38px}
-  .story-content h2{font-size:clamp(40px,12vw,64px);line-height:.9}
-  .scribble-arrow{bottom:22px}
+  .story-section{min-height:auto;padding:110px 24px 128px}
+  .story-number{top:56px;right:24px}
+  .split{grid-template-columns:1fr;gap:44px}
+  .story-content h2{font-size:clamp(40px,12.5vw,66px);line-height:.9}
+  .story-text{font-size:16px;line-height:1.95}
+  .scribble-arrow{bottom:20px}
 
-  /* ABOUT */
-  .desk-story{min-height:auto;display:block;padding:20px 0 0}
+  /* ABOUT — illustration gets the whole row, then the copy gets
+     its own row below. Furniture is rescaled, nothing removed.     */
+  .desk-story{min-height:auto;display:block;padding:24px 0 0}
   .about-illustration{
     position:relative;left:auto;right:auto;bottom:auto;
-    width:auto;height:300px;margin:0 10px;
-    border-radius:26px 26px 0 0;
+    width:auto;height:360px;margin:0 12px;
+    border-radius:28px 28px 0 0;
   }
-  .about-copy{margin-left:0;width:100%;padding:40px 22px 56px}
-  .about-copy h2{font-size:clamp(42px,12vw,64px);line-height:.88}
-  .floating-paper{display:none!important}
+  .about-window{left:8%;top:12%;transform:scale(.82);transform-origin:top left}
+  .about-lamp{right:5%;top:10%;transform:scale(.72);transform-origin:top right}
+  .about-person{left:50%;bottom:10%;transform:translateX(-50%) scale(.72);transform-origin:bottom center}
+  .about-laptop{left:56%;bottom:14%;transform:skew(-8deg) scale(.7);transform-origin:bottom left}
+  .desk-story .paper-a{top:30px;left:14px;transform:rotate(-3deg)}
+  .desk-story .paper-b{top:108px;left:auto;right:14px;transform:rotate(4deg)}
+  .about-copy{margin-left:0;width:100%;padding:52px 24px 72px}
+  .about-copy h2{font-size:clamp(44px,13vw,70px);line-height:.88}
+  .about-copy>p{font-size:16px;line-height:1.95;max-width:none}
+  .skill-list{gap:12px;margin-top:36px}
+  .skill-list span{padding:10px 14px;font-size:10px;letter-spacing:.1em}
 
-  /* WORK */
-  .work-section{min-height:auto;padding:88px 18px 60px}
-  .work-heading{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:30px}
-  .work-heading h2{font-size:clamp(40px,12vw,64px)}
+  /* WORK — one project per row */
+  .work-section{min-height:auto;padding:100px 22px 64px!important}
+  .work-heading{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:32px}
+  .work-heading h2{font-size:clamp(42px,12.5vw,68px)}
   .work-heading .work-tip{text-align:left}
-  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .project-art{height:190px}
-  .project-meta{grid-template-columns:24px 1fr 20px}
-  .custom-work{flex-direction:column;align-items:flex-start;gap:14px;padding:22px 18px}
-  .custom-work h3{font-size:24px}
+  .project-grid{grid-template-columns:1fr;gap:34px}
+  .project-art{height:clamp(240px,72vw,380px)}
+  .project-meta{grid-template-columns:36px 1fr 28px;gap:12px;padding:18px 0 12px}
+  .project-card>p{font-size:12px;line-height:1.7}
+  .custom-work{flex-direction:column;align-items:flex-start;gap:16px;padding:32px 26px;margin-top:44px}
+  .custom-work h3{font-size:28px}
 
-  /* APPROACH — orbits hidden, steps stack */
-  .approach-section{min-height:auto;padding:88px 20px 96px;display:flex;flex-direction:column;justify-content:center;gap:24px}
-  .approach-center h2{font-size:clamp(46px,14vw,74px)}
+  /* APPROACH — orbits are decorative rings sized for desktop and
+     would swamp a phone, so the steps become one calm column.      */
+  .approach-section{
+    min-height:auto!important;padding:110px 24px 120px!important;
+    display:flex;flex-direction:column;justify-content:center;gap:38px;
+  }
+  .approach-center h2{font-size:clamp(46px,14vw,76px);line-height:.8}
   .approach-orbit{display:none!important}
-  .process{position:static;width:100%;border-top:1px solid rgba(231,189,85,.16);padding:14px 4px;gap:6px}
+  .process{
+    position:static;width:100%;gap:8px;
+    padding:20px 8px;border-top:1px solid rgba(231,189,85,.16);
+    border-bottom:1px solid rgba(231,189,85,.16);
+  }
+  .process b{font-size:11px}
+  .process strong{font-size:14px}
+  .process span{font-size:13px;line-height:1.7}
 
-  /* CONTACT */
-  .contact-section{min-height:auto;grid-template-columns:1fr;padding:88px 20px 36px;gap:34px}
-  .contact-left h2{font-size:clamp(44px,12vw,64px)}
-  .contact-form{margin:0;padding:26px 20px}
+  /* CONTACT — stacked and spaced; the character is a static piece
+     (same single end-person as desktop, just centered).            */
+  .contact-section{min-height:auto;grid-template-columns:1fr;padding:104px 24px 40px;gap:46px}
+  .contact-left h2{font-size:clamp(46px,13.5vw,72px)}
+  .contact-note{font-size:15px;line-height:1.85;max-width:none}
+  .contact-links{gap:16px;margin-top:36px;max-width:none}
+  .contact-links a{padding:12px 0;font-size:11px}
+  .contact-form{margin:0;padding:32px 24px}
   .contact-character{
     position:relative!important;left:auto!important;right:auto!important;
-    top:auto!important;bottom:auto!important;width:320px;height:200px;
-    margin:0 auto;transform:none!important;opacity:1!important;z-index:2!important;
+    top:auto!important;bottom:0!important;
+    width:min(360px,100%)!important;height:240px!important;margin:6px auto 0!important;
+    transform:translateY(0)!important;opacity:1!important;
+    z-index:2!important;pointer-events:none!important;
   }
-  .contact-character .end-person{left:38px;bottom:12%;transform:scale(.82);transform-origin:bottom left}
-  .contact-character .end-laptop{left:176px;bottom:14%;transform:scale(.7);transform-origin:bottom left}
-  .contact-character .end-lamp{right:6px;bottom:16%}
-  .contact-character .end-plant{right:auto;left:230px;bottom:20%}
-  footer{position:static;left:auto;right:auto;bottom:auto;margin:36px 6px 0;padding-top:12px;gap:12px}
+  .contact-character .end-person{
+    left:50%!important;right:auto!important;bottom:0!important;
+    transform:translateX(-50%) scale(1.05)!important;
+    transform-origin:bottom center!important;
+  }
+  .contact-section.section-in-view .contact-character,
+  .contact-section.contact-pop .contact-character{transform:translateY(0)!important}
+  .contact-section footer{
+    display:flex!important;position:static!important;left:auto!important;right:auto!important;bottom:auto!important;
+    margin:40px 6px 0;padding-top:16px;gap:16px;flex-wrap:wrap;
+  }
 
   /* MODAL + ZOOM */
   .modal{padding:18px 12px}
-  .modal-inner{padding:22px 14px;max-height:92vh}
+  .modal-inner{padding:26px 16px;max-height:92vh;max-width:none}
   .modal h2{font-size:clamp(36px,11vw,60px)}
-  .modal-close{right:12px;top:10px;font-size:32px}
+  .modal-close{right:14px;top:10px;font-size:34px}
   .mg-row{grid-template-columns:1fr 1fr;gap:8px}
   .modal-zoom{grid-template-columns:1fr;padding:14px;gap:10px}
   .modal-zoom .zoom-prev,.modal-zoom .zoom-next{height:110px}
   .modal-zoom.pair{flex-direction:column}
 
-  /* During resize the hero stays on the mobile composition. */
-  html.is-resizing .scene-hero .desk-scene{height:250px!important;min-height:250px!important}
-  html.is-resizing .scene-hero .moon-control{right:16px!important;top:78px!important;width:72px!important;height:72px!important;left:auto!important}
-  html.is-resizing .scene-hero .moon-instruction{display:none!important}
-  html.is-resizing .scene-hero .room-copy{left:20px!important;right:20px!important;top:auto!important;bottom:250px!important;width:auto!important;max-width:none!important;transform:none!important}
-  html.is-resizing .scene-hero .room-copy h1{white-space:normal!important;font-size:clamp(46px,13.5vw,74px)!important}
+  /* During resize the hero keeps the mobile composition. */
+  html.is-resizing .scene-hero .room-copy{
+    position:relative!important;top:auto!important;bottom:auto!important;
+    left:auto!important;right:auto!important;width:auto!important;
+    max-width:none!important;margin-left:22px!important;margin-right:22px!important;
+  }
+  html.is-resizing .scene-hero .room-copy h1{white-space:normal!important;font-size:clamp(46px,14.5vw,76px)!important}
   html.is-resizing .scene-hero .room-copy .hero-sub{max-width:none!important}
-  html.is-resizing .scene-hero .character{left:34%!important;bottom:6%!important;width:210px!important;height:270px!important;transform:scale(.55)!important;transform-origin:50% 100%!important}
-  html.is-resizing .scene-hero .laptop{left:52%!important;bottom:10%!important;transform:scale(.52)!important;transform-origin:50% 100%!important}
-  html.is-resizing .scene-hero .plant{left:70%!important;bottom:12%!important;transform:scale(.7)!important;transform-origin:50% 100%!important}
-  html.is-resizing .scene-hero .mug{bottom:8%!important;left:44%!important;transform:rotate(-7deg)!important}
+  html.is-resizing .scene-hero .desk-scene{height:240px!important;min-height:240px!important}
+  html.is-resizing .scene-hero .moon-control{right:16px!important;top:70px!important;width:84px!important;height:84px!important;left:auto!important}
+  html.is-resizing .scene-hero .moon-instruction{display:none!important}
+  html.is-resizing .scene-hero .character{left:32%!important;bottom:0!important;width:210px!important;height:270px!important;transform:scale(.42)!important;transform-origin:50% 100%!important}
+  html.is-resizing .scene-hero .laptop{left:54%!important;bottom:6%!important;transform:scale(.45)!important;transform-origin:50% 100%!important}
+  html.is-resizing .scene-hero .plant{left:70%!important;bottom:9%!important;transform:scale(.65)!important;transform-origin:50% 100%!important}
 }
 
 /* =========================================================
    SMALL PHONES (<=430px) — finest refinement
    ========================================================= */
 @media (max-width:430px){
-  .scene-hero .room-copy{bottom:232px}
-  .scene-hero .room-copy h1{font-size:clamp(40px,12vw,64px)}
+  .site-nav{height:64px;padding:0 14px}
+  .site-nav nav{gap:14px;font-size:9px;letter-spacing:.13em}
+  .brand{font-size:22px}
+  .scene,.scene-hero{height:660px;min-height:660px}
+  .scene-hero .room-copy{margin-left:18px;margin-right:18px}
+  .scene-hero .room-copy h1{font-size:clamp(40px,13.5vw,62px)}
   .scene-hero .room-copy .hero-sub{letter-spacing:.1em}
-  .site-nav nav{gap:12px}
-  .project-art{height:170px}
+  .wall-note{font-size:14px}
+  .story-section{padding:96px 20px 108px}
+  .about-copy{padding:44px 20px 60px}
+  .about-window{left:7%;top:10%;transform:scale(.7);transform-origin:top left}
+  .desk-story .paper-a{left:10px;top:26px}
+  .desk-story .paper-b{right:10px;top:96px}
+  .work-section{padding:88px 20px 56px!important}
+  .project-art{height:clamp(210px,62vw,280px)}
+  .approach-section{padding:96px 20px 104px!important}
+  .contact-section{padding:92px 20px 32px;gap:40px}
+  .contact-character{height:210px}
 }
 
 
