@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" id="vp" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="description" content="Yuktha J — Graphic Designer portfolio. Branding, identity, posters and custom creative work." />
   <title>Yuktha J — Graphic Designer</title>
   <style>:root{
@@ -1537,12 +1537,14 @@ body.light-on .scene-hero .character .mug{
   bottom:auto!important;
 }
 
-/* Scrolling is locked until the moon is touched. */
-html:not(.lights-unlocked),
-body:not(.light-on){
-  overflow:hidden!important;
+/* Scrolling is locked until the moon is touched (desktop only; touch devices scroll freely). */
+@media (pointer:fine){
+  html:not(.lights-unlocked),
+  body:not(.light-on){
+    overflow:hidden!important;
+  }
+  body.light-on{overflow-x:hidden!important;overflow-y:auto!important}
 }
-body.light-on{overflow-x:hidden!important;overflow-y:auto!important}
 
 @media(min-width:200000px){
   .scene-hero .moon-control{width:145px!important;height:145px!important;right:10px!important;top:12px!important}
@@ -6621,9 +6623,20 @@ html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
     (function () {
       var BASE = 1536;
 function fit() {
-        var w = window.innerWidth || document.documentElement.clientWidth || BASE;
-        var z = Math.max(0.2, w / BASE);
-        if (document.documentElement.style.zoom !== undefined) {
+        var isTouch = window.matchMedia && (matchMedia('(pointer:coarse)').matches || matchMedia('(hover:none)').matches);
+        var vp = document.getElementById('vp');
+        if (isTouch) {
+          // Phones/tablets: lay the exact 1536px desktop canvas out and let the
+          // browser scale it to the device width. No CSS zoom, no font changes,
+          // native scroll.
+          vp.setAttribute('content', 'width=1536, user-scalable=no, viewport-fit=cover');
+          document.documentElement.style.zoom = '1';
+          document.documentElement.style.minWidth = '';
+          document.documentElement.style.minHeight = '';
+        } else {
+          vp.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
+          var w = window.innerWidth || document.documentElement.clientWidth || BASE;
+          var z = Math.max(0.2, w / BASE);
           document.documentElement.style.zoom = String(z);
           document.documentElement.style.minWidth = '100%';
           document.documentElement.style.minHeight = '100%';
@@ -6937,6 +6950,7 @@ const unlockPage = () => {
 };
 
 
+if (matchMedia('(pointer:fine)').matches) {
 window.addEventListener('wheel', e => {
   if (!document.body.classList.contains('light-on')) e.preventDefault();
 }, {passive:false});
@@ -6946,6 +6960,7 @@ window.addEventListener('touchmove', e => {
 window.addEventListener('keydown', e => {
   if (!document.body.classList.contains('light-on') && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key)) e.preventDefault();
 });
+}
 
 
 
@@ -7039,11 +7054,13 @@ lamp.addEventListener('keydown', e => {
 });
 if (lightToggle) lightToggle.addEventListener('click', turnLightsOn);
 
-// On touch devices the page must scroll freely: auto-unlock + lights-on after load.
+// On touch devices the page must scroll freely: unlock scroll + lights-on immediately.
 if (matchMedia('(pointer:coarse)').matches || matchMedia('(hover:none)').matches) {
-  window.addEventListener('load', () => setTimeout(() => {
+  const unlockSoon = () => setTimeout(() => {
     if (!document.body.classList.contains('light-on')) turnLightsOn();
-  }, 500));
+  }, 120);
+  if (document.readyState !== 'loading') unlockSoon();
+  else window.addEventListener('DOMContentLoaded', unlockSoon);
 }
 
 
