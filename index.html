@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" id="vp" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" id="vp" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="Yuktha J — Graphic Designer portfolio. Branding, identity, posters and custom creative work." />
   <title>Yuktha J — Graphic Designer</title>
   <style>:root{
@@ -125,30 +125,15 @@ body.light-on .scene-hero:after{background:radial-gradient(ellipse at 63% 58%,tr
 footer{position:absolute;left:122.88px;right:122.88px;bottom:22px;border-top:1px solid #38352d;padding-top:14px;display:flex;justify-content:space-between;color:#625e54;font-size:8px;letter-spacing:.15em}
 .modal{position:fixed;inset:0;background:rgba(7,7,5,.92);z-index:1500;display:grid;place-items:center;padding:56px 107.52px;opacity:0;pointer-events:none;transition:.35s;backdrop-filter:blur(12px)}.modal.open{opacity:1;pointer-events:auto}.modal-inner{max-width:900px;width:100%;max-height:720px;overflow:auto;padding:30px}.modal-close{position:absolute;right:35px;top:25px;background:none;border:0;color:var(--cream);font-size:40px;font-weight:200}.modal-index{color:var(--yellow);font-size:10px;letter-spacing:.2em}.modal h2{font-size:clamp(50px,122.88px,100px);line-height:.8;letter-spacing:-.06em;margin:15px 0}.modal-inner>p:not(.handwritten):not(.modal-edit-note){max-width:600px;color:#9c9587;line-height:1.8}.modal-tags{display:flex;gap:8px;flex-wrap:wrap;margin:25px 0}.modal-tags span{border:1px solid #48443a;padding:8px 10px;font-size:9px;letter-spacing:.1em}.modal-placeholder{height:320px;border:1px solid #3b382f;background:repeating-linear-gradient(45deg,#171612,#171612 8px,#1b1a16 8px,#1b1a16 16px);display:grid;place-items:center;font:34px var(--hand);color:#6f685a}.modal-edit-note{font-size:10px;color:#5f5a50}.modal-edit-note code{color:#bba878}
 .reveal{opacity:0;transform:translateY(60px);transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}.reveal.visible{opacity:1;transform:none}
-@media (min-width:200000px){
-  .site-nav nav{gap:14px}.light-toggle{display:none}
-  .window{left:61.44px;transform:scale(.75);transform-origin:top left}.note-left{display:none}.note-right{right:76.8px;top:104px;font-size:17px}
-  .room-copy{left:122.88px;top:320px}.room-copy h1{font-size:85px}.hero-sub{font-size:13px}
-  .character{left:29%;transform:scale(.8);transform-origin:bottom}.laptop{left:49%;transform:scale(.75);transform-origin:bottom}.lamp{left:63%;transform:scale(.8);transform-origin:bottom}.plant{left:64%;transform:scale(.8);transform-origin:bottom}
-  .split{grid-template-columns:1fr;gap:20px}.story-section{padding:104px 122.88px}.story-content h2{font-size:58px}
-  .desk-story{display:block;min-height:960px}.about-illustration{width:100%;height:496px;left:-184.32px;bottom:auto;top:64px;transform:scale(.9);transform-origin:left top}.about-copy{margin:0;padding:624px 122.88px 96px;width:auto}.paper-a{top:10%;right:3%;font-size:14px}.paper-b{bottom:4%;left:4%}
-  .project-grid{grid-template-columns:1fr 1fr}.project-art{height:260px}.work-section{padding-left:92.16px;padding-right:92.16px}.custom-work{align-items:flex-start;gap:20px}
-  .approach-section{min-height:800px}.process{width:130px}.p1{left:5%;top:15%}.p2{right:5%;top:17%}.p3{left:5%;bottom:12%}.p4{right:5%;bottom:13%}.orbit-one{width:1536px;height:1536px}.orbit-two{width:1075.2px;height:1075.2px}
-  .contact-section{grid-template-columns:1fr;padding-bottom:100px}.contact-form{max-width:600px}.contact-character{display:none}
-}
-@media (min-width:200000px){
-  .site-nav{height:64px;padding:0 92.16px}.brand{font-size:24px}.site-nav nav a:nth-child(2){display:none}
-  .scene-hero{min-height:850px}.room-copy{top:288px}.room-copy h1{font-size:70px}.scroll-cue{font-size:17px}.desk-scene{height:320px}.character{left:18%;transform:scale(.7)}.laptop{left:46%;transform:scale(.62)}.lamp{left:61%;transform:scale(.65)}.plant{left:61%;transform:scale(.65)}.mug{left:32%}
-  .story-section{min-height:720px}.story-content h2{font-size:50px}.story-text{font-size:14px}
-  .about-illustration{height:384px;top:64px;transform:scale(.85)}.about-copy{padding-top:504px}.about-copy h2{font-size:54px}.floating-paper{display:none}
-  .work-heading{align-items:flex-start;gap:15px}.work-heading h2{font-size:60px}.work-tip{font-size:16px}.project-grid{grid-template-columns:1fr}.project-art{height:300px}.custom-work{display:block}.custom-work a{display:inline-block;margin-top:20px}
-  .approach-center h2{font-size:68px}.process{width:105px}.process span{font-size:9px}.process strong{font-size:10px}.p1{top:9%;left:5%}.p2{top:9%;right:5%}.p3{bottom:8%;left:5%}.p4{bottom:8%;right:5%}
-  .contact-section{padding-left:107.52px;padding-right:107.52px}.contact-left h2{font-size:68px}footer{left:107.52px;right:107.52px;gap:10px}footer span:nth-child(2){display:none}
-}
 
-/* ===== FINAL POLISH / LIGHT-LOCK ===== */
-body:not(.light-on){overflow:hidden}
-body:not(.light-on) main > section:not(.scene-hero){opacity:.08;filter:brightness(.35) saturate(.5);pointer-events:none;transition:opacity 1s ease,filter 1s ease}
+
+
+/* ===== FINAL POLISH / LIGHT =====
+   The lamp only changes the visual mood of the room. It never locks
+   scrolling and never hides content: every section stays reachable
+   and readable whether the lights are on or off. */
+body:not(.light-on){overflow-x:hidden;overflow-y:auto}
+body:not(.light-on) main > section:not(.scene-hero){opacity:1;filter:none;pointer-events:auto}
 body.light-on main > section:not(.scene-hero){opacity:1;filter:none;pointer-events:auto}
 .room-copy{max-width:560px;left:107.52px;top:312px;z-index:20}
 .room-copy .eyebrow{display:block;position:relative;z-index:25;margin:0 0 18px 3px;font-size:27px;line-height:1.05;white-space:nowrap}
@@ -188,33 +173,9 @@ body.light-on .desk-scene{filter:none;transition:filter 1.2s ease}
 .pack-label{position:absolute;z-index:2;left:83px;top:118px;font:700 20px/0.8 var(--hand);text-align:center;transform:rotate(-8deg)}
 .pack-shadow{position:absolute;width:190px;height:20px;background:rgba(30,25,18,.18);filter:blur(5px);left:35px;bottom:55px;transform:rotate(-8deg)}
 
-@media (min-width:200000px){
-  .project-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .project-card:nth-child(4),.project-card:nth-child(5){grid-column:span 1}
-  .contact-section{grid-template-columns:1fr 1fr}
-  .contact-character{right:15.36px;transform:scale(.82);transform-origin:bottom right}
-}
-@media (min-width:200000px){
-  body:not(.light-on){overflow:hidden}
-  .room-copy{left:107.52px;top:296px;max-width:370px}
-  .room-copy h1{font-size:78px}
-  .character{left:48%;transform:scale(.72);transform-origin:bottom center;z-index:7}
-  .project-grid{grid-template-columns:1fr 1fr}
-  .contact-section{grid-template-columns:1fr;padding-bottom:360px}
-  .contact-form{margin-bottom:0}
-  .contact-character{display:block;left:50%;right:auto;bottom:65px;transform:translateX(-50%) scale(.72);transform-origin:bottom center;width:390px}
-}
-@media (min-width:200000px){
-  .room-copy{top:272px;max-width:310px}
-  .room-copy h1{font-size:66px;line-height:.8}
-  .room-copy .hero-sub{font-size:9px;max-width:250px}
-  .scroll-cue{font-size:16px;flex-wrap:wrap;max-width:260px}
-  .scroll-cue small{width:100%;margin-left:0}
-  .character{left:42%;transform:scale(.58);bottom:20%}
-  .project-grid{grid-template-columns:1fr}
-  .contact-section{padding-bottom:310px}
-  .contact-character{bottom:40px;transform:translateX(-50%) scale(.58)}
-}
+
+
+
 
 
 /* ===== HERO INTERACTION POLISH ===== */
@@ -233,10 +194,11 @@ body.light-on .lamp-instruction{opacity:0;transform:translate(12px,-8px);transit
 @keyframes lampHint{0%,100%{transform:rotate(-2deg) translate(0,0)}50%{transform:rotate(-2deg) translate(4px,-3px)}}
 body.light-on .scene-hero:before{background:linear-gradient(to bottom,rgba(23,20,15,0),rgba(35,30,22,.8),#2b251c)}
 
-/* Keep all sections visually asleep until the lamp is clicked. */
-body:not(.light-on) main > section:not(.scene-hero){opacity:.035!important;filter:brightness(.25) blur(2px) saturate(.4)!important;pointer-events:none!important}
-body.light-on main > section:not(.scene-hero){opacity:1!important;filter:none!important;pointer-events:auto!important;transition:opacity 1.1s ease,filter 1.1s ease}
-body:not(.light-on) .site-nav nav{opacity:.25;pointer-events:none}
+/* Every section and the nav stay fully visible whether or not the
+   lamp is on: the light is a mood change, not a content gate. */
+body:not(.light-on) main > section:not(.scene-hero),
+body.light-on main > section:not(.scene-hero){opacity:1!important;filter:none!important;pointer-events:auto!important}
+body:not(.light-on) .site-nav nav{opacity:1;pointer-events:auto}
 body.light-on .site-nav nav{opacity:1;pointer-events:auto}
 
 /* Contact: give the illustration its own visual column/space, never behind the form. */
@@ -249,31 +211,9 @@ body.light-on .site-nav nav{opacity:1;pointer-events:auto}
 .end-plant{right:82px;bottom:19%;z-index:11}
 .end-desk{z-index:9}
 
-@media (min-width:200000px){
-  .lamp-instruction{left:calc(65% + 30px);bottom:35%}
-  .contact-section{grid-template-columns:1fr 1fr;gap:76.8px}
-  .contact-character{grid-column:2;justify-self:center;width:360px;height:280px;margin-top:0}
-}
-@media (min-width:200000px){
-  .room-copy{left:107.52px;top:296px;max-width:390px}
-  .room-copy .eyebrow{font-size:24px}
-  .room-copy h1{font-size:78px}
-  .room-copy .hero-sub{font-size:10px;white-space:normal;max-width:330px}
-  .lamp-instruction{left:calc(63% + 5px);bottom:39%;font-size:inherit}
-  .lamp-instruction span{font-size:20px}.lamp-instruction small{font-size:15px}
-  .contact-section{grid-template-columns:1fr;padding-bottom:60px}
-  .contact-character{grid-column:1;grid-row:auto;justify-self:center;width:360px;height:280px;margin-top:25px}
-}
-@media (min-width:200000px){
-  .room-copy{top:264px;max-width:300px}
-  .room-copy .eyebrow{font-size:21px;margin-bottom:15px}
-  .room-copy h1{font-size:66px;line-height:.76;margin-bottom:20px}
-  .room-copy .hero-sub{font-size:8.5px;letter-spacing:.09em;max-width:260px}
-  .lamp-instruction{left:52%;bottom:38%;transform:scale(.88);transform-origin:left center}
-  .lamp-instruction span{font-size:19px}.lamp-instruction small{font-size:14px}
-  .character{left:42%;transform:scale(.58)}
-  .contact-character{width:340px;height:250px;transform:none!important}
-}
+
+
+
 
 /* ===== FINAL ORGANIZATION PASS ===== */
 /* The desk must physically carry the lamp — no floating lamp. */
@@ -382,30 +322,9 @@ body.light-on .site-nav nav{opacity:1;pointer-events:auto}
 .contact-label{font-size:10px;letter-spacing:.2em;color:#ddd1b9}
 .contact-arrow{font-size:16px;color:var(--yellow);text-align:right}
 
-@media (min-width:200000px){
-  .scene-hero .lamp{bottom:calc(34% - 10px)}
-  .contact-section{grid-template-columns:minmax(0,1fr) minmax(320px,460px);padding-bottom:310px}
-  .contact-character{right:61.44px!important;width:360px!important;transform:scale(.9)!important;transform-origin:bottom right!important}
-}
-@media (min-width:200000px){
-  .scene-hero .room-copy{top:288px;max-width:520px}
-  .scene-hero .room-copy h1{font-size:78px}
-  .scene-hero .lamp{bottom:calc(34% - 8px)}
-  .contact-section{grid-template-columns:1fr;padding:104px 107.52px 350px;gap:30px}
-  .contact-form{max-width:600px;margin:0}
-  .contact-character{left:50%!important;right:auto!important;bottom:25px!important;width:370px!important;transform:translateX(-50%) scale(.82)!important;transform-origin:bottom center!important}
-}
-@media (min-width:200000px){
-  .scene-hero .room-copy{top:248px;max-width:300px}
-  .scene-hero .room-copy .eyebrow{font-size:20px;margin-bottom:14px}
-  .scene-hero .room-copy h1{font-size:65px;margin-bottom:18px}
-  .scene-hero .room-copy .hero-sub{font-size:8.5px;letter-spacing:.08em;max-width:270px}
-  .scene-hero .lamp{left:60%;bottom:calc(34% - 5px);transform:scale(.72);transform-origin:64px 240px}
-  .scene-hero .lamp:hover{transform:scale(.75)}
-  .contact-section{padding:96px 107.52px 315px}
-  .contact-form{padding:24px}
-  .contact-character{width:340px!important;transform:translateX(-50%) scale(.68)!important}
-}
+
+
+
 
 
 /* ===== FINAL POLISH: organized hero, grounded lamp, icon-only contact, touch-friendly mobile ===== */
@@ -444,33 +363,8 @@ body.light-on .site-nav nav{opacity:1;pointer-events:auto}
 .project-card:active{transform:translateY(-6px) scale(.995)}
 
 /* Mobile: never allow hero typography or lamp to collide. */
-@media (min-width:200000px){
-  .scene-hero .note-left{left:107.52px;top:112px;font-size:17px}
-  .scene-hero .note-right{right:76.8px;top:112px;font-size:17px}
-  .scene-hero .room-copy{left:107.52px;top:272px;width:calc(1536px - 215.04px);max-width:560px}
-  .scene-hero .room-copy h1{font-size:clamp(64px,184.32px,92px)}
-  .scene-hero .lamp{left:auto;right:184.32px;bottom:calc(34% - 2px)}
-  .scene-hero .lamp-instruction{left:auto;right:307.2px;bottom:36%;transform:translateX(0);text-align:right}
-  .contact-section{grid-template-columns:1fr;padding:104px 107.52px 350px;gap:30px}
-  .contact-form{margin-top:0}
-  .contact-character{left:50%!important;right:auto!important;bottom:24px!important}
-}
-@media (min-width:200000px){
-  .scene-hero{min-height:860px}
-  .scene-hero .note-left{left:107.52px;top:104px;font-size:16px}
-  .scene-hero .note-right{right:92.16px;top:112px;font-size:16px}
-  .scene-hero .room-copy{left:107.52px;top:240px;width:1320.96px}
-  .scene-hero .room-copy .eyebrow{font-size:20px;margin-bottom:14px}
-  .scene-hero .room-copy h1{font-size:clamp(58px,261.12px,76px);white-space:normal;line-height:.78}
-  .scene-hero .room-copy .hero-sub{font-size:9px;letter-spacing:.08em;max-width:280px}
-  .scene-hero .lamp{right:107.52px;bottom:calc(34% - 1px);transform:scale(.68);transform-origin:64px 240px}
-  .scene-hero .lamp:hover{transform:scale(.71);}
-  .scene-hero .lamp-instruction{right:337.92px;bottom:39%;font-size:inherit;transform:scale(.78);transform-origin:right center;white-space:nowrap}
-  .contact-links{justify-content:flex-start}
-  .contact-icon-button{width:44px!important;height:44px!important}
-  .contact-section{padding:96px 107.52px 315px}
-  .contact-form{padding:24px}
-}
+
+
 
 
 /* =========================================================
@@ -521,15 +415,8 @@ body:not(.light-on) .site-nav nav{opacity:1!important;pointer-events:auto!import
 .late-night-quote em{font:600 clamp(23px,41.47px,38px)/.85 var(--hand);color:var(--yellow);letter-spacing:-.01em}
 .late-night-quote:before{content:"";width:46px;height:1px;background:var(--yellow);opacity:.7;margin-bottom:8px}
 
-@media (min-width:200000px){
-  .late-night-quote{right:107.52px;bottom:calc(34% + 28px);width:230px}
-  .scene-hero .mug{left:43%;bottom:calc(34% + 2px)!important}
-}
-@media (min-width:200000px){
-  .late-night-quote{left:107.52px;right:auto;bottom:calc(34% + 22px);width:205px;transform:rotate(-2deg)}
-  .late-night-quote span{font-size:9px}.late-night-quote strong{font-size:17px}.late-night-quote em{font-size:27px}
-  .scene-hero .mug{left:35%;bottom:calc(34% + 1px)!important}
-}
+
+
 
 main > section + section{margin-top:0!important;box-shadow:none!important}
 
@@ -537,24 +424,17 @@ main > section + section{margin-top:0!important;box-shadow:none!important}
    REQUESTED FINAL FIXES — CLEAN CONTINUOUS BLACK VERSION
    ========================================================= */
 
-/* The lamp is the only gate: the rest of the site is present in the
-   document but stays visually asleep until the desk lamp is switched on. */
-body:not(.light-on) main > section:not(.scene-hero){
-  opacity:0!important;
-  visibility:hidden!important;
-  filter:none!important;
-  pointer-events:none!important;
-}
+/* Every section is always present and visible regardless of the lamp
+   state. The otherwise-black canvas remains continuous and fully
+   scrollable from the top of the page. */
+body:not(.light-on) main > section:not(.scene-hero),
 body.light-on main > section:not(.scene-hero){
   opacity:1!important;
   visibility:visible!important;
   filter:none!important;
   pointer-events:auto!important;
 }
-body:not(.light-on) .site-nav nav{
-  opacity:.18!important;
-  pointer-events:none!important;
-}
+body:not(.light-on) .site-nav nav,
 body.light-on .site-nav nav{
   opacity:1!important;
   pointer-events:auto!important;
@@ -788,58 +668,18 @@ main > section + section{margin-top:0!important}
 }
 
 /* Prevent old mobile rules from re-tilting the lamps. */
-@media (min-width:200000px){
-  .scene-hero .lamp{
-    left:auto!important;
-    right:184.32px!important;
-    bottom:calc(34% - 2px)!important;
-    transform:none!important;
-  }
-  .scene-hero .lamp:hover{transform:scale(1.02)!important}
-  .about-illustration .about-lamp{
-    right:10%!important;
-    bottom:17%!important;
-    transform:none!important;
-  }
-  .contact-character .end-lamp{
-    transform:none!important;
-  }
-}
-@media (min-width:200000px){
-  .scene-hero .lamp{
-    right:107.52px!important;
-    bottom:calc(34% - 1px)!important;
-    transform:scale(.68)!important;
-    transform-origin:64px 240px!important;
-  }
-  .scene-hero .lamp:hover{transform:scale(.70)!important}
-  .about-illustration .about-lamp{
-    right:8%!important;
-    bottom:17%!important;
-    transform:scale(.78)!important;
-    transform-origin:center bottom!important;
-  }
-  .contact-character .end-lamp{
-    transform:none!important;
-  }
-  .contact-section footer{
-    bottom:10px!important;
-  }
-}
+
+
 
 /* =========================================================
-   LATEST SCROLL / COMPOSITION FIX
+   SCROLL / COMPOSITION
    ========================================================= */
-/* Before the lamp is switched on, only the room is visible. Afterward,
-   each following scene reveals naturally as the user reaches it. */
+/* Every scene is always visible: nothing is gated behind the lamp,
+   the scroll position, or an in-view class. */
 body.light-on main > section:not(.scene-hero){
-  opacity:0!important;
-  visibility:hidden!important;
-  transform:none!important;
-}
-body.light-on main > section:not(.scene-hero).section-in-view{
   opacity:1!important;
   visibility:visible!important;
+  transform:none!important;
 }
 
 /* Never create a visual seam: every scene is the same black canvas. */
@@ -924,18 +764,8 @@ main > section + section,
 .contact-character .end-lamp i,
 .contact-character .end-lamp b{transform:none!important}
 
-@media (min-width:200000px){
-  .scene-hero .note-left{top:80px!important;left:107.52px!important}
-  .scene-hero .mug{bottom:calc(34% + 2px)!important}
-  .scene-hero .lamp{right:184.32px!important;left:auto!important;bottom:calc(34% - 2px)!important;transform:none!important}
-  .about-illustration .about-lamp{right:10%!important;bottom:18%!important}
-}
-@media (min-width:200000px){
-  .scene-hero .note-left{top:72px!important;left:107.52px!important;font-size:18px!important}
-  .scene-hero .mug{left:35%!important;bottom:calc(34% + 1px)!important}
-  .scene-hero .lamp{right:107.52px!important;bottom:calc(34% - 1px)!important;transform:scale(.68)!important}
-  .about-illustration .about-lamp{right:8%!important;bottom:18%!important;transform:scale(.78)!important;transform-origin:center bottom!important}
-}
+
+
 
 
 /* ===== USER FINAL POSITION PASS ===== */
@@ -973,16 +803,8 @@ main > section + section,
 .contact-character .end-desk{z-index:34!important}
 .contact-character + footer{display:none!important}
 
-@media (min-width:200000px){
-  .scene-hero .character:before{font-size:21px;left:15px;top:-30px}
-  .contact-section{padding-bottom:330px!important}
-  .contact-character{width:390px!important;height:250px!important;bottom:18px!important}
-}
-@media (min-width:200000px){
-  .scene-hero .character:before{font-size:18px;left:4px;top:-27px}
-  .contact-section{padding-bottom:280px!important}
-  .contact-character{width:350px!important;height:225px!important;bottom:12px!important}
-}
+
+
 
 /* ===== MOON LIGHT INTERACTION / FINAL VISUAL PASS ===== */
 /* The lamp is replaced by a warm moon in the upper-right of the room. */
@@ -1094,19 +916,8 @@ body.light-on .scene-hero .arm-b{right:0!important;top:160px!important;transform
   z-index:40;pointer-events:none;
 }
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{right:153.6px;top:96px;transform:scale(.86);transform-origin:center}
-  .moon-instruction{right:calc(153.6px - 36px);top:184px;transform:scale(.86) rotate(-3deg);transform-origin:right top}
-  .scene-hero .character{left:35%!important;bottom:25%!important;transform:scale(.86)!important;transform-origin:center bottom!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{right:107.52px;top:96px;transform:scale(.72);transform-origin:center}
-  .moon-instruction{right:138.24px;top:168px;transform:scale(.72) rotate(-3deg);transform-origin:right top}
-  .moon-instruction span{font-size:21px}
-  .moon-instruction small{font-size:15px}
-  .scene-hero .character{left:31%!important;bottom:24%!important;transform:scale(.68)!important;transform-origin:center bottom!important}
-  .scene-hero .mug{left:36%!important;bottom:calc(34% + 2px)!important}
-}
+
+
 
 /* ===== LATEST HERO POLISH ===== */
 /* No window behind Yuktha. The room stays clean and moon-led. */
@@ -1162,15 +973,8 @@ body.light-on .scene-hero .arm{opacity:1!important;visibility:visible!important}
   50%{transform:translateY(-5px) rotate(-5deg);opacity:.8}
 }
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{right:76.8px!important;top:40px!important;width:125px!important;height:125px!important}
-  .moon-instruction{right:76.8px!important;top:168px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{right:61.44px!important;top:40px!important;width:105px!important;height:105px!important}
-  .moon-instruction{right:61.44px!important;top:152px!important}
-  .scene-hero .mug{left:calc(38% - 48px)!important}
-}
+
+
 
 /* ===== USER REQUEST: END TABLE + CUP + PROCESS ORBIT ===== */
 /* The final illustration has no lamp at all. */
@@ -1269,16 +1073,8 @@ body.light-on .scene-hero .arm{opacity:1!important;visibility:visible!important}
 }
 .approach-section .approach-center{z-index:5!important}
 
-@media(min-width:200000px){
-  .approach-section .orbit-one{width:min(1198.08px,544px)!important;height:min(1198.08px,544px)!important}
-  .approach-section .orbit-two{width:min(814.08px,384px)!important;height:min(814.08px,384px)!important}
-  .scene-hero .mug{left:35%!important;bottom:calc(34% + 2px)!important}
-}
-@media(min-width:200000px){
-  .approach-section .orbit-one{width:1198.08px!important;height:1198.08px!important}
-  .approach-section .orbit-two{width:829.44px!important;height:829.44px!important}
-  .scene-hero .mug{left:31%!important;bottom:calc(34% + 1px)!important}
-}
+
+
 
 
 /* ===== LATEST REQUEST: TITLE + MOON + HANDS + PROCESS ===== */
@@ -1346,19 +1142,8 @@ body.light-on .scene-hero .arm{opacity:1!important;visibility:visible!important}
   width:798.72px!important;
   height:798.72px!important;
 }
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:190px!important;height:190px!important;right:-76px!important;top:-30px!important}
-  .moon-instruction{right:107.52px!important;top:160px!important}
-  .approach-section .orbit-one{width:1413.12px!important;height:1413.12px!important}
-  .approach-section .orbit-two{width:952.32px!important;height:952.32px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .room-copy h1{font-size:clamp(56px,245.76px,78px)!important}
-  .scene-hero .moon-control{width:155px!important;height:155px!important;right:-62px!important;top:-24px!important}
-  .moon-instruction{right:76.8px!important;top:144px!important}
-  .approach-section .orbit-one{width:1597.44px!important;height:1597.44px!important}
-  .approach-section .orbit-two{width:1075.2px!important;height:1075.2px!important}
-}
+
+
 
 
 /* ===== FINAL FIXES =====
@@ -1420,24 +1205,8 @@ body.light-on .scene-hero .arm{opacity:1!important;visibility:visible!important}
 .scene-hero .character .mug .steam{
   z-index:2!important;
 }
-@media(min-width:200000px){
-  .scene-hero .moon-control{
-    width:78px!important;height:78px!important;
-    right:61.44px!important;top:24px!important;
-  }
-  .scene-hero .hero-sub{font-size:15px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{
-    width:66px!important;height:66px!important;
-    right:61.44px!important;top:20px!important;
-  }
-  .scene-hero .hero-sub{
-    font-size:12px!important;
-    letter-spacing:.04em!important;
-  }
-  .scene-hero .hero-sub .title-sep{padding:0 3px!important}
-}
+
+
 
 
 /* ===== CURRENT USER PASS: BIG GLOWING MOON + MOON INSTRUCTION + CUP IN HANDS ===== */
@@ -1537,45 +1306,18 @@ body.light-on .scene-hero .character .mug{
   bottom:auto!important;
 }
 
-/* Scrolling is locked until the moon is touched (desktop only; touch devices scroll freely). */
+/* Scrolling is always free on every device, before and after the moon.
+   No overflow lock, no dependence on the light state. */
 @media (pointer:fine){
-  html:not(.lights-unlocked),
-  body:not(.light-on){
-    overflow:hidden!important;
-  }
-  body.light-on{overflow-x:hidden!important;overflow-y:auto!important}
+  html,
+  body{overflow-x:hidden!important;overflow-y:auto!important}
 }
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:145px!important;height:145px!important;right:10px!important;top:12px!important}
-  .moon-instruction{right:150px!important;top:28px!important;width:190px!important}
-  .moon-instruction span{font-size:18px!important}
-  .moon-instruction .moon-arrow{top:38px!important;width:58px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:118px!important;height:118px!important;right:4px!important;top:8px!important}
-  .moon-instruction{right:105px!important;top:25px!important;width:165px!important}
-  .moon-instruction span{font-size:15px!important}
-  .moon-instruction .moon-arrow{right:-10px!important;top:32px!important;width:44px!important}
-}
+
+
 
 /* ===== FINAL USER FIX: keep CONTACT clear + make the tea cup visibly held ===== */
-@media (min-width:200000px){
-  .scene-hero .moon-control{
-    width:250px!important;
-    height:250px!important;
-    right:-155px!important;
-    top:-48px!important;
-  }
-  .scene-hero .moon-core{inset:13px!important}
-  .scene-hero .moon-halo{inset:-48px!important}
-  .moon-instruction{
-    right:245.76px!important;
-    top:58px!important;
-    width:250px!important;
-  }
-  .moon-instruction span{font-size:21px!important}
-}
+
 
 /* The moon must never sit over the top-right navigation. */
 .site-nav{z-index:1000!important}
@@ -1617,52 +1359,11 @@ body.light-on .scene-hero .arm-a{left:25px!important;right:auto!important;transf
 body:not(.light-on) .scene-hero .arm-b,
 body.light-on .scene-hero .arm-b{right:17px!important;left:auto!important;transform:rotate(-18deg)!important}
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{
-    width:150px!important;height:150px!important;
-    right:-72px!important;top:-20px!important;
-  }
-  .scene-hero .moon-core{inset:9px!important}
-  .scene-hero .moon-halo{inset:-38px!important}
-  .moon-instruction{
-    right:337.92px!important;
-    top:45px!important;
-    width:190px!important;
-  }
-  .moon-instruction span{font-size:17px!important}
-  .scene-hero .character .mug{left:70px!important;top:156px!important}
-  .scene-hero .character .arm{top:157px!important;width:64px!important}
-  .scene-hero .character .arm-a{left:25px!important;transform:rotate(18deg)!important}
-  .scene-hero .character .arm-b{right:17px!important;transform:rotate(-18deg)!important}
-}
+
 
 
 /* ===== LATEST REQUEST: moon visibility, held tea, contact entrance ===== */
-@media (min-width:200000px){
-  /* Keep the moon large but fully readable in the upper-right corner. */
-  .scene-hero .moon-control{
-    width:210px!important;
-    height:210px!important;
-    right:24px!important;
-    top:10px!important;
-    z-index:100!important;
-  }
-  .scene-hero .moon-core{inset:10px!important}
-  .scene-hero .moon-halo{inset:-48px!important}
-  .moon-instruction{
-    right:255px!important;
-    top:48px!important;
-    width:250px!important;
-    z-index:101!important;
-  }
-  .moon-instruction span{text-align:right!important;font-size:21px!important}
-  .moon-instruction .moon-arrow{
-    right:-8px!important;
-    top:45px!important;
-    width:78px!important;
-    transform:rotate(-18deg)!important;
-  }
-}
+
 
 /* Tea is held between both hands, below the chin; the position never changes
    when the moon is activated. */
@@ -1724,25 +1425,8 @@ body:not(.light-on) .scene-hero .character .arm{top:164px!important}
 }
 .linkedin-svg{width:22px!important;height:22px!important}
 
-@media (min-width:200000px){
-  .scene-hero .moon-control{
-    width:150px!important;height:150px!important;
-    right:14px!important;top:10px!important;
-  }
-  .moon-instruction{
-    right:155px!important;top:38px!important;width:190px!important;
-  }
-  .moon-instruction span{font-size:17px!important}
-  .scene-hero .character .mug{left:70px!important;top:163px!important}
-  .scene-hero .character .arm{top:164px!important}
-}
-@media (min-width:200000px){
-  .scene-hero .moon-control{width:120px!important;height:120px!important;right:8px!important;top:8px!important}
-  .moon-instruction{right:112px!important;top:28px!important;width:165px!important}
-  .moon-instruction span{font-size:15px!important}
-  .scene-hero .character .mug{left:70px!important;top:163px!important}
-  .scene-hero .character .arm{top:164px!important}
-}
+
+
 
 /* FINAL CUP HAND-OFF: cup visibly sits inside both hands, not below the chin. */
 .scene-hero .character .mug{
@@ -1787,14 +1471,8 @@ body:not(.light-on) .scene-hero .character .mug{left:84px!important;top:150px!im
 body.light-on .scene-hero .character .arm,
 body:not(.light-on) .scene-hero .character .arm{top:151px!important}
 
-@media(min-width:200000px){
-  .scene-hero .character .mug{left:70px!important;top:150px!important}
-  .scene-hero .character .arm{top:151px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .mug{left:70px!important;top:150px!important}
-  .scene-hero .character .arm{top:151px!important}
-}
+
+
 
 
 /* ===== LATEST REQUESTED POLISH ===== */
@@ -1862,20 +1540,8 @@ body.light-on .hero-hi{opacity:1;transform:translateY(0) rotate(-5deg);transitio
 .site-nav nav a{color:var(--cream)!important;text-shadow:0 2px 12px rgba(0,0,0,.9)!important}
 .site-nav .brand{position:relative;z-index:1202!important}
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:190px!important;height:190px!important;right:-110px!important;top:-35px!important}
-  .moon-instruction{right:107.52px!important;top:98px!important;width:210px!important}
-  .moon-instruction span{font-size:17px!important}
-  .hero-hi{left:calc(42% - 5px);bottom:calc(21% + 210px);font-size:24px}
-  .contact-character{right:50%!important;left:auto!important;width:340px!important;height:250px!important}
-  .contact-character .end-person{left:80px!important;transform:scale(1.05)!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:155px!important;height:155px!important;right:-88px!important;top:-25px!important}
-  .moon-instruction{right:76.8px!important;top:88px!important;width:175px!important}
-  .moon-instruction span{font-size:15px!important}
-  .hero-hi{left:42%;bottom:calc(21% + 190px);font-size:22px}
-}
+
+
 
 /* ===== LATEST USER REQUEST PASS ===== */
 /* Keep the top navigation completely clear while letting the moon sit partly off the edge. */
@@ -2021,35 +1687,8 @@ body.light-on .scene-hero .character .mug{left:83px!important;top:154px!importan
 /* Never leave an extra blank scroll area after Contact. */
 .contact-section footer{display:none!important}
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{
-    width:104px!important;
-    height:104px!important;
-    right:-28px!important;
-    top:72px!important;
-  }
-  .moon-instruction{
-    right:153.6px!important;
-    top:168px!important;
-  }
-  .moon-instruction span{font-size:18px!important}
-  .contact-section{padding-bottom:80px!important}
-  .contact-character{width:270px!important;height:220px!important}
-  .contact-character .end-person{transform:translateX(-50%) scale(.82)!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{
-    width:94px!important;
-    height:94px!important;
-    right:-26px!important;
-    top:64px!important;
-  }
-  .moon-instruction{right:122.88px!important;top:152px!important}
-  .moon-instruction span{font-size:16px!important}
-  .contact-section{padding-bottom:64px!important}
-  .contact-character{width:245px!important;height:200px!important}
-  .contact-character .end-person{transform:translateX(-50%) scale(.72)!important}
-}
+
+
 
 /* FINAL CHARACTER POLISH */
 .scene-hero .character .body{z-index:6}
@@ -2073,14 +1712,8 @@ body.light-on .scene-hero .character .mug{left:83px!important;top:157px!importan
 .contact-section .contact-character .end-arm-a{left:30px!important;right:auto!important;top:119px!important;transform:rotate(-58deg)!important;transform-origin:90% 50%!important}
 .contact-section .contact-character .end-arm-b{right:30px!important;left:auto!important;top:139px!important;transform:rotate(18deg)!important;transform-origin:10% 50%!important}
 
-@media(min-width:200000px){
- .contact-character{width:270px!important;height:220px!important}
- .contact-character .end-person{transform:translateX(-50%) scale(.82)!important}
-}
-@media(min-width:200000px){
- .contact-character{width:245px!important;height:200px!important}
- .contact-character .end-person{transform:translateX(-50%) scale(.72)!important}
-}
+
+
 
 /* ===== FINAL REQUEST: clean side-wave + cup hold + contact pop ===== */
 /* No section number and no persistent scroll arrow/line. */
@@ -2088,18 +1721,7 @@ body.light-on .scene-hero .character .mug{left:83px!important;top:157px!importan
 .hero-bottom{display:none!important}
 
 /* Keep the moon tucked into the corner without covering CONTACT. */
-@media (min-width:200000px){
-  .scene-hero .moon-control{
-    width:128px!important;height:128px!important;
-    right:-34px!important;top:72px!important;
-    z-index:70!important;
-  }
-  .scene-hero .moon-core{inset:10px!important}
-  .scene-hero .moon-halo{inset:-34px!important}
-  .moon-instruction{
-    right:184.32px!important;top:118px!important;width:250px!important;
-  }
-}
+
 
 /* Hero character: tiny attached arms, one waving outside the torso and one holding the cup. */
 .scene-hero .character .body{z-index:6!important}
@@ -2194,23 +1816,8 @@ body.light-on .hero-scroll-text{
 }
 @keyframes scrollCueFade{from{opacity:0;transform:translateY(5px)}to{opacity:.85;transform:none}}
 
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:112px!important;height:112px!important;right:-30px!important;top:62px!important}
-  .scene-hero .moon-core{inset:9px!important}
-  .scene-hero .moon-halo{inset:-30px!important}
-  .moon-instruction{right:153.6px!important;top:112px!important;width:205px!important}
-  .moon-instruction span{font-size:17px!important}
-  .contact-character{width:270px!important;height:220px!important}
-  .contact-character .end-person{transform:translateX(-50%) scale(.82)!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-control{width:98px!important;height:98px!important;right:-25px!important;top:55px!important}
-  .moon-instruction{right:122.88px!important;top:105px!important;width:175px!important}
-  .moon-instruction span{font-size:15px!important}
-  .hero-scroll-text{left:107.52px!important;bottom:25px!important;font-size:15px!important}
-  .contact-character{width:245px!important;height:200px!important}
-  .contact-character .end-person{transform:translateX(-50%) scale(.72)!important}
-}
+
+
 
 /* ===== HAND POSITION FINAL ===== */
 /* Front character: one small raised hand outside the silhouette; the other hand visibly holds the cup. */
@@ -2384,15 +1991,7 @@ body.light-on .hero-scroll-text{
 .contact-section .contact-character .end-hair-front:after{display:none!important}
 .contact-section .contact-character .end-head{z-index:6!important}
 
-@media(min-width:200000px){
-  .scene-hero .room-copy .hero-sub{
-    font-size:9px!important;
-    padding:8px 10px!important;
-    letter-spacing:.08em!important;
-  }
-  .scene-hero .room-copy .hero-sub::before{margin-right:5px!important}
-  .scene-hero .room-copy .hero-sub .title-sep{padding:0 5px!important}
-}
+
 
 /* ===== MATCH FRONT-CHARACTER BANGS ON ABOUT + CONTACT ===== */
 /* About character: same soft rounded fringe as the front character.
@@ -2542,33 +2141,9 @@ body.light-on .hero-scroll-text{
   transform:rotate(10deg)!important;
 }
 
-@media (min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:calc(184.32px + 82px)!important;
-    top:calc(96px + 8px)!important;
-    width:210px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:19px!important}
-  .scene-hero .moon-instruction .moon-arrow{
-    right:-70px!important;
-    top:40px!important;
-    width:65px!important;
-  }
-}
 
-@media (min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:calc(153.6px + 62px)!important;
-    top:calc(80px + 8px)!important;
-    width:175px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:16px!important}
-  .scene-hero .moon-instruction .moon-arrow{
-    right:-52px!important;
-    top:34px!important;
-    width:50px!important;
-  }
-}
+
+
 
 /* ===== FINAL REQUEST: ABOUT BANGS + MOON POINTER + CONTACT HANDS ===== */
 /* About character bangs: clean, lifted fringe like the front character.
@@ -2657,24 +2232,8 @@ body.light-on .hero-scroll-text{
   transform:rotate(18deg)!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:92px!important;
-    top:76px!important;
-    width:220px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:18px!important}
-  .scene-hero .moon-instruction .moon-arrow{right:-35px!important;top:38px!important;width:65px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:70px!important;
-    top:70px!important;
-    width:185px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:15px!important}
-  .scene-hero .moon-instruction .moon-arrow{right:-28px!important;top:32px!important;width:52px!important}
-}
+
+
 
 /* ===== USER FINAL FIX: ABOUT HAIR + MOON POINTER ===== */
 /* About character: no exposed/bald scalp. Keep a full dark hair mass behind the face
@@ -2768,32 +2327,8 @@ body.light-on .hero-scroll-text{
   transform:rotate(18deg)!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:92px!important;
-    top:76px!important;
-    width:220px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:18px!important}
-  .scene-hero .moon-instruction .moon-arrow{
-    right:-24px!important;
-    top:50px!important;
-    width:65px!important;
-  }
-}
-@media(min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:70px!important;
-    top:70px!important;
-    width:185px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:15px!important}
-  .scene-hero .moon-instruction .moon-arrow{
-    right:-18px!important;
-    top:43px!important;
-    width:52px!important;
-  }
-}
+
+
 
 /* ===== FINAL: ABOUT HAIR = SAME BANGS AS FRONT CHARACTER ===== */
 /* The about face uses the exact same fringe geometry as the front character:
@@ -2876,32 +2411,8 @@ body.light-on .hero-scroll-text{
   border-right:2px solid #d7c49c!important;
   transform:rotate(18deg)!important;
 }
-@media(min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:calc(122.88px + 75px)!important;
-    top:calc(96px - 2px)!important;
-    width:220px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:18px!important}
-  .scene-hero .moon-instruction .moon-arrow{
-    left:calc(100% + 3px)!important;
-    top:2px!important;
-    width:50px!important;
-  }
-}
-@media(min-width:200000px){
-  .scene-hero .moon-instruction{
-    right:calc(107.52px + 52px)!important;
-    top:calc(80px + 2px)!important;
-    width:185px!important;
-  }
-  .scene-hero .moon-instruction span{font-size:15px!important}
-  .scene-hero .moon-instruction .moon-arrow{
-    left:calc(100% + 2px)!important;
-    top:-1px!important;
-    width:40px!important;
-  }
-}
+
+
 
 
 /* ===== CONTACT CHARACTER: SMALL ORGANIC MITTEN HAND ===== */
@@ -3028,44 +2539,9 @@ body.light-on .scene-hero .character:before{
   z-index:1!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front:after{
-    width:28px!important;
-    height:70px!important;
-    left:68px!important;
-    top:-2px!important;
-  }
-  .scene-hero .character:before{
-    left:10px!important;
-    top:-32px!important;
-    font-size:20px!important;
-  }
-  .contact-section .contact-character .end-arm-a{
-    left:22px!important;
-    top:127px!important;
-    width:50px!important;
-    height:12px!important;
-  }
-  .contact-section .contact-character .end-arm-a:after{
-    right:-19px!important;
-    top:-8px!important;
-    width:32px!important;
-    height:26px!important;
-  }
-}
 
-@media(min-width:200000px){
-  .scene-hero .character:before{
-    left:7px!important;
-    top:-29px!important;
-    font-size:18px!important;
-  }
-  .contact-section .contact-character .end-arm-a{
-    left:20px!important;
-    top:127px!important;
-    width:47px!important;
-  }
-}
+
+
 
 
 /* ===== FINAL: ATTACHED FOREARM + BANG TRIM + GREETING RESTORE ===== */
@@ -3133,36 +2609,8 @@ body.light-on .scene-hero .character:before{
   opacity:1!important;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{
-    left:22px!important;
-    top:122px!important;
-    width:72px!important;
-  }
-  .contact-section .contact-character .end-arm-a:after{
-    left:-13px!important;
-    top:-7px!important;
-    width:24px!important;
-    height:23px!important;
-  }
-  .contact-section .contact-character .end-arm-a:before{
-    left:-6px!important;
-    top:-11px!important;
-  }
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{
-    left:20px!important;
-    top:120px!important;
-    width:64px!important;
-  }
-  .contact-section .contact-character .end-arm-a:after{
-    left:-12px!important;
-    top:-6px!important;
-    width:22px!important;
-    height:21px!important;
-  }
-}
+
+
 
 
 /* ===== V5: SMOOTH WORK LINK + BANGS CONNECTED TO HAIR + OUTSTRETCHED HAND ===== */
@@ -3243,23 +2691,8 @@ body.light-on .scene-hero .character:before{
 .contact-section .contact-character .end-arm-b:after,
 .contact-section .contact-character .end-arm-b:before{display:none!important}
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:39px!important;top:26px!important;width:118px!important;height:62px!important}
-  .scene-hero .character .hair-front:before{left:-8px!important;top:18px!important;width:25px!important;height:42px!important}
-  .about-person .about-face:before{width:124px!important;height:68px!important;top:-10px!important}
-  .contact-section .contact-character .end-hair-front{left:30px!important;top:13px!important;width:104px!important;height:54px!important}
-  .contact-section .contact-character .end-arm-a{left:10px!important;top:121px!important;width:64px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-16px!important;top:-8px!important;width:25px!important;height:24px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-5px!important;top:-2px!important;width:11px!important;height:11px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:24px!important;width:108px!important;height:56px!important}
-  .scene-hero .character .hair-front:before{left:-7px!important;top:16px!important;width:22px!important;height:38px!important}
-  .about-person .about-face:before{width:116px!important;height:62px!important;top:-9px!important;left:-6px!important}
-  .contact-section .contact-character .end-hair-front{left:27px!important;top:12px!important;width:96px!important;height:50px!important}
-  .contact-section .contact-character .end-arm-a{left:6px!important;top:119px!important;width:58px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-14px!important;top:-7px!important;width:22px!important;height:21px!important}
-}
+
+
 
 
 /* ===== V6: BANGS AS ONE SMOOTH ROUNDED DOME (HOME + ABOUT + CONTACT) ===== */
@@ -3298,16 +2731,8 @@ body.light-on .scene-hero .character:before{
 }
 .contact-section .contact-character .end-hair-front:after{display:none!important}
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:36px!important;top:25px!important;width:124px!important;height:58px!important;border-radius:62px 62px 24px 24px!important}
-  .about-person .about-face:before{width:126px!important;height:60px!important;border-radius:63px 63px 24px 24px!important}
-  .contact-section .contact-character .end-hair-front{left:27px!important;top:15px!important;width:104px!important;height:52px!important;border-radius:52px 52px 20px 20px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:32px!important;top:23px!important;width:112px!important;height:52px!important;border-radius:56px 56px 21px 21px!important}
-  .about-person .about-face:before{width:116px!important;height:56px!important;left:-6px!important;top:-9px!important;border-radius:58px 58px 22px 22px!important}
-  .contact-section .contact-character .end-hair-front{left:24px!important;top:14px!important;width:96px!important;height:48px!important;border-radius:48px 48px 18px 18px!important}
-}
+
+
 
 
 /* ===== V7: SOFT SWOOPING ARC BANGS (single flowing strand, no blunt cut) ===== */
@@ -3339,16 +2764,8 @@ body.light-on .scene-hero .character:before{
   transform:rotate(-3deg)!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:25px!important;width:126px!important;height:58px!important;border-radius:54px 58px 63px 63px / 32px 35px 23px 15px!important}
-  .about-person .about-face:before{width:124px!important;height:56px!important;border-radius:53px 57px 63px 63px / 31px 35px 22px 15px!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:16px!important;width:104px!important;height:48px!important;border-radius:44px 48px 53px 53px / 24px 28px 18px 12px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:23px!important;width:110px!important;height:52px!important;border-radius:46px 50px 55px 55px / 28px 31px 20px 13px!important}
-  .about-person .about-face:before{width:112px!important;height:50px!important;left:-6px!important;top:-9px!important;border-radius:47px 51px 56px 56px / 27px 30px 19px 12px!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:15px!important;width:94px!important;height:44px!important;border-radius:40px 44px 48px 48px / 22px 25px 16px 11px!important}
-}
+
+
 
 
 /* ===== V8: CRESCENT BANGS — SMOOTH ARC SCOOPING UP AT CENTER,
@@ -3391,16 +2808,8 @@ body.light-on .scene-hero .character:before{
 }
 .contact-section .contact-character .end-hair-front:after{display:none!important}
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:22px!important;width:126px!important;height:64px!important;-webkit-mask-image:radial-gradient(93px 91px at 50% -25px,transparent 61%,#000 62%)!important;mask-image:radial-gradient(93px 91px at 50% -25px,transparent 61%,#000 62%)!important}
-  .about-person .about-face:before{width:124px!important;height:57px!important;left:-7px!important;top:-11px!important;-webkit-mask-image:radial-gradient(88px 63px at 50% -23px,transparent 61%,#000 62%)!important;mask-image:radial-gradient(88px 63px at 50% -23px,transparent 61%,#000 62%)!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:14px!important;width:104px!important;height:50px!important;-webkit-mask-image:radial-gradient(78px 71px at 50% -19px,transparent 61%,#000 62%)!important;mask-image:radial-gradient(78px 71px at 50% -19px,transparent 61%,#000 62%)!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:20px!important;width:112px!important;height:56px!important;-webkit-mask-image:radial-gradient(82px 80px at 50% -22px,transparent 61%,#000 62%)!important;mask-image:radial-gradient(82px 80px at 50% -22px,transparent 61%,#000 62%)!important}
-  .about-person .about-face:before{width:112px!important;height:51px!important;left:-6px!important;top:-9px!important;-webkit-mask-image:radial-gradient(79px 57px at 50% -21px,transparent 61%,#000 62%)!important;mask-image:radial-gradient(79px 57px at 50% -21px,transparent 61%,#000 62%)!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:13px!important;width:94px!important;height:45px!important;-webkit-mask-image:radial-gradient(70px 64px at 50% -17px,transparent 61%,#000 62%)!important;mask-image:radial-gradient(70px 64px at 50% -17px,transparent 61%,#000 62%)!important}
-}
+
+
 
 
 /* ===== V9: UNIFIED BANGS (forehead covered, sides sweep low, highlights clear)
@@ -3485,22 +2894,8 @@ body.light-on .scene-hero .character:before{
 .contact-section .contact-character .end-arm-b:after,
 .contact-section .contact-character .end-arm-b:before{display:none!important}
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:24px!important;width:126px!important;height:64px!important;border-radius:57px 60px 63px 63px / 38px 39px 23px 16px!important}
-  .about-person .about-face:before{width:124px!important;height:76px!important;left:-7px!important;top:-12px!important;border-radius:54px 58px 63px 63px / 39px 41px 24px 16px!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:15px!important;width:104px!important;height:53px!important;border-radius:46px 49px 53px 53px / 31px 33px 18px 12px!important}
-  .contact-section .contact-character .end-arm-a{left:10px!important;top:121px!important;width:70px!important;height:13px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-23px!important;top:-6px!important;width:36px!important;height:27px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-10px!important;top:-7px!important;width:19px!important;height:5px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:22px!important;width:112px!important;height:58px!important;border-radius:50px 53px 56px 56px / 33px 34px 20px 14px!important}
-  .about-person .about-face:before{width:110px!important;height:67px!important;left:-6px!important;top:-10px!important;border-radius:47px 51px 55px 55px / 35px 36px 21px 14px!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:14px!important;width:94px!important;height:48px!important;border-radius:41px 44px 47px 47px / 28px 30px 16px 10px!important}
-  .contact-section .contact-character .end-arm-a{left:6px!important;top:119px!important;width:64px!important;height:12px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-20px!important;top:-5px!important;width:32px!important;height:24px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-9px!important;top:-6px!important;width:17px!important;height:4px!important}
-}
+
+
 
 
 /* ===== V10: SIDE-SWEPT BANGS + HAND ANCHORED AT THE SHOULDER ===== */
@@ -3532,20 +2927,8 @@ body.light-on .scene-hero .character:before{
   height:30px!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{border-radius:57px 61px 63px 63px / 36px 36px 11px 29px!important;transform:rotate(-5deg)!important}
-  .about-person .about-face:before{border-radius:54px 58px 63px 63px / 40px 40px 11px 27px!important}
-  .contact-section .contact-character .end-hair-front{border-radius:46px 49px 53px 53px / 31px 31px 10px 24px!important}
-  .contact-section .contact-character .end-arm-a{left:9px!important;top:123px!important;width:76px!important;height:13px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-22px!important;top:-6px!important;width:38px!important;height:27px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{border-radius:50px 54px 56px 56px / 33px 33px 10px 26px!important}
-  .about-person .about-face:before{border-radius:48px 52px 56px 56px / 35px 35px 10px 24px!important}
-  .contact-section .contact-character .end-hair-front{border-radius:41px 44px 47px 47px / 27px 27px 9px 21px!important}
-  .contact-section .contact-character .end-arm-a{left:5px!important;top:121px!important;width:70px!important;height:12px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-19px!important;top:-5px!important;width:34px!important;height:24px!important}
-}
+
+
 
 
 /* ===== V11: SOFT ROUNDED CAP BANGS — TWO GENTLE SIDE-SWOOPS,
@@ -3584,16 +2967,8 @@ body.light-on .scene-hero .character:before{
   mask-image:radial-gradient(76px 95px at 50% -22px,transparent 60%,#000 61%)!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:22px!important;width:126px!important;height:65px!important;border-radius:58px 62px 43px 39px / 39px 41px 20px 14px!important;-webkit-mask-image:radial-gradient(84px 109px at 50% -27px,transparent 60%,#000 61%)!important;mask-image:radial-gradient(84px 109px at 50% -27px,transparent 60%,#000 61%)!important}
-  .about-person .about-face:before{width:124px!important;height:79px!important;left:-7px!important;top:-12px!important;border-radius:52px 56px 40px 36px / 36px 38px 18px 12px!important;-webkit-mask-image:radial-gradient(83px 87px at 50% -23px,transparent 60%,#000 61%)!important;mask-image:radial-gradient(83px 87px at 50% -23px,transparent 60%,#000 61%)!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:14px!important;width:104px!important;height:56px!important;border-radius:44px 48px 33px 31px / 27px 30px 15px 10px!important;-webkit-mask-image:radial-gradient(69px 87px at 50% -20px,transparent 60%,#000 61%)!important;mask-image:radial-gradient(69px 87px at 50% -20px,transparent 60%,#000 61%)!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:20px!important;width:112px!important;height:58px!important;border-radius:52px 55px 38px 35px / 35px 37px 17px 12px!important;-webkit-mask-image:radial-gradient(75px 97px at 50% -24px,transparent 60%,#000 61%)!important;mask-image:radial-gradient(75px 97px at 50% -24px,transparent 60%,#000 61%)!important}
-  .about-person .about-face:before{width:110px!important;height:70px!important;left:-6px!important;top:-10px!important;border-radius:46px 49px 32px 29px / 32px 34px 16px 10px!important;-webkit-mask-image:radial-gradient(73px 77px at 50% -21px,transparent 60%,#000 61%)!important;mask-image:radial-gradient(73px 77px at 50% -21px,transparent 60%,#000 61%)!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:13px!important;width:94px!important;height:50px!important;border-radius:40px 43px 28px 26px / 25px 27px 14px 9px!important;-webkit-mask-image:radial-gradient(63px 78px at 50% -18px,transparent 60%,#000 61%)!important;mask-image:radial-gradient(63px 78px at 50% -18px,transparent 60%,#000 61%)!important}
-}
+
+
 
 
 /* ===== V12: INWARD-SWEEPING DOUBLE LOCK BANGS
@@ -3653,18 +3028,8 @@ body.light-on .scene-hero .character:before{
   height:5px!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:24px!important;width:126px!important;height:65px!important;border-radius:57px 61px 66px 66px / 38px 39px 25px 19px!important}
-  .about-person .about-face:before{width:124px!important;height:76px!important;left:-7px!important;top:-12px!important;border-radius:52px 56px 65px 65px / 38px 39px 24px 16px!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:14px!important;width:104px!important;height:55px!important;border-radius:44px 47px 55px 55px / 29px 32px 18px 12px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-22px!important;top:-7px!important;width:34px!important;height:29px!important;box-shadow:-6px -6px 0 0 #171612!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:22px!important;width:112px!important;height:58px!important;border-radius:51px 54px 59px 59px / 33px 34px 23px 17px!important}
-  .about-person .about-face:before{width:110px!important;height:67px!important;left:-6px!important;top:-10px!important;border-radius:46px 49px 57px 57px / 33px 34px 21px 14px!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:13px!important;width:94px!important;height:49px!important;border-radius:40px 43px 50px 50px / 26px 29px 16px 11px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-19px!important;top:-6px!important;width:30px!important;height:25px!important;box-shadow:-5px -5px 0 0 #171612!important}
-}
+
+
 
 
 /* ===== V12: TWO INWARD-SWEEPING LOCKS — FULL FOREHEAD COVERAGE,
@@ -3703,16 +3068,8 @@ body.light-on .scene-hero .character:before{
   mask-image:none!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:22px!important;width:126px!important;height:69px!important;border-radius:59px 62px 63px 63px / 39px 41px 11px 11px!important}
-  .about-person .about-face:before{width:124px!important;height:76px!important;left:-7px!important;top:-12px!important;border-radius:52px 56px 62px 62px / 36px 38px 12px 12px!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:14px!important;width:104px!important;height:56px!important;border-radius:44px 47px 52px 52px / 27px 30px 11px 11px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:20px!important;width:112px!important;height:62px!important;border-radius:52px 55px 56px 56px / 35px 37px 10px 10px!important}
-  .about-person .about-face:before{width:110px!important;height:68px!important;left:-6px!important;top:-10px!important;border-radius:46px 49px 55px 55px / 32px 34px 10px 10px!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:13px!important;width:94px!important;height:51px!important;border-radius:40px 43px 47px 47px / 25px 27px 10px 10px!important}
-}
+
+
 
 
 /* ===== V13: SIDE-SWEPT FRINGE OVER THE FOREHEAD, ROUNDED HAIR FALLING DOWN ===== */
@@ -3744,16 +3101,8 @@ body.light-on .scene-hero .character:before{
   transform:rotate(-2deg)!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:34px!important;top:22px!important;width:126px!important;height:67px!important;border-radius:59px 62px 64px 64px / 39px 41px 7px 17px!important}
-  .about-person .about-face:before{width:124px!important;height:74px!important;left:-7px!important;top:-12px!important;border-radius:52px 56px 62px 62px / 36px 38px 7px 15px!important}
-  .contact-section .contact-character .end-hair-front{left:26px!important;top:14px!important;width:104px!important;height:54px!important;border-radius:44px 47px 53px 53px / 27px 30px 6px 14px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:31px!important;top:20px!important;width:112px!important;height:60px!important;border-radius:52px 55px 57px 57px / 35px 37px 6px 15px!important}
-  .about-person .about-face:before{width:110px!important;height:66px!important;left:-6px!important;top:-10px!important;border-radius:46px 49px 55px 55px / 32px 34px 6px 13px!important}
-  .contact-section .contact-character .end-hair-front{left:23px!important;top:13px!important;width:94px!important;height:49px!important;border-radius:40px 43px 48px 48px / 25px 27px 6px 12px!important}
-}
+
+
 
 /* ===== V14: TRIM ABOUT STRAY PIECE + REVEAL HAIR HIGHLIGHTS + REMOVE CONTACT HANDS ===== */
 
@@ -3789,20 +3138,8 @@ body.light-on .scene-hero .character:before{
 .contact-section .contact-character .end-arm-b:after,
 .contact-section .contact-character .end-arm-b:before{display:none!important}
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:36px!important;top:23px!important;width:114px!important;height:66px!important;border-radius:54px 57px 61px 59px / 37px 39px 7px 17px!important}
-  .about-person .about-face:before{width:117px!important;height:72px!important;left:-5px!important;top:-11px!important;border-radius:50px 54px 60px 58px / 34px 36px 7px 14px!important}
-  .contact-section .contact-character .end-hair-front{left:27px!important;top:14px!important;width:99px!important;height:53px!important;border-radius:42px 46px 49px 47px / 25px 28px 6px 12px!important}
-  .contact-section .contact-character .end-arm-a,
-  .contact-section .contact-character .end-arm-b{display:none!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:33px!important;top:21px!important;width:102px!important;height:59px!important;border-radius:48px 51px 55px 53px / 33px 35px 6px 15px!important}
-  .about-person .about-face:before{width:104px!important;height:65px!important;left:-4px!important;top:-9px!important;border-radius:44px 48px 53px 51px / 31px 33px 6px 12px!important}
-  .contact-section .contact-character .end-hair-front{left:24px!important;top:13px!important;width:89px!important;height:47px!important;border-radius:38px 41px 44px 42px / 22px 25px 6px 10px!important}
-  .contact-section .contact-character .end-arm-a,
-  .contact-section .contact-character .end-arm-b{display:none!important}
-}
+
+
 
 /* ===== V15: ABOUT BANGS MATCHED TO HOME CHARACTER + CONTACT WAVE-HAND RESTORED ===== */
 
@@ -3854,18 +3191,8 @@ body.light-on .scene-hero .character:before{
   z-index:2!important;
 }
 
-@media(min-width:200000px){
-  .about-person .about-face:before{width:121px!important;height:70px!important;left:-7px!important;top:-12px!important;border-radius:56px 60px 64px 62px / 38px 40px 7px 16px!important}
-  .contact-section .contact-character .end-arm-a{left:17px!important;top:124px!important;width:72px!important;height:13px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-22px!important;top:-7px!important;width:36px!important;height:27px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-9px!important;top:-8px!important;width:18px!important;height:5px!important}
-}
-@media(min-width:200000px){
-  .about-person .about-face:before{width:107px!important;height:63px!important;left:-6px!important;top:-11px!important;border-radius:50px 54px 57px 55px / 34px 36px 6px 14px!important}
-  .contact-section .contact-character .end-arm-a{left:14px!important;top:122px!important;width:66px!important;height:12px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-19px!important;top:-6px!important;width:32px!important;height:24px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-8px!important;top:-7px!important;width:16px!important;height:4px!important}
-}
+
+
 
 /* ===== V16: ABOUT BANGS SHORTENED TO MATCH HOME EXACTLY + UPPER ARM BURIED IN BODY ===== */
 
@@ -3917,18 +3244,8 @@ body.light-on .scene-hero .character:before{
   z-index:2!important;
 }
 
-@media(min-width:200000px){
-  .about-person .about-face:before{width:117px!important;height:68px!important;left:-3px!important;top:-8px!important;border-radius:53px 57px 63px 61px / 35px 37px 7px 16px!important}
-  .contact-section .contact-character .end-arm-a{left:4px!important;top:127px!important;width:78px!important;height:14px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-22px!important;top:-7px!important;width:36px!important;height:28px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-9px!important;top:-8px!important;width:18px!important;height:5px!important}
-}
-@media(min-width:200000px){
-  .about-person .about-face:before{width:105px!important;height:61px!important;left:-3px!important;top:-7px!important;border-radius:47px 51px 56px 54px / 32px 34px 6px 14px!important}
-  .contact-section .contact-character .end-arm-a{left:2px!important;top:125px!important;width:72px!important;height:13px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-19px!important;top:-6px!important;width:33px!important;height:25px!important}
-  .contact-section .contact-character .end-arm-a:before{left:-8px!important;top:-7px!important;width:16px!important;height:4px!important}
-}
+
+
 
 
 /* ===== V17 FINAL: SYMMETRIC INWARD-SWEEP BANGS ON EVERY CHARACTER
@@ -3983,18 +3300,8 @@ body.light-on .scene-hero .character:before{
   box-shadow:-7px -6px 0 0 #171612!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:35px!important;top:23px!important;width:121px!important;height:67px!important;border-radius:56px 59px 63px 63px / 38px 40px 11px 11px!important}
-  .about-person .about-face:before{width:119px!important;height:73px!important;left:-5px!important;top:-10px!important;border-radius:52px 55px 61px 61px / 37px 38px 11px 9px!important}
-  .contact-section .contact-character .end-hair-front{left:27px!important;top:14px!important;width:100px!important;height:55px!important;border-radius:43px 46px 50px 50px / 28px 29px 9px 8px!important}
-  .contact-section .contact-character .end-arm-a:after{box-shadow:-6px -5px 0 0 #171612!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:33px!important;top:21px!important;width:108px!important;height:61px!important;border-radius:50px 53px 57px 57px / 34px 36px 10px 10px!important}
-  .about-person .about-face:before{width:106px!important;height:67px!important;left:-4px!important;top:-8px!important;border-radius:46px 49px 54px 54px / 33px 35px 10px 8px!important}
-  .contact-section .contact-character .end-hair-front{left:24px!important;top:13px!important;width:92px!important;height:50px!important;border-radius:39px 42px 46px 46px / 26px 27px 9px 8px!important}
-  .contact-section .contact-character .end-arm-a:after{box-shadow:-5px -5px 0 0 #171612!important}
-}
+
+
 
 
 /* ===== V18: SMALLER SOFTER MITTEN HAND, CLEAR SUBTLE THUMB ===== */
@@ -4025,14 +3332,8 @@ body.light-on .scene-hero .character:before{
   transform:rotate(-14deg)!important;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a:after{left:-20px!important;top:-6px!important;width:30px!important;height:25px!important;box-shadow:-5px -4px 0 1px #171612!important}
-  .contact-section .contact-character .end-arm-a:before{left:-10px!important;top:-8px!important;width:15px!important;height:4px!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a:after{left:-17px!important;top:-5px!important;width:27px!important;height:23px!important;box-shadow:-4px -4px 0 1px #171612!important}
-  .contact-section .contact-character .end-arm-a:before{left:-9px!important;top:-7px!important;width:13px!important;height:3px!important}
-}
+
+
 
 
 /* ===== V19: MITTEN HAND MOVED TO HER RIGHT SIDE (VIEWER RIGHT),
@@ -4079,16 +3380,8 @@ body.light-on .scene-hero .character:before{
   z-index:2!important;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{left:106px!important;top:127px!important;width:58px!important;height:14px!important}
-  .contact-section .contact-character .end-arm-a:after{right:-19px!important;top:-6px!important;width:30px!important;height:25px!important;box-shadow:5px -4px 0 1px #171612!important}
-  .contact-section .contact-character .end-arm-a:before{right:-9px!important;top:-8px!important;width:15px!important;height:4px!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{left:94px!important;top:125px!important;width:52px!important;height:13px!important}
-  .contact-section .contact-character .end-arm-a:after{right:-17px!important;top:-5px!important;width:27px!important;height:23px!important;box-shadow:4px -4px 0 1px #171612!important}
-  .contact-section .contact-character .end-arm-a:before{right:-8px!important;top:-7px!important;width:13px!important;height:3px!important}
-}
+
+
 
 
 /* ===== V20: SINGLE-PIECE MITTEN SILHOUETTE — ONE SMOOTH ORGANIC SHAPE,
@@ -4131,14 +3424,8 @@ body.light-on .scene-hero .character:before{
   z-index:2!important;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a:after{right:-17px!important;top:-7px!important;width:31px!important;height:27px!important;box-shadow:none!important;border-radius:62% 38% 54% 46% / 66% 58% 42% 34%!important}
-  .contact-section .contact-character .end-arm-a:before{right:-8px!important;top:-9px!important;width:14px!important;height:4px!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a:after{right:-15px!important;top:-6px!important;width:28px!important;height:24px!important;box-shadow:none!important;border-radius:62% 38% 54% 46% / 66% 58% 42% 34%!important}
-  .contact-section .contact-character .end-arm-a:before{right:-7px!important;top:-8px!important;width:12px!important;height:3px!important}
-}
+
+
 
 
 /* ===== V21: HAND ON HER LEFT SIDE, FACE-COLOURED MITTEN, NO HIGHLIGHT ===== */
@@ -4175,16 +3462,8 @@ body.light-on .scene-hero .character:before{
 }
 .contact-section .contact-character .end-arm-a:before{display:none!important}
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{left:4px!important;top:127px!important;width:78px!important;height:14px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-19px!important;right:auto!important;top:-6px!important;width:30px!important;height:25px!important;background:#c7b28d!important}
-  .contact-section .contact-character .end-arm-a:before{display:none!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{left:2px!important;top:125px!important;width:72px!important;height:13px!important}
-  .contact-section .contact-character .end-arm-a:after{left:-17px!important;right:auto!important;top:-5px!important;width:27px!important;height:23px!important;background:#c7b28d!important}
-  .contact-section .contact-character .end-arm-a:before{display:none!important}
-}
+
+
 
 
 /* ===== V22: HAND LOWERED + ABOUT BANGS MATCHED TO HOME PROPORTIONS ===== */
@@ -4206,14 +3485,8 @@ body.light-on .scene-hero .character:before{
   transform:none!important;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{top:129px!important}
-  .about-person .about-face:before{width:119px!important;height:68px!important;left:-5px!important;top:-9px!important;border-radius:54px 58px 61px 61px / 37px 39px 10px 10px!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{top:127px!important}
-  .about-person .about-face:before{width:106px!important;height:60px!important;left:-4px!important;top:-8px!important;border-radius:48px 51px 54px 54px / 33px 35px 9px 9px!important}
-}
+
+
 
 
 /* ===== V23: HAND DOWN FURTHER + ABOUT BANGS REBUILT AS A PROPORTIONAL
@@ -4235,14 +3508,8 @@ body.light-on .scene-hero .character:before{
   mask-image:none!important;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{top:133px!important}
-  .about-person .about-face:before{width:137px!important;height:70px!important;left:-15px!important;top:-16px!important;border-radius:58px 63px 68px 68px / 38px 41px 13px 12px!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{top:131px!important}
-  .about-person .about-face:before{width:118px!important;height:61px!important;left:-13px!important;top:-14px!important;border-radius:50px 55px 60px 60px / 33px 36px 11px 10px!important}
-}
+
+
 
 
 /* ===== V24: HAND RESTING LOWER + ABOUT HAIR BLACK & FRAMING,
@@ -4275,14 +3542,8 @@ body.light-on .scene-hero .character:before{
   pointer-events:none;
 }
 
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{top:137px!important}
-  .about-person .about-face:after{left:-7px!important;top:52px!important;width:135px!important;height:42px!important;background:radial-gradient(circle 15px at 10px 21px,#17140f 97%,transparent 100%),radial-gradient(circle 15px at calc(100% - 10px) 21px,#17140f 97%,transparent 100%)!important}
-}
-@media(min-width:200000px){
-  .contact-section .contact-character .end-arm-a{top:135px!important}
-  .about-person .about-face:after{left:-6px!important;top:48px!important;width:119px!important;height:38px!important;background:radial-gradient(circle 13px at 9px 19px,#17140f 97%,transparent 100%),radial-gradient(circle 13px at calc(100% - 9px) 19px,#17140f 97%,transparent 100%)!important}
-}
+
+
 
 
 /* ===== V25: REMOVE LEGACY ABOUT BANG PIECES + BEIGE CHARACTER BACKDROP
@@ -4335,12 +3596,8 @@ body.light-on .scene-hero .character:before{
   mask-image:none!important;
 }
 
-@media(min-width:200000px){
-  .about-person .about-face:before{width:132px!important;height:72px!important;left:-9px!important;top:-12px!important;border-radius:60px 64px 68px 68px / 41px 42px 12px 12px!important}
-}
-@media(min-width:200000px){
-  .about-person .about-face:before{width:113px!important;height:62px!important;left:-8px!important;top:-11px!important;border-radius:51px 55px 58px 58px / 35px 36px 10px 10px!important}
-}
+
+
 
 
 /* ===== V28: LONGER ABOUT HAIR + REMOVE CHEEK TUFTS ===== */
@@ -4484,14 +3741,8 @@ body.light-on .scene-hero .character:before{
   border-radius:63px 68px 72px 72px / 42px 44px 13px 13px!important;
 }
 
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:33px!important;top:26px!important;width:102px!important;height:60px!important;border-radius:47px 50px 55px 55px / 33px 35px 10px 10px!important}
-  .about-person .about-face:before{width:124px!important;height:68px!important;left:-5px!important;top:-5px!important;border-radius:57px 61px 65px 65px / 38px 40px 12px 12px!important}
-}
-@media(min-width:200000px){
-  .scene-hero .character .hair-front{left:29px!important;top:24px!important;width:90px!important;height:53px!important;border-radius:41px 44px 48px 48px / 29px 31px 9px 9px!important}
-  .about-person .about-face:before{width:108px!important;height:59px!important;left:-4px!important;top:-2px!important;border-radius:49px 53px 57px 57px / 33px 35px 10px 10px!important}
-}
+
+
 
 
 /* ===== V36: RIGHT-TEMPLE PATCH UNDER THE TOP HIGHLIGHT
@@ -6262,154 +5513,37 @@ textarea{resize:vertical}
   .project-card:active .project-art{transform:scale(.98)}
 
 /* ===== NAV ===== */
-@media (min-width:200000px){
-  .site-nav{height:60px!important;padding:0 76.8px!important}
-  .site-nav nav{gap:18px!important;font-size:9px!important;letter-spacing:.16em!important}
-}
-@media (min-width:200000px){
-  .site-nav{height:52px!important}
-  .brand{font-size:13px!important}
-  .site-nav nav{gap:14px!important;font-size:8px!important;letter-spacing:.12em!important}
-}
+
+
 
 /* ===== HERO ===== */
-@media (min-width:200000px){
-  .scene-hero{min-height:800px!important}
-  .room-copy{left:92.16px!important;top:304px!important;transform:none!important;width:1290.24px!important;max-width:1290.24px!important;z-index:50!important}
-  .room-copy .eyebrow{font-size:22px!important;white-space:normal!important}
-  .room-copy h1{font-size:clamp(56px,199.68px,100px)!important;white-space:normal!important;line-height:.8!important}
-  .room-copy .hero-sub{white-space:normal!important;font-size:10px!important;max-width:340px!important}
-  .wall-note{transform:scale(.78)!important}
-  .window{transform:scale(.7)!important;transform-origin:top left!important;left:46.08px!important;top:56px!important}
-  .hero-scroll-text{font-size:12px!important;bottom:10px!important}
-  .scene-hero .moon-control{right:61.44px!important;top:72px!important;width:90px!important;height:90px!important}
-  .moon-instruction{right:76.8px!important;top:160px!important;width:190px!important}
-  .moon-instruction span{font-size:17px!important}
-  .desk-scene{height:336px!important;min-height:280px!important}
-}
-@media (min-width:200000px){
-  .scene-hero{min-height:760px!important}
-  .room-copy{left:92.16px!important;top:208px!important;width:1351.68px!important}
-  .room-copy .eyebrow{font-size:19px!important}
-  .room-copy h1{font-size:clamp(40px,230.4px,62px)!important;white-space:normal!important}
-  .room-copy .hero-sub{font-size:9px!important;letter-spacing:.08em!important;max-width:280px!important}
-  .wall-note,.hero-scroll-text{display:none!important}
-  .window{transform:scale(.55)!important;left:46.08px!important;top:48px!important}
-  .scene-hero .moon-control{width:64px!important;height:64px!important;right:8px!important;top:66px!important;transform:scale(.82)!important;transform-origin:center!important}
-  .moon-instruction{left:92.16px!important;right:auto!important;top:78px!important;width:auto!important;max-width:200px!important;transform:scale(.7)!important;transform-origin:left top!important}
-  .moon-instruction span{font-size:15px!important}
-  .moon-instruction .moon-arrow{width:34px!important}
-  .desk-scene{height:264px!important;min-height:230px!important}
-  .character{left:20%!important;bottom:7%!important;transform:scale(.52)!important;transform-origin:center bottom!important}
-  .laptop{left:44%!important;bottom:5%!important;transform:scale(.48)!important;transform-origin:center bottom!important}
-  .lamp{left:63%!important;bottom:3%!important;transform:scale(.48)!important;transform-origin:center bottom!important}
-  .plant{left:79%!important;bottom:7%!important;transform:scale(.55)!important;transform-origin:center bottom!important}
-  .mug{left:36%!important;bottom:8%!important;transform:scale(.6)!important}
-}
+
+
 
 /* ===== INTRO / STORY ===== */
-@media (min-width:200000px){
-  .story-section{padding:96px 107.52px!important}
-  .story-content h2{font-size:clamp(44px,153.6px,84px)!important}
-}
-@media (min-width:200000px){
-  .story-section{padding:80px 107.52px!important;min-height:auto!important}
-  .story-content h2{font-size:clamp(34px,184.32px,52px)!important;line-height:.92!important}
-  .story-text p{font-size:14px!important}
-  .split{gap:26px!important}
-  .text-link{font-size:12px!important}
-}
+
+
 
 /* ===== ABOUT ===== */
-@media (min-width:200000px){
-  .desk-story{display:block!important;min-height:auto!important}
-  .about-illustration{left:-153.6px!important;width:1843.2px!important;height:368px!important;top:40px!important;bottom:auto!important;transform:scale(1)!important}
-  .about-copy{margin:0!important;width:auto!important;padding:432px 107.52px 64px!important}
-  .about-copy h2{font-size:clamp(46px,168.96px,72px)!important}
-}
-@media (min-width:200000px){
-  .about-illustration{height:336px!important;top:32px!important}
-  .about-copy{padding:384px 92.16px 64px!important}
-  .about-copy h2{font-size:clamp(40px,199.68px,56px)!important;line-height:.9!important}
-  .about-copy>p{font-size:14px!important}
-  .about-person{transform:scale(.72)!important;transform-origin:center bottom!important}
-  .about-laptop{transform:scale(.68)!important;transform-origin:center bottom!important}
-  .about-window{transform:scale(.7)!important;transform-origin:top left!important}
-  .floating-paper{display:none!important}
-  .skill-list{gap:6px!important;margin-top:22px!important}
-  .skill-list span{font-size:8px!important;padding:6px 9px!important}
-}
+
+
 
 /* ===== WORK ===== */
-@media (min-width:200000px){
-  .work-heading{flex-direction:row!important;align-items:end!important}
-  .work-tip{font-size:16px!important}
-}
-@media (min-width:200000px){
-  .project-grid{grid-template-columns:1fr 1fr!important;gap:14px!important}
-}
-@media (min-width:200000px){
-  .work-section{padding:80px 92.16px 72px!important}
-  .work-heading{flex-direction:column!important;align-items:flex-start!important;gap:10px!important;margin-bottom:30px!important}
-  .work-heading h2{font-size:clamp(42px,215.04px,60px)!important}
-  .work-tip{display:none!important}
-  .project-grid{grid-template-columns:1fr!important;gap:20px!important}
-  .project-card .project-art{height:200px!important;min-height:200px!important;max-height:200px!important}
-  .project-card .project-meta h3{font-size:15px!important}
-  .project-card .project-meta span{font-size:9px!important}
-  .project-card>p{font-size:12px!important}
-  .custom-work{flex-direction:column!important;align-items:flex-start!important;gap:16px!important;padding:24px!important;margin-top:40px!important}
-  .custom-work h3{font-size:24px!important}
-  .custom-work a{font-size:13px!important}
-}
+
+
+
 
 /* ===== APPROACH ===== */
-@media (min-width:200000px){
-  .approach-section{min-height:auto!important;padding:112px 122.88px!important}
-  .approach-orbit{width:1843.2px!important;height:1843.2px!important;opacity:.35!important}
-  .orbit-two{width:1259.52px!important;height:1259.52px!important}
-  .approach-center h2{font-size:clamp(52px,199.68px,78px)!important}
-}
-@media (min-width:200000px){
-  .approach-section{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;gap:26px!important;padding:112px 122.88px 80px!important}
-  .approach-section .approach-center{order:-1!important;z-index:6!important}
-  .approach-section .process{position:static!important;width:100%!important;max-width:320px!important;text-align:center!important;align-items:center!important;z-index:6!important}
-  .approach-orbit{width:2304px!important;height:2304px!important;opacity:.25!important}
-  .orbit-two{width:1474.56px!important;height:1474.56px!important}
-}
+
+
 
 /* ===== CONTACT ===== */
-@media (min-width:200000px){
-  .contact-section{grid-template-columns:1fr!important;gap:34px!important;padding:104px 107.52px 56px!important}
-  .contact-left{width:100%!important}
-  .contact-left h2{font-size:clamp(52px,168.96px,80px)!important}
-  .contact-form{width:100%!important;max-width:none!important}
-}
-@media (min-width:200000px){
-  .contact-section{display:flex!important;flex-direction:column!important;gap:32px!important;padding:96px 92.16px 48px!important;min-height:auto!important}
-  .contact-left h2{font-size:clamp(44px,245.76px,64px)!important;line-height:.82!important}
-  .contact-note{font-size:14px!important}
-  .contact-icon-button{width:48px!important;height:48px!important}
-  .contact-svg{width:20px!important;height:20px!important}
-  .contact-form{padding:22px!important}
-  .contact-form label{font-size:9px!important;margin-bottom:18px!important}
-  .contact-form input,.contact-form textarea{width:100%!important;font-size:14px!important;padding:12px 10px!important;box-sizing:border-box!important}
-  .contact-form button{width:100%!important;padding:16px 14px!important;font-size:12px!important}
-  .contact-character{display:none!important}
-  .contact-section footer{position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;margin-top:26px!important;gap:10px!important;flex-wrap:wrap!important}
-}
+
+
 
 /* ===== MODAL ===== */
-@media (min-width:200000px){
-  .modal{padding:48px 92.16px!important}
-}
-@media (min-width:200000px){
-  .modal{align-items:start!important;overflow-y:auto!important;padding:72px 76.8px 48px!important}
-  .modal-inner{width:100%!important;max-width:100%!important;overflow-y:auto!important;max-height:none!important}
-  .modal h2{font-size:clamp(34px,184.32px,52px)!important}
-  .modal-close{top:6px!important;right:6px!important;width:40px!important;height:40px!important;font-size:22px!important}
-  .modal-tags span{font-size:8px!important;padding:5px 8px!important}
-}
+
+
 
 /* ============ PROJECT IMAGES ============ */
 .project-art .project-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:5}
@@ -6436,7 +5570,7 @@ textarea{resize:vertical}
 .modal-placeholder{position:relative}
 .modal-placeholder.has-photo{background:#1b1a16}
 .modal-placeholder .modal-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
-@media (min-width:200000px){.modal-placeholder{height:220px!important}}
+
 .project-card .project-name{position:absolute;left:0;bottom:0;z-index:6;font-family:var(--hand);font-size:22px;letter-spacing:.02em;text-transform:uppercase;color:var(--cream);background:rgba(8,8,5,.72);padding:6px 12px;border-top-right-radius:8px;max-width:calc(100% - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .project-card .project-count{position:absolute;top:10px;right:10px;z-index:6;font-size:9px;letter-spacing:.16em;font-weight:700;color:#0b0a08;background:var(--yellow);padding:5px 8px;border-radius:4px}
 .modal-thumbs{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
@@ -6446,16 +5580,13 @@ textarea{resize:vertical}
 .modal-thumbs .modal-thumb:hover img{opacity:1}
 .modal-thumbs .modal-thumb.active{border-color:var(--yellow);outline:1px solid var(--yellow)}
 .modal-thumbs .modal-thumb.active img{opacity:1}
-@media (min-width:200000px){.modal-thumbs .modal-thumb{width:70px;height:50px}}
+
 /* ============ PROJECT GRID (all images together) ============ */
 .modal-grid .mg-group{display:flex;flex-direction:column;gap:10px;margin-top:18px}
 .modal-grid .mg-group:first-child{margin-top:0}
 .modal-grid .mg-label{color:var(--yellow);font-size:24px;letter-spacing:.04em;margin:0;text-transform:uppercase}
 .modal-grid .mg-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
-@media (min-width:200000px){
-  .modal-grid .mg-row{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
-  .modal-grid .mg{height:120px}
-}
+
 .modal-grid .mg{width:100%;height:150px;object-fit:cover;display:block;cursor:zoom-in;border:1px solid rgba(63,59,49,.6);transition:transform .3s,box-shadow .3s;background:#1b1a16}
 .modal-grid .mg:hover{transform:translateY(-4px);box-shadow:6px 8px 0 rgba(0,0,0,.35)}
 .modal-zoom{position:fixed;inset:0;z-index:2000;background:#080806;display:grid;grid-template-columns:245.76px minmax(0,1fr) 245.76px;align-items:center;justify-items:center;gap:12px;padding:48px 61.44px;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -6472,10 +5603,7 @@ textarea{resize:vertical}
 .modal-zoom .zoom-prev,.modal-zoom .zoom-next{width:100%;height:416px;padding:0;border:0;background:none;cursor:pointer;overflow:hidden;filter:blur(12px) brightness(.5) saturate(.9);opacity:.75;transition:filter .35s,opacity .35s,transform .35s}
 .modal-zoom .zoom-prev:hover,.modal-zoom .zoom-next:hover{filter:blur(4px) brightness(.9);opacity:1;transform:scale(1.03)}
 .modal-zoom .zoom-prev img,.modal-zoom .zoom-next img{width:100%;height:100%;object-fit:cover;display:block;margin:0;animation:none}
-@media (min-width:200000px){
-  .modal-zoom{grid-template-columns:199.68px minmax(0,1fr) 199.68px;gap:8px;padding:32px 30.72px}
-  .modal-zoom .zoom-prev,.modal-zoom .zoom-next{height:272px}
-}
+
 .project-photo.zoom-thumb{transform:scale(1.2);transform-origin:center}
 .mg-pair{position:relative;cursor:pointer;overflow:hidden}
 .mg-pair img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#1b1a16;transition:opacity .35s,transform .45s}
@@ -6496,16 +5624,10 @@ textarea{resize:vertical}
 .zoom-pdf b{font-size:10px;letter-spacing:.16em;color:#a89f8d;font-weight:600}
 .modal-zoom.pair{display:flex;flex-wrap:wrap;gap:22px;justify-content:center}
 .modal-zoom.pair img{max-width:675.84px;max-height:640px}
-@media (min-width:200000px){
-  .modal-zoom.pair{flex-direction:column;gap:14px}
-  .modal-zoom.pair img{max-width:1259.52px;max-height:none}
-}
+
 .modal{overflow-y:auto;-webkit-overflow-scrolling:touch}
 .modal-inner{margin:auto}
-@media (min-width:200000px){
-  .modal{display:block!important;padding:56px 76.8px 48px!important}
-  .modal-inner{overflow:visible!important}
-}
+
 
 /* Contact character: grounded right at the section's bottom edge so no empty gap remains. */
 .contact-character{
@@ -6514,13 +5636,8 @@ textarea{resize:vertical}
   bottom:-14px!important;
   transition:transform .72s cubic-bezier(.2,.82,.25,1)!important;
 }
-@media (min-width:200000px){
-  .contact-section{padding-bottom:64px!important}
-}
-@media (min-width:200000px){
-  .contact-character{bottom:-10px!important}
-  .contact-section{padding-bottom:40px!important}
-}
+
+
 
 /* Freeze all transitions briefly while the window is resized/minimized/maximized,
    so nothing animates (including the character's head/arms) during the resize.
@@ -6612,10 +5729,145 @@ html.is-resizing .scene-hero .room-copy .hero-sub{
   width:max-content!important;
 }
 html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
+/* =========================================================
+   MOBILE / TABLET REFLOW (<=820px)
+   These devices get genuine device-width reflow: native pinch and
+   native scrolling, no CSS zoom, no 1536px canvas. The typography
+   uses the same --hand / --sans stacks as desktop — only the sizes
+   and the column layout change to fit the width.
+   ========================================================= */
+@media (max-width:820px){
+
+  html,body{max-width:100%!important;overflow-x:hidden!important}
+  img,video,canvas{max-width:100%!important;height:auto}
+  main > section[id]{scroll-margin-top:70px}
+
+  /* NAV */
+  .site-nav{height:60px;padding:0 18px}
+  .brand{font-size:22px}
+  .site-nav nav{gap:16px;font-size:9px;letter-spacing:.14em}
+
+  /* HERO — keep the room, restack the copy above the desk */
+  .scene,.scene-hero{height:640px;min-height:640px}
+  .window{left:16px;top:84px;width:112px;height:130px;border-width:5px}
+  .wall-note{font-size:16px;line-height:1.1}
+  .note-left{left:16px;top:170px}
+  .note-right{display:none!important}
+  .scene-hero .room-copy{
+    left:20px;right:20px;width:auto;max-width:none;top:auto;
+    bottom:250px;transform:none;
+  }
+  .scene-hero .room-copy .eyebrow{white-space:normal;font-size:16px;margin:0 0 12px 2px;letter-spacing:0}
+  .scene-hero .room-copy h1{
+    white-space:normal;
+    font-size:clamp(46px,13.5vw,74px);
+    line-height:.85;
+    margin:0 0 16px;
+  }
+  .scene-hero .room-copy .hero-sub{
+    white-space:normal;max-width:none;font-size:10px;
+    letter-spacing:.12em;line-height:1.7;
+  }
+  .scene-hero .moon-control{right:16px;top:78px;width:72px;height:72px}
+  .scene-hero .moon-instruction{display:none!important}
+
+  .desk-scene{height:250px;min-height:250px}
+  .desk{height:28%}
+  .scene-hero .character{
+    left:34%;bottom:6%;width:210px;height:270px;
+    transform:scale(.55);transform-origin:50% 100%;
+  }
+  .scene-hero .laptop{left:52%;bottom:10%;transform:scale(.52);transform-origin:50% 100%}
+  .scene-hero .plant{left:70%;bottom:12%;transform:scale(.7);transform-origin:50% 100%}
+  .hero-scroll-text{
+    left:20px!important;bottom:18px!important;
+    font-size:14px!important;opacity:.85!important;
+    display:block!important;
+  }
+
+  /* STORY */
+  .story-section{min-height:auto;padding:96px 22px 120px}
+  .story-number{top:60px;right:22px}
+  .split{grid-template-columns:1fr;gap:38px}
+  .story-content h2{font-size:clamp(40px,12vw,64px);line-height:.9}
+  .scribble-arrow{bottom:22px}
+
+  /* ABOUT */
+  .desk-story{min-height:auto;display:block;padding:20px 0 0}
+  .about-illustration{
+    position:relative;left:auto;right:auto;bottom:auto;
+    width:auto;height:300px;margin:0 10px;
+    border-radius:26px 26px 0 0;
+  }
+  .about-copy{margin-left:0;width:100%;padding:40px 22px 56px}
+  .about-copy h2{font-size:clamp(42px,12vw,64px);line-height:.88}
+  .floating-paper{display:none!important}
+
+  /* WORK */
+  .work-section{min-height:auto;padding:88px 18px 60px}
+  .work-heading{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:30px}
+  .work-heading h2{font-size:clamp(40px,12vw,64px)}
+  .work-heading .work-tip{text-align:left}
+  .project-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .project-art{height:190px}
+  .project-meta{grid-template-columns:24px 1fr 20px}
+  .custom-work{flex-direction:column;align-items:flex-start;gap:14px;padding:22px 18px}
+  .custom-work h3{font-size:24px}
+
+  /* APPROACH — orbits hidden, steps stack */
+  .approach-section{min-height:auto;padding:88px 20px 96px;display:flex;flex-direction:column;justify-content:center;gap:24px}
+  .approach-center h2{font-size:clamp(46px,14vw,74px)}
+  .approach-orbit{display:none!important}
+  .process{position:static;width:100%;border-top:1px solid rgba(231,189,85,.16);padding:14px 4px;gap:6px}
+
+  /* CONTACT */
+  .contact-section{min-height:auto;grid-template-columns:1fr;padding:88px 20px 36px;gap:34px}
+  .contact-left h2{font-size:clamp(44px,12vw,64px)}
+  .contact-form{margin:0;padding:26px 20px}
+  .contact-character{
+    position:relative!important;left:auto!important;right:auto!important;
+    top:auto!important;bottom:auto!important;width:320px;height:200px;
+    margin:0 auto;transform:none!important;opacity:1!important;z-index:2!important;
+  }
+  .contact-character .end-person{left:38px;bottom:12%;transform:scale(.82);transform-origin:bottom left}
+  .contact-character .end-laptop{left:176px;bottom:14%;transform:scale(.7);transform-origin:bottom left}
+  .contact-character .end-lamp{right:6px;bottom:16%}
+  .contact-character .end-plant{right:auto;left:230px;bottom:20%}
+  footer{position:static;left:auto;right:auto;bottom:auto;margin:36px 6px 0;padding-top:12px;gap:12px}
+
+  /* MODAL + ZOOM */
+  .modal{padding:18px 12px}
+  .modal-inner{padding:22px 14px;max-height:92vh}
+  .modal h2{font-size:clamp(36px,11vw,60px)}
+  .modal-close{right:12px;top:10px;font-size:32px}
+  .mg-row{grid-template-columns:1fr 1fr;gap:8px}
+  .modal-zoom{grid-template-columns:1fr;padding:14px;gap:10px}
+  .modal-zoom .zoom-prev,.modal-zoom .zoom-next{height:110px}
+  .modal-zoom.pair{flex-direction:column}
+
+  /* During resize the hero stays on the mobile composition. */
+  html.is-resizing .scene-hero .desk-scene{height:250px!important;min-height:250px!important}
+  html.is-resizing .scene-hero .moon-control{right:16px!important;top:78px!important;width:72px!important;height:72px!important;left:auto!important}
+  html.is-resizing .scene-hero .moon-instruction{display:none!important}
+  html.is-resizing .scene-hero .room-copy{left:20px!important;right:20px!important;top:auto!important;bottom:250px!important;width:auto!important;max-width:none!important;transform:none!important}
+  html.is-resizing .scene-hero .room-copy h1{white-space:normal!important;font-size:clamp(46px,13.5vw,74px)!important}
+  html.is-resizing .scene-hero .room-copy .hero-sub{max-width:none!important}
+  html.is-resizing .scene-hero .character{left:34%!important;bottom:6%!important;width:210px!important;height:270px!important;transform:scale(.55)!important;transform-origin:50% 100%!important}
+  html.is-resizing .scene-hero .laptop{left:52%!important;bottom:10%!important;transform:scale(.52)!important;transform-origin:50% 100%!important}
+  html.is-resizing .scene-hero .plant{left:70%!important;bottom:12%!important;transform:scale(.7)!important;transform-origin:50% 100%!important}
+  html.is-resizing .scene-hero .mug{bottom:8%!important;left:44%!important;transform:rotate(-7deg)!important}
+}
 
 /* =========================================================
-/* MOBILE: whole 1536px desktop canvas is uniformly scaled by fit() to the device width */
-
+   SMALL PHONES (<=430px) — finest refinement
+   ========================================================= */
+@media (max-width:430px){
+  .scene-hero .room-copy{bottom:232px}
+  .scene-hero .room-copy h1{font-size:clamp(40px,12vw,64px)}
+  .scene-hero .room-copy .hero-sub{letter-spacing:.1em}
+  .site-nav nav{gap:12px}
+  .project-art{height:170px}
+}
 
 
 </style>
@@ -6626,11 +5878,10 @@ function fit() {
         var isTouch = window.matchMedia && (matchMedia('(pointer:coarse)').matches || matchMedia('(hover:none)').matches);
         var vp = document.getElementById('vp');
         if (isTouch) {
-          // Phones/tablets: lay the exact 1536px desktop canvas out and let the
-          // browser scale it to the device width. No CSS zoom, no font changes,
-          // native scroll.
-          vp.setAttribute('content', 'width=1536, user-scalable=no, viewport-fit=cover');
-          document.documentElement.style.zoom = '1';
+          // Phones/tablets: genuine device-width reflow with native pinch
+          // and native scrolling. No 1536px canvas, no CSS zoom.
+          vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
+          document.documentElement.style.zoom = '';
           document.documentElement.style.minWidth = '';
           document.documentElement.style.minHeight = '';
         } else {
@@ -6950,19 +6201,8 @@ const unlockPage = () => {
 };
 
 
-if (matchMedia('(pointer:fine)').matches) {
-window.addEventListener('wheel', e => {
-  if (!document.body.classList.contains('light-on')) e.preventDefault();
-}, {passive:false});
-window.addEventListener('touchmove', e => {
-  if (!document.body.classList.contains('light-on')) e.preventDefault();
-}, {passive:false});
-window.addEventListener('keydown', e => {
-  if (!document.body.classList.contains('light-on') && ['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key)) e.preventDefault();
-});
-}
-
-
+/* Scroll is never locked behind the lamp: wheel, touch and keyboard
+   input behave normally before and after the lights go on. */
 
 
 window.addEventListener('scroll', () => {
@@ -6970,9 +6210,9 @@ window.addEventListener('scroll', () => {
   document.documentElement.style.setProperty('--scroll', y);
 
 
-  // Hero parallax: the room moves at different speeds.
+// Hero parallax (desktop widths only, so it never fights the mobile reflow).
   const hero = $('.scene-hero');
-  if (hero && y < innerHeight * 1.2) {
+  if (hero && innerWidth >= 900 && y < innerHeight * 1.2) {
     const setT = (sel, t) => { const el = $(sel); if (el) el.style.transform = t; };
     setT('.window', `translateY(${y * .08}px)`);
     setT('.room-copy', `translateY(calc(-50% + ${y * .14}px))`);
@@ -7054,14 +6294,7 @@ lamp.addEventListener('keydown', e => {
 });
 if (lightToggle) lightToggle.addEventListener('click', turnLightsOn);
 
-// On touch devices the page must scroll freely: unlock scroll + lights-on immediately.
-if (matchMedia('(pointer:coarse)').matches || matchMedia('(hover:none)').matches) {
-  const unlockSoon = () => setTimeout(() => {
-    if (!document.body.classList.contains('light-on')) turnLightsOn();
-  }, 120);
-  if (document.readyState !== 'loading') unlockSoon();
-  else window.addEventListener('DOMContentLoaded', unlockSoon);
-}
+// The moon is the only switch for the lights, on every device.
 
 
 // Cursor.
@@ -7429,7 +6662,7 @@ $$('.custom-work a,.text-link').forEach(btn=>{
 });
 
 
-window.addEventListener('load', () => { if (!document.body.classList.contains('light-on')) { document.documentElement.classList.remove('lights-unlocked'); window.scrollTo(0,0); } });
+// No reload-time scroll reset: readers keep their place.
 
 
 // In-page anchors always glide to their target ("SEE WHAT I MAKE" included).
