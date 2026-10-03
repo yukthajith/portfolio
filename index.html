@@ -5408,13 +5408,19 @@ html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
    design keeps its exact desktop coordinates and is reduced by a
    single factor,
 
-       --s = available width / 1536
+       --s    = viewportHeight / 800      one section = one screen
+       --s-ui = viewportWidth / 1536      overlays fitted to the width
 
    applied with transform-origin 0 0. Every position, size, gap,
    radius, image and font is multiplied by the same number, so a
-   phone shows the desktop composition seen from further back.
-   The wrapper carries the scaled height, so the document keeps its
-   normal height and scrolls natively.
+   phone shows the desktop composition seen from closer up.
+
+   The factor is driven by height, not width. The shortest section of
+   the design is 800px tall, so reducing by viewportHeight/800 makes one
+   section exactly one screen. The consequence, which is the whole point
+   of that choice, is that the 1536px-wide design is now WIDER than a
+   phone: the page is read by panning sideways as well as down. The
+   document scrolls natively on both axes and nothing intercepts a touch.
 
    Nothing here re-positions an element, re-sizes a thumbnail or
    changes typography, so there is nothing that can drift out of
@@ -5423,47 +5429,91 @@ html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
    html[data-layout="scaled"] is set by the head script and is the
    single source of truth for when this system is active.
    ========================================================= */
+@media (hover:none),(pointer:coarse),(max-width:860px){
+  /* Caveat, shipped so a phone draws the same handwriting as the desktop
+     instead of falling through to whatever "cursive" it has. Desktop keeps
+     its own installed Caveat: this face is never offered to it, so desktop
+     typography is untouched. Caveat is a variable font; these four files are
+     its unicode ranges. */
+  @font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;
+    src:url('fonts/caveat-1.woff2') format('woff2');
+    unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
+  @font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;
+    src:url('fonts/caveat-2.woff2') format('woff2');
+    unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+  @font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;
+    src:url('fonts/caveat-3.woff2') format('woff2');
+    unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;
+    src:url('fonts/caveat-4.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+}
+
 html[data-layout="scaled"]{
-  --design-w:1536px;
-  --design-h:5466px;
-  --s:1;
+  --design-w:1536px;   /* the desktop design width, the one source of truth */
+  --design-h:5466px;  /* measured from the canvas, never guessed */
+  --s:1;              /* canvas factor: viewportHeight / 800 */
+  --s-ui:1;           /* overlay factor: viewportWidth / 1536 */
+  --design-vw:1536px;
   --design-vh:900px}
+
+/* The document scrolls on both axes. Naming both matters: a `visible` axis
+   beside a `hidden` one is computed back to `auto`, which would quietly make
+   <body> a scroll container again and break native finger scrolling. The
+   width cap of line 24 is lifted here for the same reason: the reduced
+   design is legitimately wider than a phone. */
+/* The document itself must not scroll, and must not grow either: a document
+   wider than a phone widens the LAYOUT VIEWPORT instead of becoming a
+   sideways scroller (measured: innerWidth reported 1500 on a 375px phone),
+   which silently zooms the page out and leaves nothing to pan. */
+html[data-layout="scaled"]{overflow:hidden!important}
 
 /* The document scrolls, not <body>. Both axes are named because a `visible`
    axis next to a `hidden` one is computed back to `auto`, which would quietly
    turn <body> into the scroll container again and stop native finger scroll. */
 html[data-layout="scaled"] body,
-html[data-layout="scaled"] body:not(.light-on){overflow:visible!important}
+html[data-layout="scaled"] body:not(.light-on){
+  overflow:visible!important;max-width:none!important;width:auto!important}
 
-/* the design, reduced */
+/* the design, reduced. Pinned to the screen and given the scroll, on both
+   axes, so it cannot change the layout viewport. It scrolls natively: no
+   touch handler, no wheel handler, nothing to intercept a finger. */
 html[data-layout="scaled"] .design-viewport{
-  position:relative;width:100%;
-  height:calc(var(--design-h) * var(--s));
-  overflow:hidden}
+  position:fixed;left:0;top:0;right:0;bottom:0;
+  width:auto;height:auto;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain}
+/* The canvas keeps its DESIGN size and is only transformed. Giving it a
+   reduced width or height as well would scale it twice, and because its height
+   is what --design-h is measured from, any such rule feeds back into itself
+   and runs away. */
 html[data-layout="scaled"] .design-canvas{
+  position:absolute;left:0;top:0;
   width:var(--design-w);
   transform:scale(var(--s));
   transform-origin:0 0}
 
-/* Viewport-fixed chrome is reduced by the same factor, so the header,
-   the overlay and the grain keep their desktop size and placement
-   instead of switching to phone-specific coordinates. */
+/* an open overlay freezes the reduced design where it stands */
+html[data-layout="scaled"].scroll-locked .design-viewport{overflow:hidden!important}
+
+/* Viewport-fixed chrome is reduced by the WIDTH-fit factor and measured in
+   design units that map exactly onto the viewport, so it covers the screen
+   edge to edge with no letterboxing while its internal design-pixel layout -
+   the 245.76px stage columns, the 48px padding, the 61.44px header padding -
+   stays intact. The header is chrome, not part of the poster, and is treated
+   exactly like the overlays: at desktop size its 411px of brand and links
+   cannot fit a 375px bar, so it is reduced rather than re-laid-out. */
 html[data-layout="scaled"] .site-nav{
-  left:0;top:0;width:var(--design-w);
-  transform:scale(var(--s));transform-origin:0 0}
-html[data-layout="scaled"] .modal,
-html[data-layout="scaled"] .modal-zoom{
   left:0;top:0;right:auto;bottom:auto;
-  width:var(--design-w);height:var(--design-vh);
-  transform:scale(var(--s));transform-origin:0 0}
+  width:var(--design-vw);height:76px;
+  transform:scale(var(--s-ui));transform-origin:0 0}
+html[data-layout="scaled"] .modal,
+html[data-layout="scaled"] .modal-zoom,
 html[data-layout="scaled"] .grain{
   left:0;top:0;right:auto;bottom:auto;
-  width:var(--design-w);height:var(--design-vh);
-  transform:scale(var(--s));transform-origin:0 0}
-
-/* .modal and .modal-zoom are both direct children of <body>, so each one needs
-   the factor on its own; its internal columns are design pixels and must not
-   be re-stated at phone sizes or the image stage collapses. */
+  width:var(--design-vw);height:var(--design-vh);
+  transform:scale(var(--s-ui));transform-origin:0 0}
 
 /* mouse-follow cursors are pointer-only chrome; the standalone `scale`
    property is used so the scripted transform keeps working */
@@ -5473,7 +5523,8 @@ html[data-layout="scaled"] .cursor-ring{scale:var(--s)}
 </style>
   <script>
     (function () {
-      var BASE = 1536;
+      var BASE = 1536;   // the desktop design width
+      var SCENE = 800;   // the shortest section: the basis for one-screen sections
       var root = document.documentElement;
 
       // Phones, tablets and narrow windows get the one scaling system: the
@@ -5496,10 +5547,24 @@ html[data-layout="scaled"] .cursor-ring{scale:var(--s)}
           root.style.zoom = '';
           root.style.minWidth = '';
           root.style.minHeight = '';
-          var avail = root.clientWidth || window.innerWidth || BASE;
-          var s = Math.max(0.2, avail / BASE);
+          // The screen is read from the root element, not from
+          // window.innerWidth/innerHeight. Once the reduced design is wider
+          // than a phone the layout viewport grows to the content and
+          // innerWidth/innerHeight start reporting THAT (measured: 1500x3248
+          // on a 375x812 phone), which would drive the factor away from the
+          // screen. root.clientWidth/clientHeight stay pinned to it.
+          var vw = root.clientWidth || window.innerWidth || BASE;
+          var vh = root.clientHeight ||
+                   (window.visualViewport && window.visualViewport.height) ||
+                   window.innerHeight || BASE;
+          // one section = one screen
+          var s = Math.max(0.2, vh / SCENE);
+          // overlays keep the design's proportions, fitted to the width
+          var sui = Math.max(0.2, vw / BASE);
           root.style.setProperty('--s', String(s));
-          root.style.setProperty('--design-vh', (window.innerHeight / s) + 'px');
+          root.style.setProperty('--s-ui', String(sui));
+          root.style.setProperty('--design-vw', (vw / sui) + 'px');
+          root.style.setProperty('--design-vh', (vh / sui) + 'px');
         } else {
           root.setAttribute('data-layout', 'desktop');
           vp.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
@@ -5528,8 +5593,8 @@ html[data-layout="scaled"] .cursor-ring{scale:var(--s)}
     <a class="brand" href="#home">YUKTHA J<span>.</span></a>
     <nav>
       <a href="#home">HOME</a>
-      <a href="#work">WORK</a>
       <a href="#about">ABOUT</a>
+      <a href="#work">WORK</a>
       <a href="#contact">CONTACT</a>
     </nav>
 
@@ -5828,6 +5893,14 @@ const unlockPage = () => {
    the scaled design is told how tall the design really is. Measured, not
    guessed: if the design's height ever changes, the scroll height follows. */
 const designCanvas = $('.design-canvas');
+const designPort = $('.design-viewport');
+
+/* When the layout is scaled the reduced design scrolls inside
+   .design-viewport; on the desktop the document does. One pair of helpers,
+   so no behaviour has to be written twice or can disagree. */
+const scaledNow = () => document.documentElement.getAttribute('data-layout') === 'scaled';
+const scrollYOf = () => (scaledNow() && designPort ? designPort.scrollTop : window.scrollY);
+
 const syncDesignHeight = () => {
   if (!designCanvas) return;
   document.documentElement.style.setProperty('--design-h', designCanvas.offsetHeight + 'px');
@@ -5836,16 +5909,37 @@ syncDesignHeight();
 if (window.ResizeObserver && designCanvas) new ResizeObserver(syncDesignHeight).observe(designCanvas);
 window.addEventListener('load', syncDesignHeight);
 
+/* In portrait the reduced design is wider than the screen - one screen shows
+   about a quarter of its width - so the hero's focal point can begin off
+   screen: the moon sits at design x 1396..1508, and it is the only way into
+   the work, so a visitor who never drags sideways would never find it. The
+   page therefore opens with the moon in view.
+
+   It runs once, on a position the visitor has not moved yet, and never after
+   that: this is a starting position, not something that follows the user. */
+const openOnHero = () => {
+  if (!scaledNow() || !designPort) return;
+  if (designPort.scrollLeft !== 0 || designPort.scrollTop !== 0) return;
+  const moon = document.getElementById('lamp');
+  if (!moon) return;
+  const scale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--s')) || 1;
+  const max = designPort.scrollWidth - designPort.clientWidth;
+  const want = moon.getBoundingClientRect().right + 20 * scale - designPort.clientWidth;
+  designPort.scrollLeft = Math.max(0, Math.min(max, want));
+};
+openOnHero();
+window.addEventListener('load', openOnHero);
+
 /* Scroll is never locked behind the lamp: wheel, touch and keyboard
    input behave normally before and after the lights go on. */
 
 
-window.addEventListener('scroll', () => {
-  const y = window.scrollY;
+const onScroll = () => {
+  const y = scrollYOf();
   document.documentElement.style.setProperty('--scroll', y);
 
 
-// Hero parallax (desktop widths only, so it never fights the mobile reflow).
+// Hero parallax (desktop widths only, so it never fights the scaled canvas).
   const hero = $('.scene-hero');
   if (hero && innerWidth >= 900 && y < innerHeight * 1.2) {
     const setT = (sel, t) => { const el = $(sel); if (el) el.style.transform = t; };
@@ -5879,7 +5973,12 @@ window.addEventListener('scroll', () => {
       contact.classList.remove('contact-pop');
     }
   }
-}, {passive:true});
+};
+// Registered on both: the document scrolls on desktop, .design-viewport
+// scrolls when the layout is scaled. Only one of them can move at a time,
+// so listening to both cannot double-apply anything.
+window.addEventListener('scroll', onScroll, {passive:true});
+if (designPort) designPort.addEventListener('scroll', onScroll, {passive:true});
 
 
 // Freeze transitions while the window is resized so elements don't animate mid-resize.
@@ -6126,6 +6225,7 @@ $$('.project-card').forEach(card => card.addEventListener('click', () => {
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
   document.body.style.setProperty('overflow', 'hidden', 'important');
+  document.documentElement.classList.add('scroll-locked');
 }));
 
 
@@ -6213,6 +6313,7 @@ function closeModal(){
   document.body.style.removeProperty('overflow');
     document.body.style.removeProperty('overflow-x');
     document.body.style.removeProperty('overflow-y');
+  document.documentElement.classList.remove('scroll-locked');
 }
 $('#modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
@@ -6316,9 +6417,25 @@ $$('a[href^="#"]').forEach(a => {
       if (!document.body.classList.contains('light-on')) turnLightsOn();
       setTimeout(() => {
         // Measured from the rendered box, so the jump lands correctly on the
-        // desktop canvas and on the reduced one alike.
-        const top = target.getBoundingClientRect().top + window.scrollY;
-        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+        // desktop canvas and on the reduced one alike. The horizontal term
+        // centres the section: the reduced design is wider than a phone, and
+        // landing on its left edge would show only its first third.
+        if (scaledNow() && designPort) {
+          // Both rects are post-transform, so the difference is already in
+          // rendered pixels. Centring matters here: the reduced design is
+          // wider than the phone, and landing on its left edge would show a
+          // section's first quarter and nothing else.
+          const canvasBox = designCanvas.getBoundingClientRect();
+          const r = target.getBoundingClientRect();
+          designPort.scrollTo({
+            left: Math.max(0, (canvasBox.width - designPort.clientWidth) / 2),
+            top: Math.max(0, r.top - canvasBox.top),
+            behavior: 'smooth'
+          });
+        } else {
+          const r = target.getBoundingClientRect();
+          window.scrollTo({ top: Math.max(0, r.top + window.scrollY), behavior: 'smooth' });
+        }
       }, 80);
     }
   });
