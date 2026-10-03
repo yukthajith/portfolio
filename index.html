@@ -5399,212 +5399,278 @@ html.is-resizing .scene-hero .room-copy .hero-sub{
 }
 html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
 /* =========================================================
-   MOBILE / TABLET REFLOW (<=820px)
-   These devices get genuine device-width reflow: native pinch and
-   native scrolling, no CSS zoom, no 1536px canvas. The typography
-   uses the same --hand / --sans stacks as desktop — only the sizes
-   and the column layout change to fit the width.
+   RESPONSIVE SYSTEM — one coherent set of rules for phones
+   and tablets. Everything above this point is the desktop
+   design and is left exactly as it is.
+
+   Phones/tablets get real device-width reflow: sections are
+   normal vertical flow, illustration bands are bounded boxes,
+   nothing is scaled with page zoom, and scrolling is native.
    ========================================================= */
-@media (max-width:820px){
 
-  html,body{max-width:100%!important;overflow-x:hidden!important}
+/* These three parts were positioned by inline !important styles,
+   which put them permanently out of reach of any media query.
+   The values are copied over unchanged (so the desktop render is
+   identical) and are now ordinary rules the responsive system
+   below can place along with the rest of the room. */
+.scene-hero .character .arm-a,
+body.light-on .scene-hero .character .arm-a,
+body:not(.light-on) .scene-hero .character .arm-a,
+html.is-resizing .scene-hero .character .arm-a{position:absolute!important;right:-2px!important;left:auto!important;top:50px!important;width:140px!important;height:160px!important;background:none!important;z-index:60!important}
+.scene-hero .character .arm-a,
+body.light-on .scene-hero .character .arm-a,
+body:not(.light-on) .scene-hero .character .arm-a,
+html.is-resizing .scene-hero .character .arm-a{transform:none!important}
+.scene-hero .character .mug,
+body.light-on .scene-hero .character .mug,
+body:not(.light-on) .scene-hero .character .mug,
+html.is-resizing .scene-hero .character .mug{position:absolute!important;left:174px!important;top:153px!important;right:auto!important;bottom:auto!important;width:42px!important;height:42px!important;z-index:80!important;transform:rotate(-4deg)!important}
+.scene-hero .character .palm{position:absolute!important;left:199px!important;top:167px!important;right:auto!important;bottom:auto!important;width:30px!important;height:30px!important;border-radius:50%!important;background:#bda987!important;box-shadow:inset 0 -3px 0 rgba(80,58,37,.2)!important;z-index:95!important}
+
+@media (max-width:860px){
+
+  /* ---------- foundation ----------
+     Sections stop being fixed-height canvases. The body is no
+     longer its own scroll box, so the page scrolls natively. */
+  html{overflow-x:hidden!important}
+  html,body{max-width:100%!important}
+  body,body:not(.light-on){overflow:visible!important}
   img,video,canvas{max-width:100%!important;height:auto}
-  main > section[id]{scroll-margin-top:70px}
+  main > section{min-height:0!important;height:auto!important}
+  main > section[id]{scroll-margin-top:76px}
 
-  /* NAV — full-width bar with room to breathe. The same --sans /
-     --hand stacks from :root are inherited; only sizes change.   */
-  .site-nav{height:72px;padding:0 20px}
-  .site-nav nav{gap:20px;font-size:10px;letter-spacing:.16em}
+  /* ---------- nav ---------- */
+  .site-nav{height:64px;padding:0 18px}
+  .site-nav nav{gap:17px;font-size:10px;letter-spacing:.14em}
+  .site-nav nav a{padding:16px 1px;display:inline-block}
+  .site-nav .brand{padding:16px 0;display:inline-block}
+  .brand{font-size:23px}
 
-  /* HERO — window + moon stay up top, the copy flows as its own
-     band, and the desk sits below it. No absolute overlap, so the
-     name never collides with the character.                       */
-  .scene,.scene-hero{height:680px;min-height:680px}
-  .scene-hero{display:flex;flex-direction:column;justify-content:flex-end}
-  .window{left:18px;top:76px;width:118px;height:138px;border-width:6px}
-  .wall-note{font-size:15px;line-height:1.1}
-  .note-left{left:18px;top:156px}
-  .note-right{display:none!important}
-  .scene-hero .moon-control{right:16px;top:70px;width:84px;height:84px}
-  .scene-hero .moon-instruction{display:none!important}
+  /* ---------- home / hero ----------
+     One column, normal flow, deliberate order:
+     name -> role -> room illustration -> moon -> cue. */
+  .scene,.scene-hero{height:auto!important;min-height:0!important}
+  .scene-hero{
+    display:flex!important;flex-direction:column;align-items:stretch;
+    justify-content:flex-start;padding:88px 22px 34px}
+  .scene-hero .room-copy{order:1}
+  .scene-hero .desk-scene{order:2}
+  .scene-hero .moon-control{order:3}
+  .scene-hero .moon-instruction{order:4}
+  .scene-hero .note-left{order:5}
+  .scene-hero .hero-scroll-text{order:6}
+
   .scene-hero .room-copy{
-    position:relative;top:auto;bottom:auto;left:auto;right:auto;
-    width:auto;max-width:none;margin:0 22px 26px;text-align:left;
-    align-items:flex-start;
-  }
+    position:relative!important;left:auto!important;right:auto!important;
+    top:auto!important;bottom:auto!important;transform:none!important;
+    width:auto!important;max-width:none!important;margin:0!important;padding:0!important;
+    text-align:left;z-index:20}
   .scene-hero .room-copy .eyebrow{
-    white-space:normal;font-size:17px;letter-spacing:.2em;
-    margin:0 0 14px 2px;
-  }
+    display:block!important;width:auto!important;max-width:100%!important;
+    font-size:20px!important;line-height:1.1!important;letter-spacing:.01em!important;
+    white-space:normal!important;margin:0 0 10px!important;opacity:.9!important}
   .scene-hero .room-copy h1{
-    white-space:normal;font-size:clamp(46px,14.5vw,76px);
-    line-height:.88;margin:0 0 16px;
-  }
+    font-size:clamp(44px,13vw,62px)!important;line-height:.86!important;
+    letter-spacing:-.055em!important;white-space:normal!important;margin:0 0 16px!important}
   .scene-hero .room-copy .hero-sub{
-    white-space:normal;max-width:none;font-size:11px;
-    letter-spacing:.12em;line-height:1.8;
-  }
-  .desk-scene{position:relative;left:auto;bottom:auto;width:100%;height:240px;min-height:240px}
-  .desk{height:30%}
+    display:block!important;width:auto!important;max-width:100%!important;margin:0!important;
+    font-size:11.5px!important;line-height:1.75!important;letter-spacing:.1em!important;
+    white-space:normal!important;text-align:center;padding:11px 14px!important}
+
+  /* the room: one bounded illustration band, nothing overlapping */
+  .scene-hero .desk-scene{
+    position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;
+    width:100%!important;max-width:420px;height:250px!important;min-height:0!important;
+    margin:32px auto 0!important}
+  .scene-hero .desk-scene .desk{height:30%!important}
   .scene-hero .character{
-    left:32%;bottom:0;width:210px;height:270px;
-    transform:scale(.42);transform-origin:50% 100%;
-  }
-  .scene-hero .laptop{left:54%;bottom:6%;transform:scale(.45);transform-origin:50% 100%}
-  .scene-hero .plant{left:70%;bottom:9%;transform:scale(.65);transform-origin:50% 100%}
-  .hero-scroll-text{
-    display:block!important;
-    left:22px!important;bottom:18px!important;
-    z-index:80!important;
-    font:500 14px/1 var(--hand)!important;
-    color:#d8c8aa!important;opacity:.85!important;
-  }
+    left:0!important;right:auto!important;bottom:46px!important;
+    width:210px!important;height:250px!important;
+    transform:scale(.6)!important;transform-origin:0% 100%!important}
+  .scene-hero .laptop{
+    left:auto!important;right:88px!important;bottom:42px!important;
+    width:190px!important;height:120px!important;
+    transform:skew(-5deg) scale(.5)!important;transform-origin:100% 100%!important}
+  /* pulled in far enough that the outermost leaves stay inside the band */
+  .scene-hero .plant{
+    left:auto!important;right:26px!important;bottom:46px!important;
+    width:70px!important;height:90px!important;
+    transform:scale(.76)!important;transform-origin:100% 100%!important}
 
-  /* STORY */
-  .story-section{min-height:auto;padding:110px 24px 128px}
-  .story-number{top:56px;right:24px}
-  .split{grid-template-columns:1fr;gap:44px}
-  .story-content h2{font-size:clamp(40px,12.5vw,66px);line-height:.9}
-  .story-text{font-size:16px;line-height:1.95}
-  .scribble-arrow{bottom:20px}
+  /* the moon is a real tap target sitting right under the room */
+  .scene-hero .moon-control{
+    position:relative!important;left:auto!important;right:auto!important;
+    top:auto!important;bottom:auto!important;
+    width:78px!important;height:78px!important;margin:26px auto 0!important}
+  .scene-hero .moon-instruction{
+    display:block!important;position:relative!important;left:auto!important;right:auto!important;
+    top:auto!important;width:auto!important;max-width:270px;min-height:0!important;
+    margin:14px auto 0!important;padding:0 6px;text-align:center!important;
+    transform:none!important;transform-origin:center!important;opacity:1!important;z-index:80!important}
+  .scene-hero .moon-instruction span{
+    font-size:16px!important;line-height:1.35!important;
+    letter-spacing:.03em!important;white-space:normal!important}
+  .scene-hero .moon-arrow{display:none!important}
+  body.light-on .scene-hero .moon-instruction{opacity:0!important;transform:translateY(-6px)!important}
 
-  /* ABOUT — illustration gets the whole row, then the copy gets
-     its own row below. Furniture is rescaled, nothing removed.     */
-  .desk-story{min-height:auto;display:block;padding:24px 0 0}
+  .scene-hero .note-left{
+    position:relative!important;left:auto!important;right:auto!important;
+    top:auto!important;bottom:auto!important;align-self:flex-end;
+    margin:26px 2px 0 0!important;font-size:16px!important;line-height:1.2!important;
+    opacity:.9!important;transform:rotate(-3deg)!important;z-index:20!important}
+  .scene-hero .hero-scroll-text{
+    display:block!important;position:relative!important;left:auto!important;bottom:auto!important;
+    margin:24px auto 0!important;text-align:center;
+    font:500 15px/1 var(--hand)!important;color:#d8c8aa!important;opacity:.8!important;z-index:80!important}
+
+  /* ---------- intro ---------- */
+  .story-section{min-height:0!important;display:block!important;padding:84px 22px 92px!important}
+  .split{grid-template-columns:1fr!important;gap:34px!important}
+  .story-content h2{font-size:clamp(36px,11.2vw,54px)!important;line-height:.92!important}
+  .story-text{font-size:16px!important;line-height:1.85!important}
+  .story-text p+p{margin-top:20px}
+  .text-link{margin-top:26px}
+
+  /* ---------- about ----------
+     Illustration band first, then the copy. The two paper notes
+     get their own gap below the band instead of landing on top
+     of the window or stretching down the whole section. */
+  .desk-story{
+    --ill-h:396px;
+    min-height:0!important;display:flex!important;flex-direction:column;padding:0!important}
   .about-illustration{
-    position:relative;left:auto;right:auto;bottom:auto;
-    width:auto;height:360px;margin:0 12px;
-    border-radius:28px 28px 0 0;
-  }
-  .about-window{left:8%;top:12%;transform:scale(.82);transform-origin:top left}
-  .about-lamp{right:5%;top:10%;transform:scale(.72);transform-origin:top right}
-  .about-person{left:50%;bottom:10%;transform:translateX(-50%) scale(.72);transform-origin:bottom center}
-  .about-laptop{left:56%;bottom:14%;transform:skew(-8deg) scale(.7);transform-origin:bottom left}
-  .desk-story .paper-a{top:30px;left:14px;transform:rotate(-3deg)}
-  .desk-story .paper-b{top:108px;left:auto;right:14px;transform:rotate(4deg)}
-  .about-copy{margin-left:0;width:100%;padding:52px 24px 72px}
-  .about-copy h2{font-size:clamp(44px,13vw,70px);line-height:.88}
-  .about-copy>p{font-size:16px;line-height:1.95;max-width:none}
-  .skill-list{gap:12px;margin-top:36px}
-  .skill-list span{padding:10px 14px;font-size:10px;letter-spacing:.1em}
+    position:relative!important;left:auto!important;right:auto!important;bottom:auto!important;
+    width:calc(100% - 20px)!important;max-width:440px;height:var(--ill-h)!important;
+    margin:32px auto 0!important;border-radius:26px 26px 0 0}
+  .about-window{left:5%!important;top:4%!important;transform:scale(.66)!important;transform-origin:top left!important}
+  .about-person{left:50%!important;bottom:9%!important;transform:translateX(-50%) scale(.72)!important;transform-origin:bottom center!important}
+  .about-laptop{left:auto!important;right:5%!important;bottom:13%!important;transform:skew(-8deg) scale(.58)!important;transform-origin:bottom right!important}
+  .floating-paper{font-size:15px!important;padding:11px 14px!important}
+  .paper-a{top:calc(var(--ill-h) + 46px)!important;bottom:auto!important;left:16px!important;right:auto!important;transform:rotate(-4deg)!important}
+  .paper-b{top:calc(var(--ill-h) + 96px)!important;bottom:auto!important;left:auto!important;right:16px!important;transform:rotate(3deg)!important}
+  .about-copy{margin-left:0!important;width:100%!important;padding:186px 22px 76px!important}
+  .about-copy h2{font-size:clamp(38px,11.6vw,56px)!important;line-height:.9!important}
+  .about-copy>p{font-size:16px!important;line-height:1.85!important;max-width:none!important}
+  .skill-list{gap:10px!important;margin-top:32px!important}
+  .skill-list span{padding:10px 13px!important;font-size:10px!important;letter-spacing:.08em!important}
 
-  /* WORK — one project per row */
-  .work-section{min-height:auto;padding:100px 22px 64px!important}
-  .work-heading{flex-direction:column;align-items:flex-start;gap:14px;margin-bottom:32px}
-  .work-heading h2{font-size:clamp(42px,12.5vw,68px)}
-  .work-heading .work-tip{text-align:left}
-  .project-grid{grid-template-columns:1fr;gap:34px}
-  .project-art{height:clamp(240px,72vw,380px)}
-  .project-meta{grid-template-columns:36px 1fr 28px;gap:12px;padding:18px 0 12px}
-  .project-card>p{font-size:12px;line-height:1.7}
-  .custom-work{flex-direction:column;align-items:flex-start;gap:16px;padding:32px 26px;margin-top:44px}
-  .custom-work h3{font-size:28px}
+  /* ---------- work ---------- */
+  .work-section{min-height:0!important;padding:72px 20px 60px!important}
+  .work-heading{flex-direction:column!important;align-items:flex-start!important;gap:12px!important;margin-bottom:32px!important}
+  .work-heading h2{font-size:clamp(36px,11.4vw,56px)!important;line-height:.88!important}
+  .work-heading .work-tip{text-align:left!important}
+  .project-grid{grid-template-columns:1fr!important;gap:36px!important}
+  .project-art{height:auto!important;aspect-ratio:4/3!important}
+  .project-meta{grid-template-columns:32px 1fr 22px!important;gap:10px!important;padding:16px 0 10px!important}
+  .project-card>p{font-size:12.5px!important;line-height:1.7!important}
+  .custom-work{flex-direction:column!important;align-items:flex-start!important;gap:20px!important;padding:28px 22px!important;margin-top:42px!important}
+  .custom-work h3{font-size:clamp(23px,6.6vw,30px)!important;line-height:1.15!important}
 
-  /* APPROACH — orbits are decorative rings sized for desktop and
-     would swamp a phone, so the steps become one calm column.      */
+  /* ---------- approach ---------- */
   .approach-section{
-    min-height:auto!important;padding:110px 24px 120px!important;
-    display:flex;flex-direction:column;justify-content:center;gap:38px;
-  }
-  .approach-center h2{font-size:clamp(46px,14vw,76px);line-height:.8}
+    min-height:0!important;display:flex!important;flex-direction:column!important;
+    justify-content:flex-start!important;gap:0!important;
+    padding:72px 22px 80px!important;overflow:hidden!important}
   .approach-orbit{display:none!important}
+  .approach-center{position:relative!important;margin:0 0 40px!important;text-align:left}
+  .approach-center h2{font-size:clamp(38px,12vw,58px)!important;line-height:.86!important}
   .process{
-    position:static;width:100%;gap:8px;
-    padding:20px 8px;border-top:1px solid rgba(231,189,85,.16);
-    border-bottom:1px solid rgba(231,189,85,.16);
-  }
-  .process b{font-size:11px}
-  .process strong{font-size:14px}
-  .process span{font-size:13px;line-height:1.7}
+    position:static!important;width:100%!important;gap:8px!important;padding:22px 0!important;
+    border-top:1px solid rgba(231,189,85,.16)!important}
+  .process:last-of-type{border-bottom:1px solid rgba(231,189,85,.16)!important}
+  .process b{font-size:11px!important}
+  .process strong{font-size:15px!important}
+  .process span{font-size:13.5px!important;line-height:1.75!important}
 
-  /* CONTACT — stacked and spaced; the character is a static piece
-     (same single end-person as desktop, just centered).            */
-  .contact-section{min-height:auto;grid-template-columns:1fr;padding:104px 24px 40px;gap:46px}
-  .contact-left h2{font-size:clamp(46px,13.5vw,72px)}
-  .contact-note{font-size:15px;line-height:1.85;max-width:none}
-  .contact-links{gap:16px;margin-top:36px;max-width:none}
-  .contact-links a{padding:12px 0;font-size:11px}
-  .contact-form{margin:0;padding:32px 24px}
+  /* ---------- contact ----------
+     Heading and links, then the form, then the illustration,
+     then the footer — all in normal flow. */
+  .contact-section{
+    min-height:0!important;display:flex!important;flex-direction:column!important;gap:0!important;
+    padding:72px 22px 30px!important;overflow:hidden}
+  .contact-left{max-width:none!important;margin:0 0 42px!important}
+  .contact-left h2{font-size:clamp(38px,11.8vw,58px)!important;line-height:.88!important}
+  .contact-note{font-size:15.5px!important;line-height:1.8!important;max-width:none!important}
+  .contact-links{gap:14px!important;margin-top:28px!important;max-width:none!important}
+  .contact-form{margin:0 0 44px!important;padding:28px 22px!important;align-self:stretch}
+  .contact-form label{font-size:10px!important}
+  .contact-form input,.contact-form textarea{font-size:16px!important}
+  .contact-form textarea{min-height:130px}
+  .contact-form button{min-height:52px!important;font-size:11px!important}
   .contact-character{
     position:relative!important;left:auto!important;right:auto!important;
-    top:auto!important;bottom:0!important;
-    width:min(360px,100%)!important;height:240px!important;margin:6px auto 0!important;
-    transform:translateY(0)!important;opacity:1!important;
-    z-index:2!important;pointer-events:none!important;
-  }
+    top:auto!important;bottom:auto!important;
+    width:100%!important;max-width:320px!important;height:236px!important;margin:0 auto!important;
+    transform:none!important;transform-origin:bottom center!important;
+    opacity:1!important;z-index:2!important;pointer-events:none!important}
   .contact-character .end-person{
-    left:50%!important;right:auto!important;bottom:0!important;
-    transform:translateX(-50%) scale(1.05)!important;
-    transform-origin:bottom center!important;
-  }
+    left:50%!important;right:auto!important;bottom:5%!important;
+    width:180px!important;height:220px!important;
+    transform:translateX(-50%) scale(1)!important;transform-origin:bottom center!important}
   .contact-section.section-in-view .contact-character,
-  .contact-section.contact-pop .contact-character{transform:translateY(0)!important}
+  .contact-section.contact-pop .contact-character,
+  body.light-on .contact-section .contact-character{transform:none!important;opacity:1!important}
   .contact-section footer{
     display:flex!important;position:static!important;left:auto!important;right:auto!important;bottom:auto!important;
-    margin:40px 6px 0;padding-top:16px;gap:16px;flex-wrap:wrap;
-  }
+    margin:40px 0 0!important;padding:18px 0 0!important;gap:10px 16px!important;
+    flex-wrap:wrap!important;justify-content:space-between!important}
 
-  /* MODAL + ZOOM */
-  .modal{padding:18px 12px}
-  .modal-inner{padding:26px 16px;max-height:92vh;max-width:none}
-  .modal h2{font-size:clamp(36px,11vw,60px)}
-  .modal-close{right:14px;top:10px;font-size:34px}
-  .mg-row{grid-template-columns:1fr 1fr;gap:8px}
-  .modal-zoom{grid-template-columns:1fr;padding:14px;gap:10px}
-  .modal-zoom .zoom-prev,.modal-zoom .zoom-next{height:110px}
-  .modal-zoom.pair{flex-direction:column}
-
-  /* During resize the hero keeps the mobile composition. */
-  html.is-resizing .scene-hero .room-copy{
-    position:relative!important;top:auto!important;bottom:auto!important;
-    left:auto!important;right:auto!important;width:auto!important;
-    max-width:none!important;margin-left:22px!important;margin-right:22px!important;
-  }
-  html.is-resizing .scene-hero .room-copy h1{white-space:normal!important;font-size:clamp(46px,14.5vw,76px)!important}
-  html.is-resizing .scene-hero .room-copy .hero-sub{max-width:none!important}
-  html.is-resizing .scene-hero .desk-scene{height:240px!important;min-height:240px!important}
-  html.is-resizing .scene-hero .moon-control{right:16px!important;top:70px!important;width:84px!important;height:84px!important;left:auto!important}
-  html.is-resizing .scene-hero .moon-instruction{display:none!important}
-  html.is-resizing .scene-hero .character{left:32%!important;bottom:0!important;width:210px!important;height:270px!important;transform:scale(.42)!important;transform-origin:50% 100%!important}
-  html.is-resizing .scene-hero .laptop{left:54%!important;bottom:6%!important;transform:scale(.45)!important;transform-origin:50% 100%!important}
-  html.is-resizing .scene-hero .plant{left:70%!important;bottom:9%!important;transform:scale(.65)!important;transform-origin:50% 100%!important}
+  /* ---------- project modal ---------- */
+  .modal{padding:14px 10px!important}
+  .modal-inner{padding:24px 16px!important;max-height:88vh!important;max-width:none!important}
+  .modal h2{font-size:clamp(28px,9vw,46px)!important}
+  .modal-close{
+    right:6px!important;top:2px!important;font-size:32px!important;
+    min-width:48px!important;min-height:48px!important;
+    display:flex!important;align-items:center!important;justify-content:center!important}
+  .mg-row{grid-template-columns:1fr 1fr!important;gap:8px}
+  .modal-zoom{grid-template-columns:1fr!important;padding:12px!important;gap:10px}
+  .modal-zoom .zoom-prev,.modal-zoom .zoom-next{height:100px!important}
+  .modal-zoom.pair{flex-direction:column!important}
 }
 
-/* =========================================================
-   SMALL PHONES (<=430px) — finest refinement
-   ========================================================= */
-@media (max-width:430px){
-  .site-nav{height:64px;padding:0 14px}
-  .site-nav nav{gap:14px;font-size:9px;letter-spacing:.13em}
-  .brand{font-size:22px}
-  .scene,.scene-hero{height:660px;min-height:660px}
-  .scene-hero .room-copy{margin-left:18px;margin-right:18px}
-  .scene-hero .room-copy h1{font-size:clamp(40px,13.5vw,62px)}
-  .scene-hero .room-copy .hero-sub{letter-spacing:.1em}
-  .wall-note{font-size:14px}
-  .story-section{padding:96px 20px 108px}
-  .about-copy{padding:44px 20px 60px}
-  .about-window{left:7%;top:10%;transform:scale(.7);transform-origin:top left}
-  .desk-story .paper-a{left:10px;top:26px}
-  .desk-story .paper-b{right:10px;top:96px}
-  .work-section{padding:88px 20px 56px!important}
-  .project-art{height:clamp(210px,62vw,280px)}
-  .approach-section{padding:96px 20px 104px!important}
-  .contact-section{padding:92px 20px 32px;gap:40px}
-  .contact-character{height:210px}
+/* ---------- narrow phones (375-390) ----------
+   Same system, smaller steps only — no new layout rules. */
+@media (max-width:400px){
+  .site-nav{height:60px;padding:0 15px}
+  .site-nav nav{gap:14px;font-size:9.5px;letter-spacing:.12em}
+  .brand{font-size:21px}
+  .scene-hero{padding:82px 18px 30px}
+  .scene-hero .room-copy h1{font-size:clamp(41px,12.4vw,52px)!important}
+  .scene-hero .desk-scene{height:236px!important}
+  .scene-hero .character{bottom:44px!important;transform:scale(.56)!important}
+  .scene-hero .laptop{right:84px!important;bottom:40px!important;transform:skew(-5deg) scale(.46)!important}
+  .scene-hero .plant{right:26px!important;bottom:44px!important;transform:scale(.7)!important}
+  .story-section{padding:76px 18px 84px!important}
+  .about-illustration{width:calc(100% - 16px)!important}
+  .about-copy{padding:170px 18px 68px!important}
+  .work-section{padding:64px 16px 52px!important}
+  .approach-section{padding:64px 18px 72px!important}
+  .contact-section{padding:64px 18px 26px!important}
+  .contact-form{padding:24px 18px!important}
 }
+
 
 
 </style>
   <script>
     (function () {
       var BASE = 1536;
+      // Keep in step with the responsive breakpoint in the stylesheet.
+      var MOBILE_QUERY = '(max-width: 860px)';
+function mobileLayout() {
+  // A narrow window counts as a phone/tablet viewport too: without this, a
+  // resized desktop window would stay a 1536px canvas and never pick up the
+  // responsive CSS below 860px.
+  return !!(window.matchMedia && (matchMedia('(pointer:coarse)').matches || matchMedia('(hover:none)').matches || matchMedia(MOBILE_QUERY).matches));
+}
 function fit() {
-        var isTouch = window.matchMedia && (matchMedia('(pointer:coarse)').matches || matchMedia('(hover:none)').matches);
+        var isMobile = mobileLayout();
         var vp = document.getElementById('vp');
-        if (isTouch) {
-          // Phones/tablets: genuine device-width reflow with native pinch
-          // and native scrolling. No 1536px canvas, no CSS zoom.
+        document.documentElement.classList.toggle('is-canvas', !isMobile);
+        if (isMobile) {
+          // Phones, tablets and narrow windows: genuine device-width reflow with
+          // native pinch and native scrolling. No 1536px canvas, no CSS zoom.
           vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
           document.documentElement.style.zoom = '';
           document.documentElement.style.minWidth = '';
@@ -5679,9 +5745,9 @@ function fit() {
           </div>
           <div class="hair-front"></div>
           <div class="body"></div>
-          <div class="arm arm-a" style="position:absolute !important;right:-2px !important;left:auto !important;top:50px !important;width:140px !important;height:160px !important;background:none !important;transform:none !important;z-index:60 !important"><svg viewBox="0 0 140 160" preserveAspectRatio="none"><path d="M86 122 C 98 140, 110 150, 116 148 Q 120 142, 122 134" stroke="#171612" stroke-width="16" fill="none" stroke-linecap="round"/></svg></div><div class="arm arm-b"><svg viewBox="0 0 100 90" preserveAspectRatio="none"><path d="M50 88 C 34 66, 22 50, 18 34 Q 17 26, 19 24" stroke="#171612" stroke-width="16" fill="none" stroke-linecap="round"/><circle cx="19" cy="20" r="17" fill="#bda987"/></svg></div>
-          <div class="mug" aria-hidden="true" style="position:absolute !important;left:174px !important;top:153px !important;right:auto !important;bottom:auto !important;width:42px !important;height:42px !important;z-index:80 !important;transform:rotate(-4deg) !important"><span class="mug-body"></span><i class="steam steam-a"></i><i class="steam steam-b"></i></div>
-        <div class="palm" aria-hidden="true" style="position:absolute !important;left:199px !important;top:167px !important;right:auto !important;bottom:auto !important;width:30px !important;height:30px !important;border-radius:50% !important;background:#bda987 !important;box-shadow:inset 0 -3px 0 rgba(80,58,37,.2) !important;z-index:95 !important"></div>
+          <div class="arm arm-a"><svg viewBox="0 0 140 160" preserveAspectRatio="none"><path d="M86 122 C 98 140, 110 150, 116 148 Q 120 142, 122 134" stroke="#171612" stroke-width="16" fill="none" stroke-linecap="round"/></svg></div><div class="arm arm-b"><svg viewBox="0 0 100 90" preserveAspectRatio="none"><path d="M50 88 C 34 66, 22 50, 18 34 Q 17 26, 19 24" stroke="#171612" stroke-width="16" fill="none" stroke-linecap="round"/><circle cx="19" cy="20" r="17" fill="#bda987"/></svg></div>
+          <div class="mug" aria-hidden="true"><span class="mug-body"></span><i class="steam steam-a"></i><i class="steam steam-b"></i></div>
+        <div class="palm" aria-hidden="true"></div>
         </div>
 
         <div class="laptop">
@@ -5921,8 +5987,6 @@ document.documentElement.style.setProperty('--scroll', '0');
 // The portfolio remains still until the moon is touched.
 const unlockPage = () => {
   document.documentElement.classList.add('lights-unlocked');
-  document.body.style.overflowX = 'hidden';
-  document.body.style.overflowY = 'auto';
 };
 
 
@@ -5937,12 +6001,16 @@ window.addEventListener('scroll', () => {
 
 // Hero parallax (desktop widths only, so it never fights the mobile reflow).
   const hero = $('.scene-hero');
+  const setT = (sel, t) => { const el = $(sel); if (el) el.style.transform = t; };
   if (hero && innerWidth >= 900 && y < innerHeight * 1.2) {
-    const setT = (sel, t) => { const el = $(sel); if (el) el.style.transform = t; };
     setT('.window', `translateY(${y * .08}px)`);
     setT('.room-copy', `translateY(calc(-50% + ${y * .14}px))`);
     setT('.desk-scene', `translateY(${y * .035}px)`);
     setT('.note-right', `translateY(${y * .1}px) rotate(${Math.sin(y/400)*2}deg)`);
+  } else if (hero) {
+    // Narrow viewport: clear any transform left behind by a wider window so a
+    // stale desktop parallax value can never nudge the phone layout.
+    ['.window', '.room-copy', '.desk-scene', '.note-right'].forEach(s => { const el = $(s); if (el) el.style.transform = ''; });
   }
   const contact = $('.contact-section');
   const endCharacter = $('.contact-character');
@@ -5975,9 +6043,12 @@ window.addEventListener('scroll', () => {
 // Freeze transitions while the window is resized so elements don't animate mid-resize.
 let resizeTimer;
 window.addEventListener('resize', () => {
-  document.documentElement.classList.add('is-resizing');
+  // Only the desktop canvas needs pinning mid-resize; a phone layout is
+  // already width-driven, and the desktop pin rules would fight it.
+  const canvas = document.documentElement.classList.contains('is-canvas');
+  document.documentElement.classList.toggle('is-resizing', canvas);
   clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => document.documentElement.classList.remove('is-resizing'), 200);
+  if (canvas) resizeTimer = setTimeout(() => document.documentElement.classList.remove('is-resizing'), 200);
 });
 
 
@@ -6006,7 +6077,6 @@ function turnLightsOn(){
   document.body.classList.add('light-on');
   unlockPage();
   if (lightToggle) lightToggle.querySelector('span:last-child').textContent = 'LIGHTS ON';
-  document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
@@ -6210,7 +6280,7 @@ $$('.project-card').forEach(card => card.addEventListener('click', () => {
   });
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
+  document.body.style.setProperty('overflow', 'hidden', 'important');
 }));
 
 
@@ -6295,7 +6365,7 @@ window.addEventListener('load', () => {
 function closeModal(){
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  document.body.style.overflow='';
+  document.body.style.removeProperty('overflow');
 }
 $('#modalClose').addEventListener('click',closeModal);
 modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
