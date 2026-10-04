@@ -5444,12 +5444,26 @@ html.is-resizing .scene-hero .room-copy .eyebrow{display:none!important}
    html[data-layout="scaled"] is set by the head script and is the
    single source of truth for when this system is active.
    ========================================================= */
+/* Caveat, shipped so a phone draws the real handwriting instead of falling
+   through to whatever "cursive" the device happens to have. Verified facts,
+   recorded here so this is not re-litigated:
+
+   - Desktop resolves "Caveat" from the installed font (this machine has it at
+     %LOCALAPPDATA%\Microsoft\Windows\Fonts\Caveat.ttf, per-user scope, NOT in
+     C:\Windows\Fonts and NOT under HKLM - an earlier check that looked only at
+     those two places wrongly concluded it was absent).
+   - The four shipped subsets are metrically identical to that installed file
+     (identical advance width on a real heading), so this face is the same
+     typeface, not a substitute.
+   - It stays inside the phone media query deliberately. Declaring it globally
+     was measured and changes the desktop: an @font-face carrying
+     `font-weight:400 700` makes Chrome instantiate the variable weight axis,
+     where the desktop's system-font match does not, and headings came out
+     1-3px wider - 147 desktop differences. Desktop typography is not to be
+     altered, so the face is offered only where the design would otherwise
+     have no Caveat at all. Caveat is a variable font; these four files are its
+   unicode ranges, so a phone fetches only the ranges its text uses. */
 @media (hover:none),(pointer:coarse),(max-width:860px){
-  /* Caveat, shipped so a phone draws the same handwriting as the desktop
-     instead of falling through to whatever "cursive" it has. Desktop keeps
-     its own installed Caveat: this face is never offered to it, so desktop
-     typography is untouched. Caveat is a variable font; these four files are
-     its unicode ranges. */
   @font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;
     src:url('fonts/caveat-1.woff2') format('woff2');
     unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
@@ -5511,8 +5525,14 @@ html[data-layout="scaled"] body:not(.light-on){
    1536px wide by definition and fits the phone whole. */
 html[data-layout="scaled"] .design-viewport{
   position:relative;
-  width:100%;max-width:100%;
+  /* 100vw, not 100%: the wrapper is the scaled background plate, and it must
+     span the screen exactly. Height comes from the design, not the screen, so
+     the background continues past the artwork for as long as the composition
+     needs. --design-h is the real measured canvas height, so this is the
+     composition's own height reduced by the same factor - never a guess. */
+  width:100vw;max-width:100vw;
   height:calc(var(--design-h) * var(--s));
+  background:#050505;
   /* overflow:clip, NOT hidden. Both trim the two About decorations that bleed
      108px past the 1536 artboard - exactly as the desktop viewport trims
      them - but `hidden` also makes this element a scroll container, and a
@@ -5599,7 +5619,13 @@ html[data-layout="scaled"] .cursor-ring{scale:var(--s)}
           // reduced by this same number, which is what keeps the proportions
           // and the relative positions exactly as designed. Because nothing is
           // cropped, there is never anything to swipe sideways to reach.
-          var s = Math.max(0.2, vw / BASE);
+          //
+          // No floor is applied. A clamp such as Math.max(0.2, vw / BASE) is
+          // a lie on a narrow screen: below vw = 307.2 it stops shrinking,
+          // the canvas becomes wider than the screen, and the very horizontal
+          // scrolling this factor exists to prevent comes back. vw / BASE is
+          // exact, so it is used exactly.
+          var s = vw / BASE;
           root.style.setProperty('--s', String(s));
           root.style.setProperty('--design-vh', (vh / s) + 'px');
         } else {
