@@ -7,7 +7,7 @@
   <title>Yuktha J — Graphic Designer</title>
   <style>:root{
   --ink:#17140f;
-  --paper:#d9ccb0; 
+  --paper:#d9ccb0;
   --paper2:#b8a98d;
   --dark:#0b0b09;
   --dark2:#171612;
@@ -5674,7 +5674,13 @@ html[data-layout="mobile"] .m-hero-copy{position:absolute;left:max(20px,env(safe
 @media (min-width:768px){
   html[data-layout="mobile"] .m-hero-copy{left:max(clamp(24px,7vw,130px), env(safe-area-inset-left));right:max(clamp(24px,7vw,130px), env(safe-area-inset-right))}
 }
-html[data-layout="mobile"] .m-hero .character{transform:scale(1.40)!important;transform-origin:100% 100%!important}
+/* The character is enlarged by the same factor as the window (1.90) so it keeps
+   its original proportion to the scene instead of rendering ~26% too small.
+   Anchored from its bottom-right, so the feet stay on the desk and the cradled
+   mug/hands stay at the laptop; the body grows up/left only until it just meets
+   the window's edge (their shapes never overlap), and it is never clipped by the
+   band. Desktop artboard keeps the untransformed 210x250 character. */
+html[data-layout="mobile"] .m-hero .character{transform:scale(1.90)!important;transform-origin:100% 100%!important}
 html[data-layout="mobile"] .m-hero .laptop{transform:skew(-5deg) scale(1.40)!important;transform-origin:0% 50%!important}
 html[data-layout="mobile"] .m-hero .plant{transform:translateX(74px) scale(1.40)!important;transform-origin:50% 100%!important}
 html[data-layout="mobile"] .m-hero .window{top:36px!important;transform:scale(1.90)!important;transform-origin:0 0!important}
