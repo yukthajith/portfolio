@@ -245,7 +245,7 @@ body.light-on .site-nav nav{opacity:1;pointer-events:auto}
 .scene-hero .room-copy h1{
   margin:0 0 22px;
   line-height:.78;
-  font-size:clamp(74px,150.53px,140px);
+  font-size:clamp(74px,150.53px,120px);
   letter-spacing:-.065em;
 }
 .scene-hero .room-copy .hero-sub{
@@ -337,9 +337,9 @@ body.light-on .site-nav nav{opacity:1;pointer-events:auto}
 .scene-hero .wall-note{z-index:4;pointer-events:none;white-space:nowrap}
 .scene-hero .note-left{left:107.52px;top:144px;transform:rotate(-3deg)}
 .scene-hero .note-right{right:107.52px;top:136px;transform:rotate(3deg)}
-.scene-hero .room-copy{z-index:12;top:312px;left:107.52px;width:min(610px,737.28px);max-width:none}
+.scene-hero .room-copy{z-index:12;top:213px;transform:none;left:107.52px;width:min(610px,737.28px);max-width:none}
 .scene-hero .room-copy .eyebrow{position:relative;z-index:14;display:block;width:max-content;max-width:100%;margin:0 0 18px 2px}
-.scene-hero .room-copy h1{position:relative;z-index:13;display:block;margin:0 0 22px;white-space:nowrap}
+.scene-hero .room-copy h1{position:relative;z-index:13;display:block;margin:0 0 38.5px;white-space:nowrap}
 .scene-hero .room-copy .hero-sub{position:relative;z-index:14;display:block}
 .scene-hero .lamp{z-index:30;bottom:calc(34% - 2px);left:64%;cursor:pointer;touch-action:manipulation}
 .scene-hero .lamp::after{content:"";position:absolute;left:57px;bottom:-4px;width:86px;height:12px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(4px);z-index:-1}
@@ -1114,7 +1114,7 @@ body.light-on .scene-hero .arm-b{right:0!important;top:160px!important;transform
 /* Keep the name together as one clear typographic lockup. */
 .scene-hero .room-copy h1{
   white-space:nowrap!important;
-  letter-spacing:-.065em!important;
+  letter-spacing:.03em!important;
 }
 .scene-hero .room-copy h1 span{
   color:var(--yellow)!important;
@@ -5406,14 +5406,15 @@ html.is-resizing .scene-hero .moon-instruction{
   z-index:850!important;
 }
 html.is-resizing .scene-hero .room-copy{
-  top:312px!important;
+  top:213px!important;
+  transform:none!important;
   left:107.52px!important;
   width:min(610px,737.28px)!important;
   max-width:none!important;
   bottom:auto!important;
 }
 html.is-resizing .scene-hero .room-copy h1{
-  font-size:clamp(74px,150.53px,140px)!important;
+  font-size:clamp(74px,150.53px,120px)!important;
   white-space:nowrap!important;
 }
 html.is-resizing .scene-hero .room-copy .hero-sub{
@@ -5609,7 +5610,9 @@ html[data-layout="mobile"] .modal-zoom .zoom-stage{max-width:100%;max-height:100
 
 /* --- HERO: one full screen, the room art at the bottom --- */
 .m-hero{
-  min-height:100vh;min-height:100svh;height:auto;
+  min-height:100vh;min-height:100svh;
+  min-height:max(100svh, calc(365px + 764px * var(--s)));
+  height:auto;
   display:flex;flex-direction:column;justify-content:flex-end;
   padding:92px 20px 36px;overflow:hidden}
 .m-hero-copy{position:relative;z-index:6;max-width:560px;text-align:left}
@@ -5622,7 +5625,7 @@ html[data-layout="mobile"] .modal-zoom .zoom-stage{max-width:100%;max-height:100
    by dividing out the scale (the greeting stays a single instance, on the
    character, above her head). */
 html[data-layout="mobile"] .m-hero .character:before{font-size:calc(17px / var(--s))!important;top:calc(-30px / var(--s))!important}
-.m-h1{font:700 clamp(44px, calc(258px * var(--s)), 116px)/.78 var(--sans);letter-spacing:-.065em;margin:0;color:var(--cream);white-space:nowrap}
+.m-h1{font:700 clamp(36px, calc(210px * var(--s)), 90px)/.78 var(--sans);letter-spacing:.02em;margin:0;color:var(--cream);white-space:nowrap}
 .m-h1 span{font-family:var(--hand);font-weight:700;color:var(--yellow);font-size:.72em}
 /* Subtitle: matches the desktop identity lockup exactly - same font, weight,
    colour, star separator, letter-spacing and the gold pill (border, tinted
@@ -5667,7 +5670,7 @@ html[data-layout="mobile"] .m-hero .character:before{font-size:calc(17px / var(-
    nudged up and enlarged. The late-night "good ideas..." wall note is hidden on
    the phone layout; the "hey, you found me." greeting rides along on the
    character; the moon is never touched. */
-html[data-layout="mobile"] .m-hero-copy{position:absolute;left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));top:calc(262px + env(safe-area-inset-top));margin:0!important}
+html[data-layout="mobile"] .m-hero-copy{position:absolute;left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));top:calc(clamp(205px, calc(100svh - 764px * var(--s) - 160px), 300px) + env(safe-area-inset-top));margin:0!important}
 @media (min-width:768px){
   html[data-layout="mobile"] .m-hero-copy{left:max(clamp(24px,7vw,130px), env(safe-area-inset-left));right:max(clamp(24px,7vw,130px), env(safe-area-inset-right))}
 }
