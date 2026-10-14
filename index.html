@@ -5622,27 +5622,38 @@ html[data-layout="mobile"] .modal-zoom .zoom-stage{max-width:100%;max-height:100
    by dividing out the scale (the greeting stays a single instance, on the
    character, above her head). */
 html[data-layout="mobile"] .m-hero .character:before{font-size:calc(17px / var(--s))!important;top:calc(-30px / var(--s))!important}
-.m-h1{font:700 max(28px, calc(140px * var(--s)))/.78 var(--sans);letter-spacing:-.065em;margin:0;color:var(--cream);white-space:nowrap}
+.m-h1{font:700 clamp(44px, calc(258px * var(--s)), 116px)/.78 var(--sans);letter-spacing:-.065em;margin:0;color:var(--cream);white-space:nowrap}
 .m-h1 span{font-family:var(--hand);font-weight:700;color:var(--yellow);font-size:.72em}
-/* Subtitle: one left-aligned line that scales with the viewport so the two phrases
-   and the star between them never wrap or overflow on narrow phones. The size is
-   capped at the shared 13px; below the cap it is sized to leave ~20% of the copy
-   column (viewport width minus the 20px gutters) as headroom, so the line still
-   fits when a phone substitutes a wider fallback for the Segoe UI stack. */
+/* Subtitle: matches the desktop identity lockup exactly - same font, weight,
+   colour, star separator, letter-spacing and the gold pill (border, tinted
+   gradient, soft shadow). Only the size is tuned responsively so the whole
+   line always fits on one line: below the desktop's 13px cap it shrinks with
+   the viewport, leaving headroom for a phone's fallback sans-serif. */
 .m-sub{
+  display:inline-flex;
+  align-items:center;
+  gap:0;
+  width:max-content;
+  max-width:100%;
+  padding:.77em 1.15em;
+  border:1px solid rgba(231,189,85,.42);
+  border-radius:999px;
+  background:linear-gradient(90deg,rgba(231,189,85,.13),rgba(231,189,85,.035));
+  box-shadow:inset 0 0 0 1px rgba(255,245,210,.04),0 8px 30px rgba(0,0,0,.22),0 0 24px rgba(231,189,85,.08);
   font-family:var(--sans);
   font-weight:700;
-  font-size:clamp(6.5px, calc((100vw - 40px) / 34), 13px);
-  line-height:1.4;
+  font-size:clamp(7px, calc((100vw - 40px) / 34), 13px);
+  line-height:1.3;
   letter-spacing:.13em;
-  color:#a49d8e;
+  color:#f3e8d0;
   margin:16px 0 0;
   text-transform:uppercase;
+  text-shadow:none;
   white-space:nowrap;
   text-align:left;
 }
-.m-sub strong{font-weight:700;color:var(--cream)}
-.m-sub .title-sep{color:var(--yellow);margin:0 .5em}
+.m-sub strong{font-weight:900;color:#f3d47d;letter-spacing:.16em}
+.m-sub .title-sep{color:var(--yellow);padding:0 1em;font-weight:400;font-size:.77em;text-shadow:0 0 12px rgba(231,189,85,.45)}
 .m-hero-art{margin:26px -20px -36px;width:auto}
 /* MOBILE/TABLET-ONLY: enlarge the hero room figures and the two handwritten
    lines ~40% overall (a further ~17% on top of the earlier passes). The room
@@ -5656,7 +5667,10 @@ html[data-layout="mobile"] .m-hero .character:before{font-size:calc(17px / var(-
    nudged up and enlarged. The late-night "good ideas..." wall note is hidden on
    the phone layout; the "hey, you found me." greeting rides along on the
    character; the moon is never touched. */
-html[data-layout="mobile"] .m-hero-copy{margin-bottom:74px!important}
+html[data-layout="mobile"] .m-hero-copy{position:absolute;left:max(20px,env(safe-area-inset-left));right:max(20px,env(safe-area-inset-right));top:calc(262px + env(safe-area-inset-top));margin:0!important}
+@media (min-width:768px){
+  html[data-layout="mobile"] .m-hero-copy{left:max(clamp(24px,7vw,130px), env(safe-area-inset-left));right:max(clamp(24px,7vw,130px), env(safe-area-inset-right))}
+}
 html[data-layout="mobile"] .m-hero .character{transform:scale(1.40)!important;transform-origin:100% 100%!important}
 html[data-layout="mobile"] .m-hero .laptop{transform:skew(-5deg) scale(1.40)!important;transform-origin:0% 50%!important}
 html[data-layout="mobile"] .m-hero .plant{transform:translateX(74px) scale(1.40)!important;transform-origin:50% 100%!important}
