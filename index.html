@@ -31,7 +31,7 @@ body.light-on{--dark:#15140f;--dark2:#242018}
 a{color:inherit;text-decoration:none}
 button,input,textarea{font:inherit}
 button{cursor:pointer}
-.grain{position:fixed;inset:-50%;z-index:1000;pointer-events:none;opacity:.075;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");transform:rotate(4deg);animation:grain .18s steps(2) infinite}
+.grain{position:fixed;inset:-50%;z-index:1000;pointer-events:none;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");transform:rotate(4deg);animation:grain .18s steps(2) infinite}
 @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(2%,-1%)}50%{transform:translate(-1%,2%)}75%{transform:translate(1%,1%)}100%{transform:translate(-2%,-1%)}}
 .cursor-dot,.cursor-ring{position:fixed;pointer-events:none;z-index:1200;display:none}
 @media (pointer:fine){.cursor-dot{display:block;width:5px;height:5px;background:var(--yellow);border-radius:50%;transform:translate(-50%,-50%)}.cursor-ring{display:block;width:32px;height:32px;border:1px solid rgba(231,189,85,.5);border-radius:50%;transform:translate(-50%,-50%);transition:width .2s,height .2s}}
@@ -40,14 +40,14 @@ button{cursor:pointer}
 .brand span{color:var(--yellow)}
 .site-nav nav{display:flex;gap:34px;font-size:11px;letter-spacing:.18em}
 .site-nav nav a{position:relative}
-.site-nav nav a:after{content:"";position:absolute;left:0;bottom:-7px;width:0;height:1px;background:var(--yellow);transition:.3s}
+.site-nav nav a:after{content:"";position:absolute;left:0;bottom:-7px;width:0;height:2px;background:var(--yellow);transition:.3s}
 .site-nav nav a:hover:after{width:100%}
 .light-toggle{border:1px solid var(--line);background:rgba(0,0,0,.25);color:var(--cream);padding:9px 12px;border-radius:100px;display:flex;align-items:center;gap:8px;font-size:9px;letter-spacing:.16em}
 .switch-dot{width:7px;height:7px;border-radius:50%;background:#4e4b42;box-shadow:0 0 0 transparent;transition:.3s}
 body.light-on .switch-dot{background:var(--yellow);box-shadow:0 0 16px var(--yellow)}
 .scene{min-height:800px;position:relative;overflow:hidden}
-.scene-hero{background:radial-gradient(circle at 62% 58%,rgba(102,91,65,.25),transparent 30%),linear-gradient(#070705,#11100d 70%,#191610)}
-.scene-hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 20%,rgba(0,0,0,.7) 100%)}
+.scene-hero{background:radial-gradient(circle at 62% 58%,rgba(102,91,65,.0),transparent 30%),linear-gradient(#070705,#11100d 70%,#191610)}
+.scene-hero:after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.85) 100%)}
 .stars{position:absolute;inset:0;opacity:.55;background-image:radial-gradient(circle at 15% 25%,#fff 0 1px,transparent 1.5px),radial-gradient(circle at 33% 13%,#fff 0 1px,transparent 1.5px),radial-gradient(circle at 79% 19%,#fff 0 1px,transparent 1.5px),radial-gradient(circle at 86% 35%,#fff 0 1px,transparent 1.5px);background-size:220px 180px,280px 210px,330px 240px,250px 190px}
 .window{position:absolute;left:107.52px;top:112px;width:150px;height:180px;border:7px solid #12120f;box-shadow:inset 0 0 0 1px #302b20,0 20px 60px #000;background:#050706}
 .window:before,.window:after{content:"";position:absolute;background:#29261d}
@@ -59,7 +59,7 @@ body.light-on .switch-dot{background:var(--yellow);box-shadow:0 0 16px var(--yel
 .room-copy{position:absolute;z-index:5;left:122.88px;top:344px;transform:translateY(-50%);max-width:570px}
 .handwritten,.eyebrow{font-family:var(--hand);font-size:23px;color:#c5b79b}
 .room-copy h1{font-size:clamp(70px,184.32px,160px);line-height:.72;letter-spacing:-.06em;margin:18px 0 28px;font-weight:700;color:#f0e6d0;text-shadow:0 5px 0 #211d16}
-.room-copy h1 span{color:var(--yellow);font-family:var(--hand);font-size:.8em}
+.room-copy h1 span:not(.nm){color:var(--yellow);font-family:var(--hand);font-size:.8em}
 .hero-sub{font-size:15px;line-height:1.7;color:#aaa08e;max-width:400px}
 .scroll-cue{display:inline-flex;align-items:center;gap:18px;margin-top:28px;font-family:var(--hand);font-size:20px;color:#e5d6b8}
 .scroll-cue b{font-family:var(--sans);font-size:25px;font-weight:400;animation:bob 1.3s infinite}
@@ -87,7 +87,7 @@ body.light-on .switch-dot{background:var(--yellow);box-shadow:0 0 16px var(--yel
 .lamp-base{position:absolute;left:64px;bottom:10px;width:72px;height:8px;background:#11100e;border-radius:50%}
 .lamp-glow{position:absolute;left:-115px;top:5px;width:280px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(231,189,85,.26),transparent 65%);filter:blur(10px);opacity:0;transition:.6s}
 body.light-on .lamp-glow{opacity:1}
-body.light-on .scene-hero:after{background:radial-gradient(ellipse at 63% 58%,transparent 0 16%,rgba(0,0,0,.72) 50%,rgba(0,0,0,.85) 100%)}
+body.light-on .scene-hero:after{background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.85) 100%)}
 .plant{position:absolute;z-index:7;left:67%;bottom:23%;width:70px;height:90px}.plant div{position:absolute;bottom:0;left:13px;width:45px;height:35px;background:#171b13;border-radius:5px 5px 12px 12px}.plant span{position:absolute;bottom:28px;left:32px;width:18px;height:65px;border-radius:100% 0;background:#273222;transform-origin:bottom}.plant span:nth-child(1){transform:rotate(-36deg)}.plant span:nth-child(2){transform:rotate(2deg)}.plant span:nth-child(3){transform:rotate(40deg)}.plant span:nth-child(4){transform:rotate(70deg)}
 .hero-bottom{position:absolute;bottom:28px;left:122.88px;right:122.88px;z-index:12;display:flex;align-items:center;gap:18px;font-size:9px;letter-spacing:.2em;color:#777064}.hero-bottom .line{height:1px;background:#4b4437;flex:1}
 .story-section{min-height:800px;position:relative;padding:120px 138.24px;display:flex;align-items:center}.story-section.dark{background:#0e0e0c}
@@ -109,20 +109,25 @@ body.light-on .scene-hero:after{background:radial-gradient(ellipse at 63% 58%,tr
 .about-copy{position:relative;z-index:10;margin-left:798.72px;width:583.68px;padding:80px 61.44px 80px 30.72px}.big-hand{font:500 clamp(24px,46.08px,45px) var(--hand);color:#5b4c38}.about-copy h2{font-size:clamp(50px,92.16px,90px);line-height:.82;letter-spacing:-.07em;margin:25px 0}.about-copy h2 span{font-family:var(--hand);color:#5d7154}.about-copy>p{font-size:16px;line-height:1.8;max-width:470px;color:#4f493f}.skill-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}.skill-list span{border:1px solid rgba(23,20,15,.35);padding:8px 11px;font-size:9px;letter-spacing:.12em}
 .floating-paper{position:absolute;background:#eee0bd;padding:16px 20px;font-family:var(--hand);font-size:18px;box-shadow:8px 10px 0 rgba(35,28,20,.12);z-index:4}.paper-a{top:16%;right:6%;transform:rotate(5deg)}.paper-b{bottom:10%;left:7%;transform:rotate(-7deg)}
 .work-section{background:linear-gradient(to bottom,var(--paper) 0%,#d8c9aa 94%,#b6a486 100%);color:var(--ink);min-height:800px;padding:104px 107.52px 72px;position:relative;isolation:isolate}.work-section:before{content:"";position:absolute;z-index:0;left:0;right:0;top:-80px;height:112px;background:linear-gradient(to bottom,transparent,var(--paper));pointer-events:none}.work-section > *{position:relative;z-index:1}.work-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:50px}.work-heading h2{font-size:clamp(52px,107.52px,100px);line-height:.8;letter-spacing:-.06em;margin:15px 0 0}.work-heading h2 span{color:#9d6e25}.work-tip{text-align:right;font:20px var(--hand);color:#6d6251}
-.project-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.project-card{cursor:pointer}.project-art{height:310px;position:relative;overflow:hidden;border:1px solid rgba(23,20,15,.55);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}.project-card:hover .project-art{transform:translateY(-12px) rotate(-1deg);box-shadow:12px 18px 0 rgba(23,20,15,.12)}.project-meta{display:grid;grid-template-columns:32px 1fr 25px;align-items:center;border-bottom:1px solid rgba(23,20,15,.35);padding:13px 0 8px}.project-meta span,.project-meta b{font-size:10px}.project-meta h3{margin:0;font-size:15px}.project-card>p{font-size:10px;color:#756a58;line-height:1.5}
-/* ===== WORK THUMBNAILS (code-drawn SVG symbols, shared by desktop + mobile) ===== */
-.project-art.tw{position:relative;border-color:rgba(58,48,30,.30);background:#e9dfc8}
-.project-art.tw .tw-svg{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2}
-.project-art.tw:before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;opacity:.14;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='150' height='150' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");background-size:150px 150px}
-.project-art.tw:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(140% 100% at 50% 30%,transparent 60%,rgba(40,32,18,.10))}
-.project-art.tw.tw-logo{background:radial-gradient(130% 120% at 34% 8%,#fdfaf3,#f1e9d9 66%,#e7ddc7)}
-.project-art.tw.tw-brand{background:radial-gradient(125% 125% at 80% 8%,#8b8f66,#71764f 58%,#5f6542)}
-.project-art.tw.tw-poster{background:radial-gradient(130% 120% at 50% 0,#efe3c6,#e2d2ab 58%,#d6c295)}
-.project-art.tw.tw-poster:before{opacity:.24}
-.project-art.tw.tw-pres{background:repeating-linear-gradient(0deg,rgba(38,33,25,.055) 0 1px,transparent 1px 27px),repeating-linear-gradient(90deg,rgba(38,33,25,.055) 0 1px,transparent 1px 27px),linear-gradient(160deg,#d6cfbd,#c8bfa8)}
-.project-art.tw.tw-campaign{background:radial-gradient(120% 120% at 78% 10%,#3a2f21,#241d14 58%,#160f08);border-color:rgba(199,154,62,.34)}
-.project-art.tw.tw-campaign:before{opacity:.1}
-.project-art.tw.tw-campaign:after{background:radial-gradient(140% 100% at 50% 20%,transparent 55%,rgba(0,0,0,.35))}
+.project-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.project-card{cursor:pointer}.project-art{height:310px;position:relative;overflow:hidden;border:1px solid rgba(23,20,15,.55);transition:transform .38s cubic-bezier(.2,.8,.2,1),box-shadow .38s,filter .38s}.project-meta{display:grid;grid-template-columns:32px 1fr 25px;align-items:center;border-bottom:1px solid rgba(23,20,15,.35);padding:13px 0 8px}.project-meta span,.project-meta b{font-size:10px}.project-meta h3{margin:0;font-size:15px}.project-card>p{font-size:10px;color:#756a58;line-height:1.5}
+/* ===== WORK THUMBNAILS — minimal grunge editorial covers (shared by desktop + mobile) ===== */
+.project-art.tw{position:relative;overflow:hidden;border-color:rgba(23,20,15,.62);background:#e3d8bf;color:#1b160e}
+.project-art.tw:before{content:"";position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.24;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");background-size:160px 160px;filter:contrast(1.15)}
+.project-art.tw:after{content:"";position:absolute;inset:0;z-index:8;pointer-events:none;opacity:.48;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.32' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23p)' opacity='.6'/%3E%3C/svg%3E"),radial-gradient(125% 120% at 50% 40%,transparent 48%,rgba(28,22,12,.38) 100%);background-size:260px 260px,auto;filter:saturate(.96)}
+.project-art.tw .tw-stage{position:absolute;inset:0;z-index:3;container-type:size;overflow:hidden}
+.project-art.tw .tw-print{position:absolute;object-fit:cover;display:block;filter:contrast(1.08) saturate(.96);box-shadow:0 6px 18px rgba(18,12,5,.40)}
+.project-art.tw .tw-slide{position:absolute;z-index:4;aspect-ratio:16/9;height:auto;background:#f2ebda;overflow:hidden;box-shadow:0 10px 20px rgba(30,22,12,.30),0 2px 6px rgba(30,22,12,.18)}
+.project-art.tw .tw-slide>img{width:100%;height:100%;object-fit:cover;display:block}
+/* 01 LOGO DESIGN — dirty paper + inked mark, construction marks, pasted logo studies */
+.project-art.tw.tw-logo{background:radial-gradient(120% 120% at 34% 2%,#ece2c9,#e0d4b8 70%,#d3c6a7)}
+/* 02 BRAND IDENTITY — pasted card artefact + palette + type specimen */
+.project-art.tw.tw-brand{background:radial-gradient(120% 120% at 70% 0,#ebe1c7,#ded2b6 72%,#d1c4a5)}
+/* 03 POSTER & EDITORIAL — pasted b/w print + expressive type */
+.project-art.tw.tw-poster{background:radial-gradient(120% 120% at 50% 0,#e9dfc5,#dcd0b4 74%,#cfc2a2)}
+/* 04 CAMPAIGN — layered taped creatives + rust accents */
+.project-art.tw.tw-campaign{background:radial-gradient(120% 120% at 30% 0,#ece2c9,#ddd1b5 72%,#d0c3a3)}
+/* 05 PRESENTATION — charcoal editorial deck preview */
+.project-art.tw.tw-pres{background:radial-gradient(120% 120% at 50% 4%,#ece2c9,#ded2b6 72%,#d1c4a5)}
 .custom-work{margin-top:55px;border:1px solid rgba(23,20,15,.6);padding:30px 38px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,245,218,.22)}.custom-work h3{font-size:30px;line-height:.9;margin:8px 0 0}.custom-work h3 em{font-family:var(--hand);font-weight:500}.custom-work a{font-family:var(--hand);font-size:25px;border-bottom:2px solid #746448;padding-bottom:5px}.custom-work a span{color:#9b6e23;margin-left:15px}
 .approach-section{min-height:880px;background:linear-gradient(to bottom,#b6a486 0,#4c4335 8%,#171612 19%,#10100d 100%);color:var(--cream);position:relative;overflow:hidden;display:grid;place-items:center;isolation:isolate}.approach-section:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(231,189,85,.08),transparent 35%);pointer-events:none}.approach-section > *{z-index:1}.approach-center{text-align:center;z-index:3}.approach-center h2{font-size:clamp(65px,153.6px,150px);line-height:.78;letter-spacing:-.07em;margin:22px 0}.approach-center h2 em{font-family:var(--hand);color:var(--yellow);font-weight:500}.approach-orbit{position:absolute;border:1px solid rgba(231,189,85,.16);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%)}.orbit-one{width:1044.48px;height:1044.48px;animation:orbit 28s linear infinite}.orbit-two{width:660.48px;height:660.48px;animation:orbit 19s linear infinite reverse}.approach-orbit:before{content:"✦";position:absolute;color:var(--yellow);top:0;left:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;line-height:0;transform:translate(-50%,-50%);font-size:20px}.process{position:absolute;width:170px;display:flex;flex-direction:column;gap:7px;color:#8d8779}.process b{color:var(--yellow);font-size:10px}.process strong{font-size:12px;letter-spacing:.16em;color:#ddd1b9}.process span{font-size:11px;line-height:1.5}.p1{left:8%;top:25%}.p2{right:8%;top:28%}.p3{left:12%;bottom:22%}.p4{right:10%;bottom:19%}
 @keyframes orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
@@ -185,9 +190,9 @@ body.light-on .desk-scene{filter:none;transition:filter 1.2s ease}
 
 
 /* ===== HERO INTERACTION POLISH ===== */
-.scene-hero{background:radial-gradient(circle at 63% 59%,rgba(102,91,65,.28),transparent 27%),linear-gradient(to bottom,#060605 0%,#0a0a08 48%,#11100d 82%,#17140f 100%)}
+.scene-hero{background:radial-gradient(circle at 63% 59%,rgba(102,91,65,0),transparent 27%),linear-gradient(to bottom,#060605 0%,#0a0a08 48%,#11100d 82%,#17140f 100%)}
 .scene-hero:before{content:"";position:absolute;z-index:1;left:0;right:0;bottom:-1px;height:144px;background:linear-gradient(to bottom,rgba(23,20,15,0),#171612);pointer-events:none}
-.scene-hero:after{z-index:2}
+.scene-hero:after{z-index:2;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,.85) 100%)}
 .room-copy,.desk-scene,.window,.wall-note{transition:opacity .9s ease,filter .9s ease}
 @media (min-width:900px){.desk-scene{will-change:transform}}
 .room-copy .eyebrow,.room-copy h1,.room-copy .hero-sub{ text-shadow:0 2px 16px rgba(0,0,0,.75)}
@@ -394,7 +399,7 @@ body:not(.light-on) .site-nav nav{opacity:1!important;pointer-events:auto!import
 
 /* Remove the old section-to-section gradient curtains. */
 .work-section:before,.contact-section:before,.desk-story:before{background:none!important;height:0!important}
-.scene-hero:after{background:radial-gradient(ellipse at center,transparent 18%,rgba(0,0,0,.62) 100%)!important}
+.scene-hero:after{background:none!important}
 
 /* ===== MOON LIGHT AMBIENCE =====
    The moon's warm light is a soft, layered atmospheric glow, not a hard halo.
@@ -866,8 +871,9 @@ main > section + section,
 }
 .scene-hero .moon-core:before{width:11px;height:11px;left:18px;top:22px;box-shadow:23px 14px 0 3px rgba(101,70,31,.10),8px 28px 0 1px rgba(101,70,31,.09)}
 .scene-hero .moon-core:after{width:7px;height:7px;left:39px;top:11px}
-.scene-hero .moon-halo{position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(231,189,85,.18),rgba(231,189,85,0) 68%);filter:blur(8px);opacity:.55;transition:opacity .7s ease}
-.scene-hero .moon-control:hover .moon-core{transform:scale(1.05);box-shadow:0 0 26px rgba(231,189,85,.5),0 0 95px rgba(231,189,85,.2)}
+.scene-hero .moon-halo{position:absolute;inset:-22px;border-radius:50%;background:radial-gradient(circle,rgba(231,189,85,.10),rgba(231,189,85,0) 68%);filter:blur(6px);opacity:.4;transition:opacity .7s ease}
+.scene-hero .moon-control:hover .moon-core{box-shadow:0 0 24px rgba(231,189,85,.5),0 0 80px rgba(231,189,85,.18);transition:box-shadow .25s ease}
+.scene-hero .moon-control:hover .moon-halo{opacity:.85;filter:blur(9px);transition:opacity .25s ease,filter .25s ease}
 .scene-hero .moon-control:focus-visible{outline:1px solid #e7bd55;outline-offset:8px}
 body.light-on .scene-hero .moon-core{box-shadow:0 0 28px rgba(255,220,130,.75),0 0 110px rgba(231,189,85,.34);filter:brightness(1.12)}
 body.light-on .scene-hero .moon-halo{opacity:1}
@@ -1114,9 +1120,15 @@ body.light-on .scene-hero .arm-b{right:0!important;top:160px!important;transform
 /* Keep the name together as one clear typographic lockup. */
 .scene-hero .room-copy h1{
   white-space:nowrap!important;
-  letter-spacing:.03em!important;
+  letter-spacing:0!important;
 }
-.scene-hero .room-copy h1 span{
+/* Even optical spacing: every letter sits on one even rhythm grid. */
+.nm.n1{letter-spacing:-.006em}  /* Y */
+.nm.n2{letter-spacing:-.079em}  /* U */
+.nm.n3{letter-spacing:.066em}   /* K */
+.nm.n4{letter-spacing:-.029em}  /* T */
+.nm.n5{letter-spacing:-.029em}  /* H */
+.scene-hero .room-copy h1 span:not(.nm){
   color:var(--yellow)!important;
   font-family:var(--hand);
   font-size:.82em!important;
@@ -1289,8 +1301,9 @@ body.light-on .scene-hero .moon-core{
     0 0 170px rgba(231,189,85,.18),
     0 0 300px rgba(231,189,85,.075)!important;
 }
-body.light-on .scene-hero .moon-halo{opacity:1!important;transform:scale(1.05)!important}
-.scene-hero .moon-control:hover .moon-core{transform:scale(1.045)!important}
+body.light-on .scene-hero .moon-halo{opacity:1!important}
+.scene-hero .moon-control:hover .moon-core{box-shadow:0 0 24px rgba(231,189,85,.5),0 0 80px rgba(231,189,85,.18)!important;transition:box-shadow .25s ease}
+.scene-hero .moon-control:hover .moon-halo{opacity:.85!important;filter:blur(9px);transition:opacity .25s ease,filter .25s ease}
 
 /* Handwritten callout sitting beside the moon and visibly pointing at it. */
 .moon-instruction{
@@ -1566,7 +1579,8 @@ body.light-on .hero-hi{opacity:1;transform:translateY(0) rotate(-5deg);transitio
 .contact-section .contact-character .end-arm-b{transform:rotate(20deg)!important;transform-origin:85% 50%!important;top:140px!important;right:3px!important}
 
 /* Make the navigation readable even when the moon is glowing behind it. */
-.site-nav nav a{color:var(--cream)!important;text-shadow:0 2px 12px rgba(0,0,0,.9)!important}
+.site-nav nav a{text-shadow:0 2px 12px rgba(0,0,0,.9)!important}
+.site-nav nav a:not(:hover):not(:focus-visible){color:var(--cream)!important}
 .site-nav .brand{position:relative;z-index:1202!important}
 
 
@@ -1683,20 +1697,23 @@ body.light-on .scene-hero .character .mug{left:83px!important;top:154px!importan
 .contact-icon-button{
   width:48px!important;
   height:48px!important;
-  border:0!important;
-  border-radius:0!important;
+  border:1px solid transparent!important;
+  border-radius:50%!important;
   background:transparent!important;
   box-shadow:none!important;
   display:grid!important;
   place-items:center!important;
+  justify-content:center!important;
+  align-content:center!important;
   padding:0!important;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease!important;
 }
 .contact-icon-button:hover,
 .contact-icon-button:focus-visible{
-  border:none!important;
-  background:transparent!important;
-  box-shadow:none!important;
-  transform:scale(1.14)!important;
+  border-color:var(--yellow)!important;
+  background:rgba(231,189,85,.10)!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.35)!important;
+  transform:translateY(-4px) scale(1.08)!important;
 }
 .contact-svg{display:block!important;margin:auto!important;width:22px!important;height:22px!important}
 
@@ -5624,9 +5641,9 @@ html[data-layout="mobile"] .modal-zoom .zoom-stage{max-width:100%;max-height:100
    --s inside the reduced band, so it is held at a readable ~17px on screen
    by dividing out the scale (the greeting stays a single instance, on the
    character, above her head). */
-html[data-layout="mobile"] .m-hero .character:before{font-size:calc(17px / var(--s))!important;top:calc(-30px / var(--s))!important}
-.m-h1{font:700 clamp(36px, calc(210px * var(--s)), 90px)/.78 var(--sans);letter-spacing:.02em;margin:0;color:var(--cream);white-space:nowrap}
-.m-h1 span{font-family:var(--hand);font-weight:700;color:var(--yellow);font-size:.72em}
+html[data-layout="mobile"] .m-hero .character:before{font-size:calc(11px / var(--s))!important;top:calc(-15px / var(--s))!important}
+.m-h1{font:700 clamp(36px, calc(210px * var(--s)), 90px)/.78 var(--sans);letter-spacing:0;margin:0;color:var(--cream);white-space:nowrap}
+.m-h1 span:not(.nm){font-family:var(--hand);font-weight:700;color:var(--yellow);font-size:.72em}
 /* Subtitle: matches the desktop identity lockup exactly - same font, weight,
    colour, star separator, letter-spacing and the gold pill (border, tinted
    gradient, soft shadow). Only the size is tuned responsively so the whole
@@ -5699,7 +5716,7 @@ html[data-layout="mobile"] .m-hero .note-left{display:none!important}
   box-shadow:0 0 22px rgba(255,236,178,.42),0 0 60px rgba(240,203,110,.22),0 0 130px rgba(231,189,85,.10);
   transition:transform .3s ease,box-shadow .8s ease,filter .8s ease;
   -webkit-tap-highlight-color:rgba(231,189,85,.25)}
-.m-moon:active{transform:scale(.93)}
+.m-moon:active{transform:none}
 /* Same craters as the desktop moon (.moon-core), scaled to the 76px disk so the
    phone moon is an exact match of the desktop moon. */
 .m-moon::before{content:"";position:absolute;border-radius:50%;background:rgba(101,70,31,.13);
@@ -6203,7 +6220,7 @@ html:not(.lights-unlocked) .design-canvas {
     /* undergrowth pooling at the base */
     linear-gradient(180deg, rgba(0,0,0,0) 76%, rgba(8,16,11,.85) 90%, #070f0a 100%),
     /* soft, muted moonlit wash — broad, no disc and no halo */
-    linear-gradient(180deg, rgba(196,214,204,.07) 0%, rgba(196,214,204,0) 46%),
+    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 46%),
     /* deep navy-green night sky */
     linear-gradient(180deg, #060b12 0%, #0a1620 40%, #0f1f1b 68%, #0a1611 100%)!important;
 }
@@ -6359,6 +6376,147 @@ html:not(.lights-unlocked) .design-canvas {
    the desktop .contact-section; the phone layout picks this up from the
    base .end-hair-front rule and needs no override here. */
 .contact-section .contact-character .end-hair-front{background:#11100d!important}
+
+/* ===== HOVER & FOCUS — one consistent interaction language across the site.
+   Subtle, shared timing (var(--ui-ease)); colour/opacity read on their own for
+   reduced-motion visitors, and the phone keeps its tap (:active) feedback. ===== */
+:root{--ui-ease:cubic-bezier(.4,0,.2,1);--ui-fast:.22s;--ui-dur:.3s}
+
+/* Shared keyboard focus ring — mouse users get hover, keyboard users get this. */
+a:focus-visible,button:focus-visible,[role="button"]:focus-visible,
+.text-link:focus-visible,.m-link:focus-visible,.m-cta:focus-visible,
+.brand:focus-visible,.site-nav nav a:focus-visible,
+.contact-icon-button:focus-visible,.light-toggle:focus-visible,
+.modal-close:focus-visible,.zoom-prev:focus-visible,.zoom-next:focus-visible,
+.moon-control:focus-visible,.m-moon:focus-visible,
+.m-form input:focus-visible,.m-form textarea:focus-visible,
+.contact-form input:focus-visible,.contact-form textarea:focus-visible{
+  outline:2px solid var(--yellow);outline-offset:3px;border-radius:3px;
+}
+.moon-control:focus-visible{outline-offset:9px;border-radius:12px}
+
+/* Brand + nav */
+.brand{transition:color var(--ui-dur) var(--ui-ease)}
+.brand:hover,.brand:focus-visible{color:var(--yellow)}
+.brand:hover span,.brand:focus-visible span{color:var(--cream)}
+.site-nav nav a{transition:color var(--ui-fast) var(--ui-ease)}
+.site-nav nav a:after{transition:width var(--ui-dur) var(--ui-ease)}
+.site-nav nav a:hover,.site-nav nav a:focus-visible{color:var(--yellow)}
+.site-nav nav a:focus-visible:after{width:100%}
+
+/* Light switch + hero moon */
+.light-toggle{transition:border-color var(--ui-dur) var(--ui-ease),background var(--ui-dur) var(--ui-ease),transform var(--ui-dur) var(--ui-ease)}
+.light-toggle:hover,.light-toggle:focus-visible{border-color:var(--yellow);background:rgba(231,189,85,.10);transform:translateY(-2px)}
+.scene-hero .moon-control{transition:transform var(--ui-dur) var(--ui-ease)}
+.scene-hero .moon-control:hover,.scene-hero .moon-control:focus-visible{transform:none}
+
+/* Text links — colour + a nudged arrow. The CTA anchors carry a JS magnetic
+   transform, so only their inner span moves (never the anchor itself). */
+.text-link{transition:color var(--ui-dur) var(--ui-ease),border-color var(--ui-dur) var(--ui-ease)}
+.text-link:hover,.text-link:focus-visible{color:var(--yellow);border-color:var(--yellow)}
+.text-link span,.custom-work a span,.m-link span{transition:transform var(--ui-dur) var(--ui-ease)}
+.text-link:hover span,.text-link:focus-visible span,
+.custom-work a:hover span,.custom-work a:focus-visible span,
+.m-link:hover span,.m-link:focus-visible span{transform:translate(3px,-3px)}
+.custom-work a{transition:color var(--ui-dur) var(--ui-ease),border-color var(--ui-dur) var(--ui-ease)}
+.custom-work a:hover,.custom-work a:focus-visible{color:#d7a94e;border-color:#d7a94e}
+.m-link{transition:color var(--ui-dur) var(--ui-ease)}
+.m-link:hover,.m-link:focus-visible{color:#fff0c4}
+
+/* Buttons + controls */
+.contact-form button,.m-form button,.m-cta{transition:filter var(--ui-dur) var(--ui-ease),transform var(--ui-dur) var(--ui-ease),box-shadow var(--ui-dur) var(--ui-ease)}
+.contact-form button:hover,.contact-form button:focus-visible,
+.m-form button:hover,.m-form button:focus-visible,
+.m-cta:hover,.m-cta:focus-visible{filter:brightness(1.07);transform:translateY(-2px);box-shadow:0 12px 26px rgba(0,0,0,.28)}
+.contact-form button:active,.m-form button:active,.m-cta:active{transform:translateY(0);box-shadow:0 4px 12px rgba(0,0,0,.22)}
+.m-moon{transition:transform var(--ui-dur) var(--ui-ease),box-shadow .8s ease,filter .8s ease}
+.m-moon:hover,.m-moon:focus-visible{filter:brightness(1.12);box-shadow:0 0 24px rgba(231,189,85,.4);transform:none}
+.m-moon:active{transform:none}
+.modal-close{transition:color var(--ui-dur) var(--ui-ease),transform var(--ui-dur) var(--ui-ease)}
+.modal-close:hover,.modal-close:focus-visible{color:var(--yellow);transform:none}
+.modal-close:active{transform:none}
+
+/* Work cards — the whole card reads as one target. The frame itself never
+   moves; the artwork drifts with the pointer and the meta title + arrow
+   answer in kind. The grain answers with a faint counter-move. */
+.project-art .tw-stage{transform:translate3d(var(--px,0px),var(--py,0px),0);transition:none;will-change:transform}
+.project-art.tw:before,.project-art.tw:after{transform:translate3d(calc(var(--px,0px) * -.22),calc(var(--py,0px) * -.22),0) scale(1.03)}
+.project-card .project-meta,.m-card .project-meta{transition:border-color var(--ui-dur) var(--ui-ease)}
+.project-card .project-meta h3,.m-card .project-meta h3{transition:color var(--ui-dur) var(--ui-ease)}
+.project-card .project-meta b,.m-card .project-meta b{display:inline-block;transition:transform var(--ui-dur) var(--ui-ease),color var(--ui-dur) var(--ui-ease)}
+.project-card:hover .project-art,.project-card:focus-visible .project-art{box-shadow:0 0 0 1px rgba(23,20,15,.3),0 14px 36px rgba(23,16,6,.28),0 0 28px rgba(231,189,85,.2);filter:brightness(1.05)}
+.project-card:hover .project-art img,.project-card:focus-visible .project-art img{filter:contrast(1.12) saturate(1.02)}
+.project-card:hover .project-meta,.project-card:focus-visible .project-meta{border-bottom-color:rgba(239,229,207,.42)!important}
+.project-card:hover .project-meta h3,.project-card:focus-visible .project-meta h3{color:var(--yellow)}
+.project-card:hover .project-meta b,.project-card:focus-visible .project-meta b{transform:translate(4px,-4px);color:var(--yellow)}
+
+/* On touch the card answers the tap (:active, below), never a stuck hover. */
+@media (hover:hover) and (pointer:fine){
+  .m-card:hover .project-art{box-shadow:0 0 0 1px rgba(23,20,15,.3),0 14px 36px rgba(23,16,6,.28),0 0 28px rgba(231,189,85,.2);filter:brightness(1.05)}
+  .m-card:hover .project-art img{filter:contrast(1.12) saturate(1.02)}
+  .m-card:hover .project-meta{border-bottom-color:rgba(239,229,207,.42)!important}
+  .m-card:hover .project-meta h3{color:var(--yellow)}
+  .m-card:hover .project-meta b{transform:translate(4px,-4px);color:var(--yellow)}
+}
+
+/* Hero copy — a lift in brightness only, never a shift or resize. */
+.room-copy h1,.room-copy .hero-sub{transition:filter var(--ui-dur) var(--ui-ease)}
+.room-copy h1:hover,.room-copy .hero-sub:hover{filter:brightness(1.12)}
+
+/* Room scenery — the character, window, laptop and plant answer with light. */
+.scene-hero .character,.scene-hero .window,.scene-hero .laptop,.scene-hero .plant{transition:filter var(--ui-dur) var(--ui-ease)}
+.scene-hero .character:hover,.scene-hero .window:hover,.scene-hero .laptop:hover,.scene-hero .plant:hover{filter:brightness(1.15)}
+
+/* About — the skill tags take the accent. */
+.skill-list span{transition:border-color var(--ui-fast) var(--ui-ease),color var(--ui-fast) var(--ui-ease),background var(--ui-fast) var(--ui-ease)}
+.skill-list span:hover{border-color:var(--yellow);color:#8a6420;background:rgba(231,189,85,.10)}
+
+/* Approach — the step titles warm up without disturbing the orbit. */
+.process{transition:filter var(--ui-dur) var(--ui-ease)}
+.process strong{transition:color var(--ui-dur) var(--ui-ease)}
+.process:hover{filter:brightness(1.12)}
+.process:hover strong{color:var(--yellow)}
+
+/* Contact form — the field border reacts on hover; keyboard focus stays obvious. */
+.contact-form input,.contact-form textarea{transition:border-color var(--ui-fast) var(--ui-ease)}
+.contact-form input:hover,.contact-form textarea:hover{border-color:#9a8a5c}
+
+/* Reduced motion: keep every colour cue, drop the movement. */
+@media (prefers-reduced-motion: reduce){
+  .scene-hero .moon-control:hover .moon-core,
+  .scene-hero .moon-control:hover .moon-halo,
+  .site-nav nav a,
+  .contact-links a,
+  .contact-svg path,
+  .skill-list span,
+  .process,
+  .m-moon,
+  .scene-hero .character,
+  .scene-hero .window,
+  .scene-hero .laptop,
+  .scene-hero .plant,
+  .project-card,
+  .project-card .project-art,
+  .project-card .project-art img,
+  .project-card .project-meta h3,
+  .project-card .project-meta b,
+  .project-card .project-meta b svg path,
+  .contact-icon-button,
+  .contact-field,
+  .contact-submit{transition:none!important}
+  .text-link:hover span,.text-link:focus-visible span,
+  .custom-work a:hover span,.custom-work a:focus-visible span,
+  .m-link:hover span,.m-link:focus-visible span,
+  .project-card:hover .project-meta b,.project-card:focus-visible .project-meta b,.m-card:hover .project-meta b,
+  .light-toggle:hover,.light-toggle:focus-visible,
+  .scene-hero .moon-control:hover,.scene-hero .moon-control:focus-visible{transform:none}
+  .contact-icon-button:hover,.contact-icon-button:focus-visible,
+  .contact-form button:hover,.contact-form button:focus-visible,
+  .m-form button:hover,.m-form button:focus-visible,
+  .m-cta:hover,.m-cta:focus-visible,
+  .m-moon:hover,.m-moon:focus-visible,
+  .modal-close:hover,.modal-close:focus-visible{transform:none!important}
+}
 </style>
   <script>
     (function () {
@@ -6438,164 +6596,6 @@ html:not(.lights-unlocked) .design-canvas {
 
   </header>
 
-  <!-- Shared code-drawn Work thumbnails (one source of truth, used by both layouts) -->
-  <svg class="tw-defs" width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
-    <defs>
-      <filter id="tw-sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="#171308" flood-opacity=".3"/></filter>
-      <filter id="tw-sh2" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity=".45"/></filter>
-      <linearGradient id="tw-g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#65704a"/><stop offset="1" stop-color="#241d14"/></linearGradient>
-      <linearGradient id="tw-g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#eec565"/><stop offset="1" stop-color="#b7862f"/></linearGradient>
-      <linearGradient id="tw-g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf7ee"/><stop offset="1" stop-color="#e8ddc6"/></linearGradient>
-
-      <!-- 01 LOGO DESIGN: one large distinctive monogram mark on a clean field -->
-      <symbol id="tw-logo" viewBox="0 0 350 300" preserveAspectRatio="xMidYMid meet">
-        <circle cx="175" cy="150" r="104" fill="none" stroke="rgba(36,32,26,.06)" stroke-width="1.5"/>
-        <circle cx="175" cy="150" r="82" fill="none" stroke="#24201a" stroke-width="8"/>
-        <path d="M131 106 L175 152 L219 106 M175 152 L175 200" fill="none" stroke="#24201a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="175" cy="68" r="12" fill="#c79a3e"/>
-        <circle cx="175" cy="68" r="12" fill="none" stroke="#24201a" stroke-width="2"/>
-        <line x1="148" y1="252" x2="202" y2="252" stroke="rgba(36,32,26,.28)" stroke-width="2"/>
-        <text x="175" y="274" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="14" font-weight="600" letter-spacing="4" fill="#24201a">YUKTHA STUDIO</text>
-      </symbol>
-
-      <!-- 02 BRAND IDENTITY: cohesive identity system (card, stationery, palette, type) -->
-      <symbol id="tw-brand" viewBox="0 0 350 300" preserveAspectRatio="xMidYMid meet">
-        <g filter="url(#tw-sh)"><rect x="22" y="30" width="150" height="96" rx="8" fill="#f4eddd"/></g>
-        <circle cx="52" cy="66" r="14" fill="none" stroke="#3f4a38" stroke-width="4.5"/>
-        <circle cx="52" cy="66" r="4" fill="#c79a3e"/>
-        <rect x="78" y="56" width="80" height="8" rx="4" fill="#24201a"/>
-        <rect x="78" y="70" width="52" height="5" rx="2.5" fill="rgba(36,32,26,.45)"/>
-        <line x1="38" y1="90" x2="156" y2="90" stroke="rgba(36,32,26,.18)" stroke-width="1.2"/>
-        <rect x="38" y="100" width="66" height="5" rx="2.5" fill="rgba(36,32,26,.3)"/>
-        <rect x="112" y="100" width="44" height="5" rx="2.5" fill="#c79a3e"/>
-
-        <g filter="url(#tw-sh)"><rect x="22" y="138" width="150" height="140" rx="8" fill="#ece3cf"/></g>
-        <circle cx="52" cy="168" r="13" fill="none" stroke="#3f4a38" stroke-width="4"/>
-        <circle cx="52" cy="168" r="3.6" fill="#c79a3e"/>
-        <rect x="72" y="163" width="58" height="6" rx="3" fill="#24201a"/>
-        <line x1="38" y1="192" x2="156" y2="192" stroke="rgba(36,32,26,.2)" stroke-width="1.4"/>
-        <rect x="38" y="208" width="116" height="5" rx="2.5" fill="rgba(36,32,26,.22)"/>
-        <rect x="38" y="220" width="116" height="5" rx="2.5" fill="rgba(36,32,26,.22)"/>
-        <rect x="38" y="232" width="86" height="5" rx="2.5" fill="rgba(36,32,26,.22)"/>
-        <rect x="38" y="250" width="54" height="6" rx="3" fill="#c79a3e"/>
-        <rect x="100" y="250" width="34" height="6" rx="3" fill="rgba(36,32,26,.3)"/>
-
-        <g filter="url(#tw-sh)"><rect x="186" y="30" width="142" height="96" rx="8" fill="#f4eddd"/></g>
-        <circle cx="202" cy="46" r="4" fill="#c79a3e"/>
-        <rect x="200" y="58" width="26" height="50" rx="3" fill="#24201a"/>
-        <rect x="232" y="58" width="26" height="50" rx="3" fill="#3f4a38"/>
-        <rect x="264" y="58" width="26" height="50" rx="3" fill="#c79a3e"/>
-        <rect x="296" y="58" width="20" height="50" rx="3" fill="#f0e8d5" stroke="rgba(36,32,26,.2)" stroke-width="1.2"/>
-        <rect x="200" y="114" width="72" height="5" rx="2.5" fill="rgba(36,32,26,.35)"/>
-
-        <g filter="url(#tw-sh)"><rect x="186" y="138" width="142" height="140" rx="8" fill="#ece3cf"/></g>
-        <rect x="200" y="150" width="40" height="6" rx="3" fill="#c79a3e"/>
-        <text x="198" y="234" font-family="Georgia,'Times New Roman',serif" font-size="74" font-weight="700" fill="#24201a">Aa</text>
-        <rect x="200" y="248" width="100" height="5" rx="2.5" fill="rgba(36,32,26,.3)"/>
-        <rect x="200" y="260" width="64" height="5" rx="2.5" fill="rgba(36,32,26,.22)"/>
-      </symbol>
-
-      <!-- 03 POSTER & EDITORIAL: large magazine cover + open spread, expressive type -->
-      <symbol id="tw-poster" viewBox="0 0 350 300" preserveAspectRatio="xMidYMid meet">
-        <g transform="rotate(2 276 150)" fill="#efe6d1" stroke="rgba(36,32,26,.16)" stroke-width="1">
-          <rect x="220" y="74" width="54" height="152"/>
-          <rect x="276" y="74" width="54" height="152"/>
-        </g>
-        <rect x="272" y="74" width="6" height="152" fill="rgba(36,32,26,.08)"/>
-        <g stroke="rgba(36,32,26,.22)" stroke-width="2.4" stroke-linecap="round">
-          <line x1="230" y1="100" x2="266" y2="100"/><line x1="230" y1="112" x2="266" y2="112"/>
-          <line x1="230" y1="124" x2="252" y2="124"/><line x1="230" y1="142" x2="266" y2="142"/>
-          <line x1="230" y1="154" x2="266" y2="154"/><line x1="230" y1="166" x2="244" y2="166"/>
-          <line x1="286" y1="100" x2="322" y2="100"/><line x1="286" y1="112" x2="322" y2="112"/>
-          <line x1="286" y1="124" x2="308" y2="124"/><line x1="286" y1="142" x2="322" y2="142"/>
-          <line x1="286" y1="154" x2="322" y2="154"/><line x1="286" y1="166" x2="300" y2="166"/>
-        </g>
-        <g transform="rotate(-4 128 150)">
-          <rect x="42" y="22" width="172" height="256" fill="#f7f1e3" stroke="rgba(36,32,26,.25)" stroke-width="1.4"/>
-          <text x="58" y="74" font-family="Georgia,'Times New Roman',serif" font-size="46" font-weight="700" fill="#24201a">FORM</text>
-          <line x1="58" y1="86" x2="200" y2="86" stroke="rgba(36,32,26,.35)" stroke-width="2.4"/>
-          <rect x="50" y="98" width="156" height="106" fill="url(#tw-g1)"/>
-          <circle cx="92" cy="132" r="19" fill="#c79a3e"/>
-          <path d="M108 204 L108 158 A34 34 0 0 1 176 158 L176 204 Z" fill="#f2ebdb"/>
-          <text x="58" y="240" font-family="Georgia,'Times New Roman',serif" font-size="33" font-weight="700" font-style="italic" fill="#24201a">art &amp; design</text>
-          <rect x="58" y="250" width="58" height="5" fill="#c79a3e"/>
-          <rect x="58" y="262" width="124" height="5" fill="rgba(36,32,26,.3)"/>
-        </g>
-      </symbol>
-
-      <!-- 04 CAMPAIGN DESIGN: coordinated ad creatives (phone ad, square post, poster, story) -->
-      <symbol id="tw-campaign" viewBox="0 0 350 300" preserveAspectRatio="xMidYMid meet">
-        <g filter="url(#tw-sh2)">
-          <rect x="48" y="34" width="112" height="226" rx="20" fill="#efe6d1"/>
-          <rect x="58" y="46" width="92" height="202" rx="12" fill="#f2ebdb"/>
-        </g>
-        <rect x="58" y="46" width="92" height="118" rx="12" fill="url(#tw-g1)"/>
-        <rect x="58" y="140" width="92" height="24" fill="url(#tw-g1)"/>
-        <circle cx="104" cy="98" r="23" fill="none" stroke="#f2ebdb" stroke-width="5.5"/>
-        <circle cx="104" cy="98" r="6.5" fill="#c79a3e"/>
-        <text x="104" y="192" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="23" font-weight="800" fill="#24201a">NEW</text>
-        <text x="104" y="210" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="10" letter-spacing="3.4" fill="rgba(36,32,26,.5)">DROP</text>
-        <rect x="80" y="222" width="48" height="14" rx="7" fill="#3f4a38"/>
-
-        <g filter="url(#tw-sh2)"><rect x="170" y="40" width="116" height="116" rx="10" fill="#efe6d1"/></g>
-        <rect x="170" y="40" width="116" height="60" rx="10" fill="url(#tw-g1)"/>
-        <circle cx="228" cy="74" r="17" fill="none" stroke="#f2ebdb" stroke-width="4.5"/>
-        <circle cx="228" cy="74" r="5" fill="#c79a3e"/>
-        <text x="228" y="122" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="13" font-weight="800" fill="#24201a">NEW DROP</text>
-        <rect x="196" y="132" width="64" height="5" rx="2.5" fill="rgba(36,32,26,.4)"/>
-
-        <g filter="url(#tw-sh2)">
-          <rect x="170" y="168" width="116" height="100" rx="8" fill="#241d14" stroke="rgba(199,154,62,.5)" stroke-width="1.5"/>
-        </g>
-        <circle cx="200" cy="198" r="13" fill="none" stroke="#c79a3e" stroke-width="4"/>
-        <circle cx="200" cy="198" r="4" fill="#c79a3e"/>
-        <rect x="196" y="220" width="64" height="8" rx="4" fill="#c79a3e"/>
-        <rect x="196" y="236" width="80" height="5" rx="2.5" fill="rgba(242,235,219,.5)"/>
-        <rect x="196" y="248" width="52" height="5" rx="2.5" fill="rgba(242,235,219,.3)"/>
-
-        <g filter="url(#tw-sh2)"><rect x="300" y="64" width="32" height="170" rx="8" fill="#3f4a38"/></g>
-        <circle cx="316" cy="96" r="10" fill="none" stroke="#f2ebdb" stroke-width="3.4"/>
-        <circle cx="316" cy="96" r="3" fill="#c79a3e"/>
-        <rect x="306" y="150" width="20" height="5" rx="2.5" fill="rgba(242,235,219,.5)"/>
-        <rect x="306" y="162" width="20" height="5" rx="2.5" fill="rgba(242,235,219,.5)"/>
-        <rect x="306" y="196" width="20" height="12" rx="3" fill="#c79a3e"/>
-
-        <g filter="url(#tw-sh2)">
-          <circle cx="150" cy="216" r="40" fill="url(#tw-g2)"/>
-          <circle cx="150" cy="216" r="40" fill="none" stroke="#241d14" stroke-width="1.6" stroke-dasharray="4 5"/>
-        </g>
-        <text x="150" y="212" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="15" font-weight="800" fill="#241d14">SS25</text>
-        <text x="150" y="228" text-anchor="middle" font-family="'Segoe UI',Arial,sans-serif" font-size="9" letter-spacing="2" fill="rgba(36,29,20,.72)">LAUNCH</text>
-      </symbol>
-
-      <!-- 05 PRESENTATION DESIGN: overlapping slides in perspective with chart + headings -->
-      <symbol id="tw-pres" viewBox="0 0 350 300" preserveAspectRatio="xMidYMid meet">
-        <g transform="translate(-14 0)">
-          <g transform="rotate(4 210 92)"><rect x="150" y="46" width="168" height="112" rx="8" fill="#cfc6ae"/></g>
-          <g transform="rotate(2 206 100)"><rect x="136" y="62" width="168" height="112" rx="8" fill="#e0d8c0"/></g>
-          <rect x="118" y="80" width="176" height="150" rx="9" fill="#f8f3e7" stroke="rgba(36,32,26,.14)" stroke-width="1"/>
-          <rect x="132" y="96" width="148" height="7" rx="3.5" fill="#c79a3e"/>
-          <rect x="132" y="112" width="92" height="11" rx="3" fill="#24201a"/>
-          <rect x="132" y="129" width="58" height="5" rx="2.5" fill="rgba(36,32,26,.38)"/>
-          <line x1="132" y1="205" x2="280" y2="205" stroke="rgba(36,32,26,.28)" stroke-width="1.6"/>
-          <rect x="134" y="176" width="17" height="29" fill="#4d5439"/>
-          <rect x="157" y="164" width="17" height="41" fill="#c79a3e"/>
-          <rect x="180" y="182" width="17" height="23" fill="#4d5439"/>
-          <rect x="203" y="156" width="17" height="49" fill="#c79a3e"/>
-          <g stroke="rgba(36,32,26,.24)" stroke-width="3" stroke-linecap="round">
-            <line x1="238" y1="150" x2="276" y2="150"/>
-            <line x1="238" y1="162" x2="268" y2="162"/>
-            <line x1="238" y1="174" x2="276" y2="174"/>
-            <line x1="238" y1="186" x2="252" y2="186"/>
-          </g>
-          <text x="284" y="216" text-anchor="end" font-family="'Segoe UI',Arial,sans-serif" font-size="11" font-weight="700" fill="rgba(36,32,26,.45)">02</text>
-          <g stroke="rgba(36,32,26,.16)" stroke-width="2.4" stroke-linecap="round">
-            <line x1="146" y1="222" x2="266" y2="222"/>
-          </g>
-        </g>
-      </symbol>
-    </defs>
-  </svg>
 
   <div class="design-viewport">
   <div class="design-canvas">
@@ -6612,7 +6612,7 @@ html:not(.lights-unlocked) .design-canvas {
 
       <div class="room-copy">
         <p class="eyebrow handwritten">hey, you found me.</p>
-        <h1>YUKTHA <span>J.</span></h1>
+        <h1><span class="nm n1">Y</span><span class="nm n2">U</span><span class="nm n3">K</span><span class="nm n4">T</span><span class="nm n5">H</span><span class="nm">A</span> <span>J.</span></h1>
         <p class="hero-sub"><strong>GRAPHIC DESIGNER</strong> <span class="title-sep">✦</span> WEB &amp; UI DESIGNER</p>
       </div>
 
@@ -6718,41 +6718,67 @@ html:not(.lights-unlocked) .design-canvas {
       </div>
 
       <div class="project-grid">
-        <article class="project-card" data-project="logo">
+        <article class="project-card" role="button" tabindex="0" data-project="logo">
           <div class="project-art tw tw-logo">
-            <svg class="tw-svg" aria-hidden="true"><use href="#tw-logo"/></svg>
+            <div class="tw-stage">
+                <img class="tw-print" src="projects/Mock &amp; Proper Logo.png" alt="Logo design" loading="lazy" decoding="async" style="left:50%;top:50%;width:52cqmin;height:52cqmin;object-fit:contain;transform:translate(-50%,-50%);filter:contrast(1.1);mix-blend-mode:multiply;box-shadow:none">
+            </div>
           </div>
           <div class="project-meta"><span>01</span><h3>LOGO DESIGN</h3><b>↗</b></div>
           <p>Marks · Symbols · Visual signatures</p>
         </article>
 
-        <article class="project-card" data-project="branding">
+        <article class="project-card" role="button" tabindex="0" data-project="branding">
           <div class="project-art tw tw-brand">
-            <svg class="tw-svg" aria-hidden="true"><use href="#tw-brand"/></svg>
+            <div class="tw-stage">
+                  <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2cqmin;padding:4cqmin">
+                    <img src="projects/branding-1.webp" alt="Brand identity" loading="lazy" decoding="async" style="width:68cqmin;height:51cqmin;object-fit:cover;box-shadow:0 2cqmin 4cqmin rgba(18,12,5,.3)">
+                    <div style="display:flex;gap:2cqmin;align-items:flex-start">
+                      <img src="projects/Envelope-Mockup-1.png" alt="" loading="lazy" decoding="async" style="width:31cqmin;height:23.25cqmin;object-fit:cover;box-shadow:0 1.6cqmin 3cqmin rgba(18,12,5,.26)">
+                      <img src="projects/Business_Card_on_the_Floor_Mockup_2.png" alt="" loading="lazy" decoding="async" style="width:31cqmin;height:23.25cqmin;object-fit:cover;box-shadow:0 1.6cqmin 3cqmin rgba(18,12,5,.26)">
+                    </div>
+                    <div style="display:flex;gap:1.2cqmin;width:48cqmin;height:5.5cqmin">
+                      <span style="flex:1;background:#014da0"></span>
+                      <span style="flex:1;background:#c69043"></span>
+                      <span style="flex:1;background:#f6da5c"></span>
+                      <span style="flex:1;background:#222120"></span>
+                      <span style="flex:1;background:#e0ddd8"></span>
+                    </div>
+                  </div>
+            </div>
           </div>
           <div class="project-meta"><span>02</span><h3>BRAND IDENTITY</h3><b>↗</b></div>
           <p>Identity systems · Art direction · Applications</p>
         </article>
 
-        <article class="project-card" data-project="poster">
+        <article class="project-card" role="button" tabindex="0" data-project="poster">
           <div class="project-art tw tw-poster">
-            <svg class="tw-svg" aria-hidden="true"><use href="#tw-poster"/></svg>
+            <div class="tw-stage">
+                <img class="tw-print" src="projects/poster-1.webp" alt="Poster and editorial design" loading="lazy" decoding="async" style="left:50%;top:50%;width:92cqmin;height:69cqmin;object-fit:cover;transform:translate(-50%,-50%) perspective(1000px) rotateY(-7deg) rotateX(2deg);box-shadow:28px 32px 44px rgba(28,20,9,.44),12px 14px 22px rgba(28,20,9,.22)">
+            </div>
           </div>
           <div class="project-meta"><span>03</span><h3>POSTER &amp; EDITORIAL DESIGN</h3><b>↗</b></div>
           <p>Typography · Editorial layouts · Print</p>
         </article>
 
-        <article class="project-card" data-project="campaign">
+        <article class="project-card" role="button" tabindex="0" data-project="campaign">
           <div class="project-art tw tw-campaign">
-            <svg class="tw-svg" aria-hidden="true"><use href="#tw-campaign"/></svg>
+            <div class="tw-stage">
+                <img class="tw-print" src="projects/Vogue magazine cover.png" alt="Campaign design" loading="lazy" decoding="async" style="left:50%;top:50%;width:61.5cqmin;height:87cqmin;object-fit:cover;transform:translate(-50%,-50%);box-shadow:0 18px 34px rgba(18,12,5,.42)">
+            </div>
           </div>
           <div class="project-meta"><span>04</span><h3>CAMPAIGN DESIGN — SELF-INITIATED CAMPAIGN CONCEPTS</h3><b>↗</b></div>
           <p>Campaign concepts · Social creatives · Launch systems</p>
         </article>
 
-        <article class="project-card" data-project="presentation">
+        <article class="project-card" role="button" tabindex="0" data-project="presentation">
           <div class="project-art tw tw-pres">
-            <svg class="tw-svg" aria-hidden="true"><use href="#tw-pres"/></svg>
+            <div class="tw-stage">
+              <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:4;transform:translate(-50%,-50%) rotate(-1.2deg) translate(5.4cqmin,-12cqmin) scale(.895)"><img src="projects/Cadbury 2.jpg" alt="" loading="lazy" decoding="async"></div>
+              <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:5;transform:translate(-50%,-50%) rotate(-1.2deg) translate(3.6cqmin,-8cqmin) scale(.93)"><img src="projects/Cadbury 3.jpg" alt="" loading="lazy" decoding="async"></div>
+              <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:6;transform:translate(-50%,-50%) rotate(-1.2deg) translate(1.8cqmin,-4cqmin) scale(.965)"><img src="projects/Cadbury 5.jpg" alt="" loading="lazy" decoding="async"></div>
+              <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:7;transform:translate(-50%,-50%) rotate(-1.2deg);box-shadow:0 20px 36px rgba(30,22,12,.44),0 4px 10px rgba(30,22,12,.24)"><img src="projects/Cadbury 1.jpg" alt="Presentation design" loading="lazy" decoding="async"></div>
+            </div>
           </div>
           <div class="project-meta"><span>05</span><h3>PRESENTATION DESIGN</h3><b>↗</b></div>
           <p>Slide systems · Decks · Narrative</p>
@@ -6849,7 +6875,7 @@ html:not(.lights-unlocked) .design-canvas {
       </div>
 
       <div class="m-hero-copy">
-        <h1 class="m-h1">YUKTHA <span>J.</span></h1>
+        <h1 class="m-h1"><span class="nm n1">Y</span><span class="nm n2">U</span><span class="nm n3">K</span><span class="nm n4">T</span><span class="nm n5">H</span><span class="nm">A</span> <span>J.</span></h1>
         <p class="m-sub"><strong>GRAPHIC DESIGNER</strong><span class="title-sep">✦</span>WEB &amp; UI DESIGNER</p>
       </div>
 
@@ -6944,41 +6970,67 @@ html:not(.lights-unlocked) .design-canvas {
         <p class="m-tip">tap a card<br>then open it ↘</p>
 
         <div class="m-cards">
-          <article class="m-card" data-project="logo">
+          <article class="m-card" role="button" tabindex="0" data-project="logo">
             <div class="project-art tw tw-logo">
-              <svg class="tw-svg" aria-hidden="true"><use href="#tw-logo"/></svg>
+              <div class="tw-stage">
+              <img class="tw-print" src="projects/Mock &amp; Proper Logo.png" alt="Logo design" loading="lazy" decoding="async" style="left:50%;top:50%;width:52cqmin;height:52cqmin;object-fit:contain;transform:translate(-50%,-50%);filter:contrast(1.1);mix-blend-mode:multiply;box-shadow:none">
+              </div>
             </div>
             <div class="project-meta"><span>01</span><h3>LOGO DESIGN</h3><b>↗</b></div>
             <p>Marks · Symbols · Visual signatures</p>
           </article>
 
-          <article class="m-card" data-project="branding">
+          <article class="m-card" role="button" tabindex="0" data-project="branding">
             <div class="project-art tw tw-brand">
-              <svg class="tw-svg" aria-hidden="true"><use href="#tw-brand"/></svg>
+              <div class="tw-stage">
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2cqmin;padding:4cqmin">
+                <img src="projects/branding-1.webp" alt="Brand identity" loading="lazy" decoding="async" style="width:68cqmin;height:51cqmin;object-fit:cover;box-shadow:0 2cqmin 4cqmin rgba(18,12,5,.3)">
+                <div style="display:flex;gap:2cqmin;align-items:flex-start">
+                  <img src="projects/Envelope-Mockup-1.png" alt="" loading="lazy" decoding="async" style="width:31cqmin;height:23.25cqmin;object-fit:cover;box-shadow:0 1.6cqmin 3cqmin rgba(18,12,5,.26)">
+                  <img src="projects/Business_Card_on_the_Floor_Mockup_2.png" alt="" loading="lazy" decoding="async" style="width:31cqmin;height:23.25cqmin;object-fit:cover;box-shadow:0 1.6cqmin 3cqmin rgba(18,12,5,.26)">
+                </div>
+                <div style="display:flex;gap:1.2cqmin;width:48cqmin;height:5.5cqmin">
+                  <span style="flex:1;background:#014da0"></span>
+                  <span style="flex:1;background:#c69043"></span>
+                  <span style="flex:1;background:#f6da5c"></span>
+                  <span style="flex:1;background:#222120"></span>
+                  <span style="flex:1;background:#e0ddd8"></span>
+                </div>
+              </div>
+              </div>
             </div>
             <div class="project-meta"><span>02</span><h3>BRAND IDENTITY</h3><b>↗</b></div>
             <p>Identity systems · Art direction · Applications</p>
           </article>
 
-          <article class="m-card" data-project="poster">
+          <article class="m-card" role="button" tabindex="0" data-project="poster">
             <div class="project-art tw tw-poster">
-              <svg class="tw-svg" aria-hidden="true"><use href="#tw-poster"/></svg>
+              <div class="tw-stage">
+              <img class="tw-print" src="projects/poster-1.webp" alt="Poster and editorial design" loading="lazy" decoding="async" style="left:50%;top:50%;width:92cqmin;height:69cqmin;object-fit:cover;transform:translate(-50%,-50%) perspective(1000px) rotateY(-7deg) rotateX(2deg);box-shadow:28px 32px 44px rgba(28,20,9,.44),12px 14px 22px rgba(28,20,9,.22)">
+              </div>
             </div>
             <div class="project-meta"><span>03</span><h3>POSTER &amp; EDITORIAL DESIGN</h3><b>↗</b></div>
             <p>Typography · Editorial layouts · Print</p>
           </article>
 
-          <article class="m-card" data-project="campaign">
+          <article class="m-card" role="button" tabindex="0" data-project="campaign">
             <div class="project-art tw tw-campaign">
-              <svg class="tw-svg" aria-hidden="true"><use href="#tw-campaign"/></svg>
+              <div class="tw-stage">
+              <img class="tw-print" src="projects/Vogue magazine cover.png" alt="Campaign design" loading="lazy" decoding="async" style="left:50%;top:50%;width:61.5cqmin;height:87cqmin;object-fit:cover;transform:translate(-50%,-50%);box-shadow:0 18px 34px rgba(18,12,5,.42)">
+              </div>
             </div>
             <div class="project-meta"><span>04</span><h3>CAMPAIGN DESIGN — SELF-INITIATED CAMPAIGN CONCEPTS</h3><b>↗</b></div>
             <p>Campaign concepts · Social creatives · Launch systems</p>
           </article>
 
-          <article class="m-card" data-project="presentation">
+          <article class="m-card" role="button" tabindex="0" data-project="presentation">
             <div class="project-art tw tw-pres">
-              <svg class="tw-svg" aria-hidden="true"><use href="#tw-pres"/></svg>
+              <div class="tw-stage">
+                <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:4;transform:translate(-50%,-50%) rotate(-1.2deg) translate(5.4cqmin,-12cqmin) scale(.895)"><img src="projects/Cadbury 2.jpg" alt="" loading="lazy" decoding="async"></div>
+                <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:5;transform:translate(-50%,-50%) rotate(-1.2deg) translate(3.6cqmin,-8cqmin) scale(.93)"><img src="projects/Cadbury 3.jpg" alt="" loading="lazy" decoding="async"></div>
+                <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:6;transform:translate(-50%,-50%) rotate(-1.2deg) translate(1.8cqmin,-4cqmin) scale(.965)"><img src="projects/Cadbury 5.jpg" alt="" loading="lazy" decoding="async"></div>
+                <div class="tw-slide" style="left:50%;top:54%;width:72%;z-index:7;transform:translate(-50%,-50%) rotate(-1.2deg);box-shadow:0 20px 36px rgba(30,22,12,.44),0 4px 10px rgba(30,22,12,.24)"><img src="projects/Cadbury 1.jpg" alt="Presentation design" loading="lazy" decoding="async"></div>
+              </div>
             </div>
           <div class="project-meta"><span>05</span><h3>PRESENTATION DESIGN</h3><b>↗</b></div>
             <p>Slide systems · Decks · Narrative</p>
@@ -7244,6 +7296,41 @@ if (matchMedia('(pointer:fine)').matches) {
 }
 
 
+// Work thumbnails — a gentle cursor-following parallax inside each frame.
+// The card itself never moves: only the artwork stage drifts toward the
+// pointer, the grain answers with a faint counter-move, and everything eases
+// back to rest when the cursor leaves. Touch and reduced-motion readers keep
+// the still thumbnail.
+if (matchMedia('(hover:hover) and (pointer:fine)').matches &&
+    !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const AMP = 12;     // px the artwork drifts at the frame's edge
+  const EASE = .12;   // lerp step: smaller = softer, more trailing
+  $$('.project-card, .m-card').forEach(card => {
+    const art = card.querySelector('.project-art');
+    if (!art) return;
+    let raf = null, tx = 0, ty = 0, cx = 0, cy = 0;
+    const tick = () => {
+      cx += (tx - cx) * EASE;
+      cy += (ty - cy) * EASE;
+      const settled = Math.abs(tx - cx) < .05 && Math.abs(ty - cy) < .05;
+      if (settled) { cx = tx; cy = ty; }
+      art.style.setProperty('--px', cx.toFixed(2) + 'px');
+      art.style.setProperty('--py', cy.toFixed(2) + 'px');
+      raf = settled ? null : requestAnimationFrame(tick);
+    };
+    const run = () => { if (raf === null) raf = requestAnimationFrame(tick); };
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      tx = ((e.clientX - r.left) / r.width  - .5) * 2 * AMP;
+      ty = ((e.clientY - r.top)  / r.height - .5) * 2 * AMP;
+      run();
+    });
+    card.addEventListener('pointerleave', () => { tx = 0; ty = 0; run(); });
+  });
+}
+
+
 // Project modal.
 // `name`   = display name shown when a card is clicked (edit it to match your project).
 // `title`  = the category heading on the card.
@@ -7415,6 +7502,12 @@ $$('.project-card, .m-card').forEach(card => card.addEventListener('click', () =
 }));
 
 
+// The whole card is a keyboard target too: Enter or Space opens it like a button.
+$$('.project-card, .m-card').forEach(card => card.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+}));
+
+
 // Click a project tile to open the viewer; prev/next peek on the sides. PDFs open in a new tab.
 modalGridEl.addEventListener('click', e => {
   const tile = e.target.closest('.mg');
@@ -7435,7 +7528,8 @@ modalZoomEl.addEventListener('click', e => {
 });
 
 
-// Work thumbnails are code-drawn (shared #tw-* symbols) on BOTH layouts,
+// Work thumbnails show ONE real project per card (a single image on a
+// complementary ground) on BOTH layouts via the shared .project-art.tw markup,
 // so no cover images are injected into the grid here.
 
 
