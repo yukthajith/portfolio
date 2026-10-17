@@ -7318,6 +7318,23 @@ const lightToggle = $('#lightToggle');
 const lamp = $('#lamp');
 
 
+function preloadAllProjectImages(){
+  try {
+    Object.keys(projects).forEach(k => {
+      projectGroups(k).then(groups => {
+        (groups || []).forEach(g => {
+          (g.files || []).forEach(f => {
+            if (!f) return;
+            if (Array.isArray(f.multi)) f.multi.forEach(s => { const im=new Image(); im.src=s; });
+            else if (f.a && f.b) { const im1=new Image(); im1.src=f.a; const im2=new Image(); im2.src=f.b; }
+            else if (!/^\.?pdf$/i.test(String(f).split('.').pop())) { const im=new Image(); im.src=f; }
+          });
+        });
+      });
+    });
+  } catch(e){}
+}
+
 function turnLightsOn(){
   if(document.body.classList.contains('light-on')) return;
   document.body.classList.add('light-on');
@@ -7327,6 +7344,7 @@ function turnLightsOn(){
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
+  setTimeout(preloadAllProjectImages, 1200);
 }
 
 
