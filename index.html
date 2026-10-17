@@ -7318,21 +7318,27 @@ const lightToggle = $('#lightToggle');
 const lamp = $('#lamp');
 
 
-function preloadAllProjectImages(){
-  try {
-    Object.keys(projects).forEach(k => {
-      projectGroups(k).then(groups => {
-        (groups || []).forEach(g => {
-          (g.files || []).forEach(f => {
-            if (!f) return;
-            if (Array.isArray(f.multi)) f.multi.forEach(s => { const im=new Image(); im.src=s; });
-            else if (f.a && f.b) { const im1=new Image(); im1.src=f.a; const im2=new Image(); im2.src=f.b; }
-            else if (!/^\.?pdf$/i.test(String(f).split('.').pop())) { const im=new Image(); im.src=f; }
-          });
-        });
-      });
-    });
-  } catch(e){}
+// Warm ONE project's images only when the user is about to open it, so a whole
+// album is never downloaded up front (previously ~56 MB was preloaded 1.2 s
+// after lights-on, saturating the connection and delaying the visible art).
+// projectGroups() is cached, so this never duplicates the card click's work,
+// and the modal <img>s reuse the warmed bytes (same URL) with no second fetch.
+function warmImage(src){
+  if (!src || isPdf(src)) return;
+  const im = new Image();
+  im.decoding = 'async';
+  im.src = src;
+}
+function preloadProject(key){
+  if (!key) return;
+  projectGroups(key).then(groups => {
+    (groups || []).forEach(g => (g.files || []).forEach(f => {
+      if (!f) return;
+      if (Array.isArray(f.multi)) f.multi.forEach(warmImage);
+      else if (f.a && f.b) { warmImage(f.a); warmImage(f.b); }
+      else warmImage(f);
+    }));
+  }).catch(() => {});
 }
 
 function turnLightsOn(){
@@ -7344,7 +7350,8 @@ function turnLightsOn(){
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
-  setTimeout(preloadAllProjectImages, 1200);
+  // Only warm the first (default) project; the rest warm on hover/focus/tap.
+  setTimeout(() => preloadProject('logo'), 1200);
 }
 
 
@@ -7434,30 +7441,30 @@ if (matchMedia('(hover:hover) and (pointer:fine)').matches &&
 //     { label:'MORE',        files:['projects/mark-c.png'] }
 //   ]
 const projects = {
-  logo: {index:'01', name:'LOGO DESIGN', title:'LOGO DESIGN', thumb:'projects/logo design thumbnail.png', groups:[
-    {label:'', files:[{a:'projects/logo-1.webp', b:'projects/logo-2.webp'},'projects/logo-3.webp','projects/logo-4.webp',{a:'projects/Mock & Proper Logo.png', b:'projects/Mock & Proper Logo mb.png'},'projects/LOGO asmita-01.png','projects/Solar energy logo-01.png','projects/yn steel cements logo.png']}
+  logo: {index:'01', name:'LOGO DESIGN', title:'LOGO DESIGN', thumb:'projects/opt/logo design thumbnail.webp', groups:[
+    {label:'', files:[{a:'projects/opt/logo-1.webp', b:'projects/opt/logo-2.webp'},'projects/opt/logo-3.webp','projects/logo-4.webp',{a:'projects/Mock & Proper Logo.png', b:'projects/Mock & Proper Logo mb.png'},'projects/LOGO asmita-01.png','projects/opt/Solar energy logo-01.webp','projects/opt/yn steel cements logo.webp']}
   ], text:'Distinctive marks and symbols built to make a brand recognizable before anyone reads the name.', tags:['LOGO','MARK','VISUAL SIGNATURE']},
-  branding: {index:'02', name:'BRAND IDENTITY', title:'BRAND IDENTITY', thumb:'projects/branding thumbnail.png', groups:[
-    {label:'', files:['projects/branding-1.webp','projects/Envelope-Mockup-1.png',{multi:['projects/branding-2.webp','projects/branding-3.webp','projects/branding-4.webp']},{multi:['projects/Business_Card_on_the_Floor_Mockup_2.png','projects/Business_Card_on_the_Floor_Mockup_3.png','projects/Business_Card_on_the_Floor_Mockup_4.png']}]},
-    {label:'BILLS', files:['projects/Free Company Retail Invoice Pad Mockup PSD.png']},
+  branding: {index:'02', name:'BRAND IDENTITY', title:'BRAND IDENTITY', thumb:'projects/opt/branding thumbnail.webp', groups:[
+    {label:'', files:['projects/opt/branding-1.webp','projects/opt/Envelope-Mockup-1.webp',{multi:['projects/opt/branding-2.webp','projects/opt/branding-3.webp','projects/opt/branding-4.webp']},{multi:['projects/opt/Business_Card_on_the_Floor_Mockup_2.webp','projects/opt/Business_Card_on_the_Floor_Mockup_3.webp','projects/opt/Business_Card_on_the_Floor_Mockup_4.webp']}]},
+    {label:'BILLS', files:['projects/opt/Free Company Retail Invoice Pad Mockup PSD.webp']},
     {label:'LETTERHEAD', files:['projects/Letterhead for design company.png','projects/Orange and Red Simple Modern Business Letterhead (2).png']}
   ], text:'Identity systems that give a brand a consistent voice across print, digital and real-world touchpoints.', tags:['IDENTITY','ART DIRECTION','SYSTEM']},
-  poster: {index:'03', name:'ADS · COVERS · POSTERS', title:'POSTER & EDITORIAL DESIGN', thumb:'projects/poster & editorial thumbnail.png', groups:[
-    {label:'ADS', files:['projects/Ad 1.jpg','projects/Ad 2.jpg','projects/Ad 4.jpg']},
-    {label:'BANNERS', files:[{a:'projects/Banner mockup 1.png', b:'projects/Banner 1.png'},{a:'projects/Banner mockup 2.png', b:'projects/Banner 2.png'},'projects/Beige Simple Furniture Banner.png','projects/Black White and Yellow Modern Special Big Sale Banner.png']},
-    {label:'BROCHURES', files:['projects/Bifold_A4_Mockup_4.png','projects/Bifold_A4_Mockup_3.png']},
-    {label:'COVERS', files:['projects/Cover 1.jpg','projects/Cover 2.jpg','projects/Cover 3.jpg','projects/Cover 4.jpg']},
-    {label:'EBOOKS', files:['projects/Beige Green Minimalist Wellness eBook and Workbook_page-0001.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0002.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0003.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0004.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0005.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0006.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0007.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0008.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0009.jpg']},
-    {label:'E-COMMERCE', files:['projects/Lumea 1.png','projects/Lumea 2.png','projects/Lumea 3.png','projects/Lumea 4.png','projects/Lumea 5.png','projects/Lumea 6.png','projects/Gadget 1.png','projects/Gadget 2.png','projects/Gadget 3.png','projects/Gadget 4.png','projects/Gadget 5.png']},
-    {label:'FLYERS', files:['projects/poster & flyer-6.webp']},
-    {label:'POSTERS', files:['projects/poster-1.webp','projects/poster-2.webp','projects/poster-5.webp',{a:'projects/poster-3.webp', b:'projects/poster-4.webp'},'projects/Glued_Poster_Mockup_no_1.png']}
+  poster: {index:'03', name:'ADS · COVERS · POSTERS', title:'POSTER & EDITORIAL DESIGN', thumb:'projects/opt/poster & editorial thumbnail.webp', groups:[
+    {label:'ADS', files:['projects/Ad 1.jpg','projects/opt/Ad 2.webp','projects/Ad 4.jpg']},
+    {label:'BANNERS', files:[{a:'projects/opt/Banner mockup 1.webp', b:'projects/opt/Banner 1.webp'},{a:'projects/opt/Banner mockup 2.webp', b:'projects/opt/Banner 2.webp'},'projects/opt/Beige Simple Furniture Banner.webp','projects/opt/Black White and Yellow Modern Special Big Sale Banner.webp']},
+    {label:'BROCHURES', files:['projects/opt/Bifold_A4_Mockup_4.webp','projects/opt/Bifold_A4_Mockup_3.webp']},
+    {label:'COVERS', files:['projects/opt/Cover 1.webp','projects/opt/Cover 2.webp','projects/opt/Cover 3.webp','projects/opt/Cover 4.webp']},
+    {label:'EBOOKS', files:['projects/Beige Green Minimalist Wellness eBook and Workbook_page-0001.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0002.jpg','projects/opt/Beige Green Minimalist Wellness eBook and Workbook_page-0003.webp','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0004.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0005.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0006.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0007.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0008.jpg','projects/Beige Green Minimalist Wellness eBook and Workbook_page-0009.jpg']},
+    {label:'E-COMMERCE', files:['projects/opt/Lumea 1.webp','projects/opt/Lumea 2.webp','projects/opt/Lumea 3.webp','projects/opt/Lumea 4.webp','projects/opt/Lumea 5.webp','projects/opt/Lumea 6.webp','projects/opt/Gadget 1.webp','projects/opt/Gadget 2.webp','projects/opt/Gadget 3.webp','projects/opt/Gadget 4.webp','projects/opt/Gadget 5.webp']},
+    {label:'FLYERS', files:['projects/opt/poster & flyer-6.webp']},
+    {label:'POSTERS', files:['projects/opt/poster-1.webp','projects/opt/poster-2.webp','projects/opt/poster-5.webp',{a:'projects/opt/poster-3.webp', b:'projects/opt/poster-4.webp'},'projects/opt/Glued_Poster_Mockup_no_1.webp']}
   ], text:'Editorial and poster compositions driven by typography, hierarchy, rhythm and a strong visual idea.', tags:['TYPOGRAPHY','EDITORIAL','ALBUM ART','PRINT']},
-  campaign: {index:'04', name:'CAMPAIGN DESIGN — Self-Initiated Campaign Concepts', title:'CAMPAIGN DESIGN — Self-Initiated Campaign Concepts', thumb:'projects/mock campaign thumbnail.png', groups:[
-    {label:'', files:['projects/mock-1.webp','projects/mock-2.webp','projects/mock-3.webp','projects/mock-4.webp','projects/mock-5.webp','projects/mock-6.webp','projects/mock-7.webp','projects/Vogue magazine cover.png']}
+  campaign: {index:'04', name:'CAMPAIGN DESIGN — Self-Initiated Campaign Concepts', title:'CAMPAIGN DESIGN — Self-Initiated Campaign Concepts', thumb:'projects/opt/mock campaign thumbnail.webp', groups:[
+    {label:'', files:['projects/opt/mock-1.webp','projects/mock-2.webp','projects/mock-3.webp','projects/mock-4.webp','projects/mock-5.webp','projects/mock-6.webp','projects/opt/mock-7.webp','projects/opt/Vogue magazine cover.webp']}
   ], text:'Campaign systems designed to hold together across social posts, promotional graphics and launch moments.', tags:['CAMPAIGN','SOCIAL','ART DIRECTION']},
-  presentation: {index:'05', name:'PRESENTATION DESIGN', title:'PRESENTATION DESIGN', thumb:'projects/presentation designs thumbnail.png', groups:[
+  presentation: {index:'05', name:'PRESENTATION DESIGN', title:'PRESENTATION DESIGN', thumb:'projects/opt/presentation designs thumbnail.webp', groups:[
     {label:'CADBURY', files:['projects/Cadbury 1.jpg','projects/Cadbury 2.jpg','projects/Cadbury 3.jpg','projects/Cadbury 4.jpg','projects/Cadbury 5.jpg','projects/Cadbury 6.jpg','projects/Cadbury 7.jpg','projects/Cadbury 8.jpg','projects/Cadbury 9.jpg','projects/Cadbury 10.jpg']},
-    {label:'RASHMI GROUP', files:['projects/welcome to rashmi group_page-0001.jpg','projects/welcome to rashmi group_page-0002.jpg','projects/welcome to rashmi group_page-0003.jpg','projects/welcome to rashmi group_page-0004.jpg','projects/welcome to rashmi group_page-0005.jpg','projects/welcome to rashmi group_page-0006.jpg','projects/welcome to rashmi group_page-0007.jpg']}
+    {label:'RASHMI GROUP', files:['projects/welcome to rashmi group_page-0001.jpg','projects/opt/welcome to rashmi group_page-0002.webp','projects/opt/welcome to rashmi group_page-0003.webp','projects/opt/welcome to rashmi group_page-0004.webp','projects/opt/welcome to rashmi group_page-0005.webp','projects/welcome to rashmi group_page-0006.jpg','projects/welcome to rashmi group_page-0007.jpg']}
   ], text:'Slide systems and decks that turn raw content into a clear, confident narrative.', tags:['PRESENTATION','DECK','NARRATIVE']}
 };
 
@@ -7590,6 +7597,17 @@ $$('.project-card, .m-card').forEach(card => card.addEventListener('click', () =
 $$('.project-card, .m-card').forEach(card => card.addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
 }));
+
+// Prepare a project's images as soon as the user shows intent to open it
+// (pointer hover, keyboard focus, or the first touch), so the pictures are
+// usually ready before the click resolves. Cheap on mobile: only the touched
+// card's own album is warmed, never every project at once.
+$$('.project-card, .m-card').forEach(card => {
+  const key = card.dataset.project;
+  card.addEventListener('pointerenter', () => preloadProject(key));
+  card.addEventListener('focus', () => preloadProject(key));
+  card.addEventListener('touchstart', () => preloadProject(key), { passive: true });
+});
 
 
 // Click a project tile to open the viewer; prev/next peek on the sides. PDFs open in a new tab.
