@@ -5987,12 +5987,14 @@ html[data-layout="mobile"] .m-layout .m-about > .m-band-box > .m-band{
    is animated - nothing moves, re-flows or changes size, so there is no
    flicker and no layout shift. A single lightweight IntersectionObserver
    toggles a class; the whole effect is disabled for anyone who prefers
-   reduced motion. The intro screen is left alone so it is readable the
-   instant the page loads. */
+   reduced motion. */
 @media (prefers-reduced-motion: no-preference){
-  html[data-layout="mobile"] .m-layout main > section:not(.scene-hero){
-    opacity:1!important;transition:none!important}
-  html[data-layout="mobile"] .m-layout main > section:not(.scene-hero).m-in-view{
+  html[data-layout="mobile"] .m-layout main > section:not(.scene-hero),
+  html[data-layout="desktop"] .design-canvas main > section:not(.scene-hero){
+    opacity:0!important;
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1)!important}
+  html[data-layout="mobile"] .m-layout main > section:not(.scene-hero).m-in-view,
+  html[data-layout="desktop"] .design-canvas main > section:not(.scene-hero).m-in-view{
     opacity:1!important}
 }
 
@@ -7309,20 +7311,19 @@ const sectionObserver = new IntersectionObserver(entries => {
 pageSections.forEach(section => sectionObserver.observe(section));
 
 
-// Mobile scroll fade: each phone screen fades in as it enters the viewport and
-// gently out as it leaves. Opacity only, so nothing moves or re-flows, and the
-// whole effect is skipped for reduced-motion visitors so no one is forced into
-// motion or made to wait on an animation before they can read the page.
+// Scroll fade: each section fades in as it enters the viewport and gently out
+// as it leaves, on both the phone screens and the desktop artboard sections.
+// Opacity only, so nothing moves or re-flows, and the whole effect is skipped
+// for reduced-motion visitors so no one is forced into motion or made to wait
+// on an animation before they can read the page.
 if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-  const fadeSections = $$('.m-layout main > section:not(.scene-hero)');
-  if (fadeSections.length) {
-    const fadeObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        entry.target.classList.toggle('m-in-view', entry.isIntersecting);
-      });
-    }, { threshold: 0.01, rootMargin: '15% 0px 15% 0px' });
-    fadeSections.forEach(section => fadeObserver.observe(section));
-  }
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      entry.target.classList.toggle('m-in-view', entry.isIntersecting);
+    });
+  }, { threshold: 0.01, rootMargin: '15% 0px 15% 0px' });
+  $$('.m-layout main > section:not(.scene-hero)').forEach(section => fadeObserver.observe(section));
+  $$('.design-canvas main > section:not(.scene-hero)').forEach(section => fadeObserver.observe(section));
 }
 
 
