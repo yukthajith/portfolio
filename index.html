@@ -7547,15 +7547,15 @@ $$('.project-card, .m-card').forEach(card => card.addEventListener('click', () =
         const i = k;
         k += isMulti ? f.multi.length : (isPair ? 2 : 1);
         if (isMulti) {
-          return `<div class="mg mg-pair" data-i="${i}"><img class="mg-a" src="${encodeURI(f.multi[0])}" alt="" loading="lazy" decoding="async"><img class="mg-b" src="${encodeURI(f.multi[f.multi.length - 1])}" alt="" loading="lazy" decoding="async"><span class="mg-count">+${f.multi.length}</span></div>`;
+          return `<div class="mg mg-pair" data-i="${i}"><img class="mg-a" src="${encodeURI(f.multi[0])}" alt="" loading="eager" decoding="async" fetchpriority="high"><img class="mg-b" src="${encodeURI(f.multi[f.multi.length - 1])}" alt="" loading="eager" decoding="async"><span class="mg-count">+${f.multi.length}</span></div>`;
         }
         if (isPair) {
-          return `<div class="mg mg-pair" data-i="${i}"><img class="mg-a" src="${encodeURI(f.a)}" alt="" loading="lazy" decoding="async"><img class="mg-b" src="${encodeURI(f.b)}" alt="" loading="lazy" decoding="async"></div>`;
+          return `<div class="mg mg-pair" data-i="${i}"><img class="mg-a" src="${encodeURI(f.a)}" alt="" loading="eager" decoding="async" fetchpriority="high"><img class="mg-b" src="${encodeURI(f.b)}" alt="" loading="eager" decoding="async"></div>`;
         }
         if (isPdf(f)) {
           return `<a class="mg mg-pdf" data-i="${i}" href="${encodeURI(f)}" target="_blank" rel="noreferrer"><span>PDF</span><b>VIEW DOCUMENT ↗</b></a>`;
         }
-        return `<img class="mg" src="${encodeURI(f)}" alt="" loading="lazy" decoding="async" data-i="${i}">`;
+        return `<img class="mg" src="${encodeURI(f)}" alt="" loading="eager" decoding="async" fetchpriority="high" data-i="${i}">`;
       }).join('');
       return `<div class="mg-group">${head}<div class="mg-row">${imgs}</div></div>`;
     }).join('');
