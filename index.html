@@ -20,7 +20,7 @@
   --sans:Segoe UI,Arial,Helvetica,sans-serif;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 html,body{max-width:100vw}
 html{overscroll-behavior-y:none}
 html.scroll-locked,html.scroll-locked body{overflow:hidden!important}
@@ -148,8 +148,8 @@ footer{position:absolute;left:122.88px;right:122.88px;bottom:22px;border-top:1px
    scrolling and never hides content: every section stays reachable
    and readable whether the lights are on or off. */
 body:not(.light-on){overflow-x:hidden;overflow-y:auto}
-body:not(.light-on) main > section:not(.scene-hero){opacity:1;filter:none;pointer-events:auto}
-body.light-on main > section:not(.scene-hero){opacity:1;filter:none;pointer-events:auto}
+body:not(.light-on) main > section:not(.scene-hero){filter:none;pointer-events:auto}
+body.light-on main > section:not(.scene-hero){filter:none;pointer-events:auto}
 .room-copy{max-width:560px;left:107.52px;top:312px;z-index:20}
 .room-copy .eyebrow{display:block;position:relative;z-index:25;margin:0 0 18px 3px;font-size:27px;line-height:1.05;white-space:nowrap}
 .room-copy h1{position:relative;z-index:21;font-size:clamp(72px,153.6px,142px);line-height:.72;margin:0 0 24px;white-space:nowrap;letter-spacing:-.055em}
@@ -382,7 +382,7 @@ body.light-on .site-nav nav{opacity:1;pointer-events:auto}
    CONTINUOUS BLACK SCROLL — FINAL VERSION
    No section gates, no reveal gaps, no paper/background breaks.
    ========================================================= */
-html{scroll-behavior:smooth;background:#050505}
+html{background:#050505}
 body{background:#050505!important;color:var(--cream);overflow-x:hidden!important}
 body:not(.light-on){overflow-x:hidden!important;overflow-y:auto!important}
 
@@ -390,7 +390,7 @@ main,main > section,.scene,.story-section,.desk-story,.work-section,.approach-se
 
 /* Scrolling is never locked behind the lamp. */
 body:not(.light-on) main > section:not(.scene-hero),
-body.light-on main > section:not(.scene-hero){opacity:1!important;filter:none!important;pointer-events:auto!important;transition:none!important}
+body.light-on main > section:not(.scene-hero){filter:none!important;pointer-events:auto!important}
 body:not(.light-on) .site-nav nav{opacity:1!important;pointer-events:auto!important}
 .light-toggle,.lamp-instruction{display:none!important}
 
@@ -470,7 +470,6 @@ main > section + section{margin-top:0!important;box-shadow:none!important}
    scrollable from the top of the page. */
 body:not(.light-on) main > section:not(.scene-hero),
 body.light-on main > section:not(.scene-hero){
-  opacity:1!important;
   visibility:visible!important;
   filter:none!important;
   pointer-events:auto!important;
@@ -714,9 +713,7 @@ main > section + section{margin-top:0!important}
 /* Every scene is always visible: nothing is gated behind the lamp,
    the scroll position, or an in-view class. */
 body.light-on main > section:not(.scene-hero){
-  opacity:1!important;
   visibility:visible!important;
-  transform:none!important;
 }
 
 /* Never create a visual seam: every scene is the same black canvas. */
@@ -5995,10 +5992,25 @@ html[data-layout="mobile"] .m-layout .m-about > .m-band-box > .m-band{
    artwork can never be left invisible by a missed or delayed callback. */
 html[data-layout="mobile"] .m-layout main > section:not(.scene-hero),
 html[data-layout="desktop"] .design-canvas main > section:not(.scene-hero){
-  opacity:1!important;
-  transition:none!important;
   filter:none!important;
   pointer-events:auto!important}
+
+/* ===== SECTION-TO-SECTION SCROLL TRANSITIONS ==========================
+   A gentle, continuous crossfade between sections. Each section stays fully
+   opaque through the middle of the viewport and dips to a soft floor only in
+   the thin band where it meets its neighbour, so the change reads as one
+   section softly blending into the next. Only opacity moves - nothing
+   slides, wobbles or floats - which keeps every element visually stable while
+   scrolling. Default is fully visible, so the page is complete even with no
+   JavaScript, and the effect is disabled entirely for reduced motion. */
+main > section,
+.m-hero{
+  opacity:1;
+}
+@media (prefers-reduced-motion: reduce){
+  main > section,
+  .m-hero{opacity:1!important}
+}
 
 /* Pre-unlock: lock to home */
 html:not(.lights-unlocked), html:not(.lights-unlocked) body {
@@ -7313,6 +7325,71 @@ const sectionObserver = new IntersectionObserver(entries => {
 pageSections.forEach(section => sectionObserver.observe(section));
 
 
+// ===== SECTION-TO-SECTION SCROLL TRANSITIONS =====
+// One rAF-throttled loop gently crossfades each section as it enters and
+// leaves the viewport. Only opacity is written (never transform, so nothing
+// slides, wobbles or drifts), only the section itself is restyled, and a new
+// value is written only when it actually changes - so a frame is a few
+// arithmetic ops and the page keeps following the user's scroll directly.
+// No locking, snapping or smoothing; skipped entirely for reduced motion or
+// while the page is still locked behind the moon.
+(function(){
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const targets = $$('main > section, .m-hero');
+  if (!targets.length) return;
+
+  const FADE  = 0.24;   // share of the viewport a fade spans
+  const FLOOR = 0.60;   // how dim a section may get at the very edge
+  const n = targets.length;
+  const last = new Array(n).fill(-1);
+  let enabled = !mq.matches;
+  let raf = null;
+
+  const clamp01 = x => x < 0 ? 0 : x > 1 ? 1 : x;
+
+  function update(){
+    raf = null;
+    if (!enabled) return;
+    const vh = window.innerHeight || document.documentElement.clientHeight || 1;
+    for (let i = 0; i < n; i++){
+      const el = targets[i];
+      const r = el.getBoundingClientRect();
+      let o = 1;
+      // A section the layout has hidden (display:none) stays untouched.
+      if (r.width !== 0 || r.height !== 0){
+        const enter = clamp01((vh - r.top) / (vh * FADE));
+        const exit  = clamp01(r.bottom / (vh * FADE));
+        o = FLOOR + (1 - FLOOR) * Math.min(enter, exit);
+      }
+      if (Math.abs(o - last[i]) < 0.004) continue;
+      last[i] = o;
+      el.style.opacity = o === 1 ? '' : o.toFixed(3);
+    }
+  }
+
+  const schedule = () => { if (raf === null && enabled) raf = requestAnimationFrame(update); };
+
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
+  window.addEventListener('load', schedule);
+  window.addEventListener('orientationchange', schedule);
+  document.addEventListener('lights-on', schedule);
+  if (mq.addEventListener) mq.addEventListener('change', () => {
+    enabled = !mq.matches;
+    if (!enabled){
+      if (raf !== null){ cancelAnimationFrame(raf); raf = null; }
+      targets.forEach(el => { el.style.opacity = ''; });
+      last.fill(1);
+    } else {
+      schedule();
+    }
+  });
+
+  schedule();
+  setTimeout(schedule, 350);
+})();
+
+
 // Moon light.
 const lightToggle = $('#lightToggle');
 const lamp = $('#lamp');
@@ -7349,6 +7426,8 @@ function turnLightsOn(){
   document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
+  // Tell the section-transition loop the full page just became reachable.
+  document.dispatchEvent(new Event('lights-on'));
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
   // Only warm the first (default) project; the rest warm on hover/focus/tap.
   setTimeout(() => preloadProject('logo'), 1200);
@@ -7797,13 +7876,31 @@ $$('a[href^="#"]').forEach(a => {
 </script>
 <script>
 (function(){
-  if(!document.documentElement.classList.contains('lights-unlocked')){
-    document.body.style.overflow='hidden';
-    document.body.style.height='100%';
-    window.addEventListener('wheel', function(e){ if(!document.documentElement.classList.contains('lights-unlocked')) e.preventDefault(); }, {passive:false});
-    window.addEventListener('touchmove', function(e){ if(!document.documentElement.classList.contains('lights-unlocked')) e.preventDefault(); }, {passive:false});
-    window.addEventListener('keydown', function(e){ if(!document.documentElement.classList.contains('lights-unlocked') && ['ArrowDown','PageDown','Space','End'].indexOf(e.key)>=0) e.preventDefault(); }, {passive:false});
-  }
+  const root = document.documentElement;
+  if(root.classList.contains('lights-unlocked')) return;
+  document.body.style.overflow='hidden';
+  document.body.style.height='100%';
+  // Guard the locked page against scroll input. These listeners must be
+  // non-passive so they can cancel the gesture, which makes the browser route
+  // wheel/touch scrolling through the main thread instead of the compositor -
+  // the classic cause of a "sticky" scroll. They are only needed before the
+  // lights come on, so they are detached the moment the page is unlocked,
+  // leaving fully native, composited scrolling for the entire time the page is
+  // actually scrollable.
+  const onWheel = e => { if(!root.classList.contains('lights-unlocked')) e.preventDefault(); };
+  const onTouch = e => { if(!root.classList.contains('lights-unlocked')) e.preventDefault(); };
+  const onKey   = e => { if(!root.classList.contains('lights-unlocked') && ['ArrowDown','PageDown','Space','End'].indexOf(e.key)>=0) e.preventDefault(); };
+  const detach = () => {
+    window.removeEventListener('wheel', onWheel);
+    window.removeEventListener('touchmove', onTouch);
+    window.removeEventListener('keydown', onKey);
+  };
+  window.addEventListener('wheel', onWheel, {passive:false});
+  window.addEventListener('touchmove', onTouch, {passive:false});
+  window.addEventListener('keydown', onKey, {passive:false});
+  document.addEventListener('lights-on', detach, {once:true});
+  // Safety net in case the page is ever unlocked without dispatching lights-on.
+  setTimeout(() => { if(root.classList.contains('lights-unlocked')) detach(); }, 1500);
 })();
 </script>
 <!-- THUMB-INLINE -->
