@@ -6621,19 +6621,20 @@ html.fade-on{--fade-ms:.5s}
 html.fade-on,
 html.fade-on body{height:100%!important;overflow:hidden!important;overscroll-behavior:none!important}
 html.fade-on .design-viewport{
-  position:fixed!important;inset:0!important;overflow:hidden!important;z-index:1!important}
+  position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .m-layout{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;
-  width:100%!important;height:var(--fade-vh,100dvh)!important;overflow:hidden!important;z-index:1!important}
+  width:100%!important;height:100vh!important;height:var(--fade-vh,100dvh)!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .design-canvas,
 html.fade-on .m-layout > main{
-  position:absolute!important;inset:0!important;overflow:hidden!important}
+  position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important}
 html.fade-on .design-canvas main > section,
 html.fade-on .m-layout > section,
 html.fade-on .m-layout > main > section{
-  position:absolute!important;inset:0!important;
+  position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;
   min-height:0!important;max-height:none!important;margin:0!important;
   overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;
+  touch-action:pan-y pinch-zoom!important;overscroll-behavior:contain!important;
   opacity:0!important;visibility:hidden!important;pointer-events:none!important;
   transition:opacity var(--fade-ms) ease!important;z-index:0!important}
 html.fade-noanim .design-canvas main > section,
@@ -6642,6 +6643,12 @@ html.fade-noanim .m-layout > main > section{transition:none!important}
 html.fade-on .design-canvas main > section.fade-overflow,
 html.fade-on .m-layout > section.fade-overflow,
 html.fade-on .m-layout > main > section.fade-overflow{align-items:flex-start!important}
+/* The phone sections are centred columns: centre-packed content that is
+   taller than the screen overflows above the top edge, where scrollTop can
+   never reach. Pin an overflowing column to the start so every line - the
+   custom-work block and the LET'S TALK pill included - is scrollable to. */
+html.fade-on .m-layout > section.fade-overflow,
+html.fade-on .m-layout > main > section.fade-overflow{justify-content:flex-start!important}
 html.fade-on .design-canvas main > section.fade-cur,
 html.fade-on .m-layout > section.fade-cur,
 html.fade-on .m-layout > main > section.fade-cur{
@@ -7895,6 +7902,11 @@ $$('a[href^="#"]').forEach(a => {
     neo.classList.add('fade-cur');
     cur = i;
     busy = true;
+    // Settle the incoming panel's layout while it is still transparent, so a
+    // tall column (Approach, Intro) is pinned to its start before anyone
+    // sees it and nothing is left stranded above the top edge.
+    if (neo.scrollHeight > neo.clientHeight + 2) neo.classList.add('fade-overflow');
+    else neo.classList.remove('fade-overflow');
     clearTimeout(show._t);
     show._t = setTimeout(function(){
       if (old) old.classList.remove('fade-out');
@@ -7920,7 +7932,7 @@ $$('a[href^="#"]').forEach(a => {
     gestureTimer = setTimeout(function(){ gestureLock = false; acc = 0; }, 300);
   }
   function onWheel(e){
-    if (!on) return;
+    if (!on || overlayOpen()) return;
     var el = panels[cur];
     var canDown = el.scrollTop + el.clientHeight < el.scrollHeight - 1;
     var canUp = el.scrollTop > 1;
@@ -7933,24 +7945,83 @@ $$('a[href^="#"]').forEach(a => {
     if (Math.abs(acc) >= WHEEL_STEP){ gestureLock = true; step(acc > 0 ? 1 : -1); acc = 0; }
   }
 
-  // touch
-  var ty = 0, tLatch = false;
-  function onTouchStart(e){ if (on){ ty = e.touches[0].clientY; tLatch = false; } }
-  function onTouchMove(e){
-    if (!on) return;
-    var y = e.touches[0].clientY, dy = ty - y;
-    var el = panels[cur];
-    var canDown = el.scrollTop + el.clientHeight < el.scrollHeight - 1;
-    var canUp = el.scrollTop > 1;
-    if (!tLatch && !busy && ((dy > 0 && canDown) || (dy < 0 && canUp))){ ty = y; return; }
-    e.preventDefault();
-    if (busy || tLatch) return;
-    if (Math.abs(dy) >= TOUCH_STEP){ tLatch = true; step(dy > 0 ? 1 : -1); ty = y; }
+  // touch - the panel is moved by hand, so a phone scrolls it the same way
+  // everywhere: some mobile browsers will not scroll a panel that is pinned
+  // inside a fixed layer, and the swipe then jumped straight to the next
+  // section without ever showing what is below. A swipe only changes section
+  // once the panel can go no further in that direction.
+  var ty = 0, tLatch = false, dragging = false, over = 0, overDir = 0;
+  var vel = 0, lastT = 0, momRAF = 0;
+
+  function overlayOpen(){
+    return !!document.querySelector('.modal.open, .modal-zoom.open');
   }
+  function stopGlide(){ if (momRAF){ cancelAnimationFrame(momRAF); momRAF = 0; } vel = 0; }
+  function glide(el, v){
+    if (!el || busy || tLatch || Math.abs(v) < 0.7) return;
+    var max = el.scrollHeight - el.clientHeight;
+    if (max <= 1) return;
+    if ((v > 0 && el.scrollTop >= max - 0.5) || (v < 0 && el.scrollTop <= 0.5)) return;
+    var last = performance.now();
+    var tick = function(t){
+      if (!on || overlayOpen() || panels[cur] !== el){ momRAF = 0; return; }
+      var frames = Math.min(3, Math.max(0, (t - last) / 16.67)); last = t;
+      var mx = el.scrollHeight - el.clientHeight;
+      var nx = el.scrollTop + v * frames;
+      el.scrollTop = Math.max(0, Math.min(mx, nx));
+      v *= Math.pow(0.93, frames);
+      if (nx < 0 || nx > mx || Math.abs(v) < 0.5){ momRAF = 0; return; }
+      momRAF = requestAnimationFrame(tick);
+    };
+    momRAF = requestAnimationFrame(tick);
+  }
+
+  function onTouchStart(e){
+    if (!on) return;
+    stopGlide();
+    ty = e.touches[0].clientY;
+    tLatch = false; dragging = false; over = 0; overDir = 0;
+    vel = 0; lastT = performance.now();
+  }
+  function onTouchMove(e){
+    if (!on || overlayOpen()) return;   // an open modal scrolls itself
+    if (e.touches.length > 1) return;   // pinch zoom stays with the browser
+    e.preventDefault();                 // the panel is moved by hand below
+    var y = e.touches[0].clientY, dy = ty - y;
+    if (!dragging){
+      if (Math.abs(dy) < 4) return;     // still a tap - leave it a tap
+      dragging = true;
+    }
+    var now = performance.now();
+    var dt = Math.max(8, now - lastT);
+    vel = vel * 0.7 + (dy / dt * 16.67) * 0.3;
+    lastT = now;
+    ty = y;
+    var el = panels[cur];
+    if (!el || busy || tLatch) return;
+    var max = el.scrollHeight - el.clientHeight;
+    if (max > 1 && ((dy > 0 && el.scrollTop < max - 0.5) || (dy < 0 && el.scrollTop > 0.5))){
+      over = 0;
+      el.scrollTop = Math.max(0, Math.min(max, el.scrollTop + dy));
+      return;
+    }
+    // the panel can go no further (or has nothing to scroll at all):
+    // keep swiping through to change section - firmly, once per gesture.
+    var dir = dy > 0 ? 1 : -1;
+    if (dir !== overDir){ overDir = dir; over = 0; }
+    over += dy;
+    if (Math.abs(over) >= TOUCH_STEP){ tLatch = true; over = 0; step(dir); }
+  }
+  function onTouchEnd(e){
+    if (!on || overlayOpen()) return;
+    if (dragging && !tLatch && !busy) glide(panels[cur], vel);
+    dragging = false;
+  }
+  function onTouchCancel(){ dragging = false; stopGlide(); }
 
   // keyboard
   function onKey(e){
-    if (!on) return;
+    if (!on || overlayOpen()) return;
     var t = e.target;
     if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
     var el = panels[cur];
@@ -8016,6 +8087,8 @@ $$('a[href^="#"]').forEach(a => {
   window.addEventListener('wheel', onWheel, { passive: false });
   window.addEventListener('touchstart', onTouchStart, { passive: true });
   window.addEventListener('touchmove', onTouchMove, { passive: false });
+  window.addEventListener('touchend', onTouchEnd, { passive: true });
+  window.addEventListener('touchcancel', onTouchCancel, { passive: true });
   window.addEventListener('keydown', onKey);
   window.addEventListener('resize', onResize);
   if (window.visualViewport) window.visualViewport.addEventListener('resize', onResize);
