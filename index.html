@@ -6624,7 +6624,7 @@ html.fade-on .design-viewport{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .m-layout{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;
-  width:100%!important;height:100vh!important;height:var(--fade-vh,100dvh)!important;overflow:hidden!important;z-index:1!important}
+  width:100%!important;height:100vh!important;height:100dvh!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .design-canvas,
 html.fade-on .m-layout > main{
   position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important}
@@ -7871,10 +7871,6 @@ $$('a[href^="#"]').forEach(a => {
       ? [].slice.call(document.querySelectorAll('.m-layout > section, .m-layout > main > section'))
       : [].slice.call(document.querySelectorAll('.design-canvas main > section'));
   }
-  function setVH(){
-    var h = (window.visualViewport && window.visualViewport.height) || window.innerHeight || 0;
-    root.style.setProperty('--fade-vh', h + 'px');
-  }
   function markOverflow(){
     for (var i=0;i<panels.length;i++){
       var p = panels[i];
@@ -8039,7 +8035,6 @@ $$('a[href^="#"]').forEach(a => {
 
   function onResize(){
     if (!on) return;
-    setVH();
     var np = collect();
     if (np.length && (np.length !== panels.length || np[0] !== panels[0])){
       var k = cur;
@@ -8054,7 +8049,6 @@ $$('a[href^="#"]').forEach(a => {
 
   function enable(){
     if (on) return;
-    setVH();
     panels = collect();
     if (!panels.length) return;
     on = true;
