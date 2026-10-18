@@ -6707,8 +6707,17 @@ html.fade-on .m-layout > main > section.fade-out{
         // Recompute only when the CSS viewport width actually changed, so a
         // collapsing address bar (a height-only change) or a pinch never
         // triggers a needless re-layout.
-        if (!force && vw === lastW) return;
-        lastW = vw;
+    if (!force && vw === lastW) {
+      // Ensure layout is still correct on mobile when classes change
+      if (mobileLayout() && root.getAttribute('data-layout') !== 'mobile') {
+        force = true;
+      } else if (!mobileLayout() && root.getAttribute('data-layout') !== 'desktop') {
+        force = true;
+      } else {
+        return;
+      }
+    }
+    lastW = vw;
         if (mobileLayout()) {
           root.setAttribute('data-layout', 'mobile');
           vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
@@ -7428,11 +7437,15 @@ function turnLightsOn(){
   document.body.classList.add('light-on');
   unlockPage();
   if (window.Fade) Fade.enable();
+  // Keep scaling stable after enabling the fixed fade layout
+  if (typeof fit === 'function') { try { fit(true); } catch (e) {} }
   if (lightToggle) lightToggle.querySelector('span:last-child').textContent = 'LIGHTS ON';
   document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
+  // Re-assert stable scale after layout settles
+  setTimeout(function () { if (typeof fit === 'function') { try { fit(true); } catch (e) {} } }, 150);
   // Only warm the first (default) project; the rest warm on hover/focus/tap.
   setTimeout(() => preloadProject('logo'), 1200);
 }
@@ -8081,11 +8094,15 @@ $$('a[href^="#"]').forEach(a => {
     on = true;
     root.classList.add('fade-noanim');
     root.classList.add('fade-on');
+    // Ensure viewport width is measured with fixed fade layout active
+    if (typeof window.fit === 'function') { try { window.fit(true); } catch (e) {} }
     cur = 0;
     paint();
     window.scrollTo(0, 0);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.remove('fade-noanim'); }); });
     requestAnimationFrame(markOverflow);
+    // Reassert stable scale after panels positioned
+    setTimeout(function(){ if (typeof window.fit === 'function') { try { window.fit(true); } catch (e) {} } }, 120);
   }
 
   window.Fade = {
