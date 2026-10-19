@@ -6701,23 +6701,23 @@ html.fade-on .m-layout > main > section.fade-out{
       }
 
       var lastW = -1;
-      function fit(force) {
+  function fit(force) {
         var vp = document.getElementById('vp');
         var vw = Math.round(viewportWidth());
         // Recompute only when the CSS viewport width actually changed, so a
         // collapsing address bar (a height-only change) or a pinch never
-        // triggers a needless re-layout.
-    if (!force && vw === lastW) {
-      // Ensure layout is still correct on mobile when classes change
-      if (mobileLayout() && root.getAttribute('data-layout') !== 'mobile') {
-        force = true;
-      } else if (!mobileLayout() && root.getAttribute('data-layout') !== 'desktop') {
-        force = true;
-      } else {
-        return;
-      }
-    }
-    lastW = vw;
+        // triggers a needless re-layout. Also allow re-fit when layout mode
+        // needs to be corrected.
+        if (!force && vw === lastW) {
+          if (mobileLayout() && root.getAttribute('data-layout') !== 'mobile') {
+            force = true;
+          } else if (!mobileLayout() && root.getAttribute('data-layout') !== 'desktop') {
+            force = true;
+          } else {
+            return;
+          }
+        }
+        lastW = vw;
         if (mobileLayout()) {
           root.setAttribute('data-layout', 'mobile');
           vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
@@ -7435,20 +7435,18 @@ function preloadProject(key){
 function turnLightsOn(){
   if(document.body.classList.contains('light-on')) return;
   document.body.classList.add('light-on');
-  // Lock in correct mobile scale before changing layout-affecting classes
-  if (typeof fit === 'function') { try { fit(true); } catch (e) {} }
+  // Snapshot CSS viewport width at the moment of click to avoid timing-driven
+  // re-measurements during the transition (prevents any potential zoom jitter).
+  if (typeof viewportWidth === 'function') {
+    try { lastW = Math.round(viewportWidth()); } catch (e) {}
+  }
   unlockPage();
-  if (typeof fit === 'function') { try { fit(true); } catch (e) {} }
   if (window.Fade) Fade.enable();
-  if (typeof fit === 'function') { try { fit(true); } catch (e) {} }
   if (lightToggle) lightToggle.querySelector('span:last-child').textContent = 'LIGHTS ON';
   document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
-  // Re-assert stable scale after layout settles
-  setTimeout(function () { if (typeof fit === 'function') { try { fit(true); } catch (e) {} } }, 80);
-  setTimeout(function () { if (typeof fit === 'function') { try { fit(true); } catch (e) {} } }, 300);
   // Only warm the first (default) project; the rest warm on hover/focus/tap.
   setTimeout(() => preloadProject('logo'), 1200);
 }
@@ -8096,19 +8094,12 @@ $$('a[href^="#"]').forEach(a => {
     if (!panels.length) return;
     on = true;
     root.classList.add('fade-noanim');
-    // Measure before changing to fixed positioning
-    if (typeof window.fit === 'function') { try { window.fit(true); } catch (e) {} }
     root.classList.add('fade-on');
-    // Ensure viewport width is measured with fixed fade layout active
-    if (typeof window.fit === 'function') { try { window.fit(true); } catch (e) {} }
     cur = 0;
     paint();
     window.scrollTo(0, 0);
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.remove('fade-noanim'); }); });
     requestAnimationFrame(markOverflow);
-    // Reassert stable scale after panels positioned
-    requestAnimationFrame(function(){ if (typeof window.fit === 'function') { try { window.fit(true); } catch (e) {} } });
-    setTimeout(function(){ if (typeof window.fit === 'function') { try { window.fit(true); } catch (e) {} } }, 120);
   }
 
   window.Fade = {
