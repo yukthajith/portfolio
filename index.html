@@ -6006,10 +6006,10 @@ html:not(.lights-unlocked), html:not(.lights-unlocked) body {
   overflow: hidden;
   overscroll-behavior-y: none;
 }
-html:not(.lights-unlocked):not([data-layout="mobile"]) main > section:not(.scene-hero) {
+html:not(.lights-unlocked) main > section:not(.scene-hero) {
   display: none !important;
 }
-html:not(.lights-unlocked):not([data-layout="mobile"]) .site-nav nav {
+html:not(.lights-unlocked) .site-nav nav {
   opacity: 0 !important;
   pointer-events: none !important;
 }
@@ -6624,19 +6624,19 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,
    keep their own inner scroll so nothing is clipped.
    ========================================================= */
 html.fade-on{--fade-ms:.5s}
-html.fade-on,
-html.fade-on body{height:100%!important;overflow:hidden!important;overscroll-behavior:none!important}
-html.fade-on .design-viewport{
+html.fade-on:not([data-layout="mobile"]),
+html.fade-on:not([data-layout="mobile"]) body{height:100%!important;overflow:hidden!important;overscroll-behavior:none!important}
+html.fade-on:not([data-layout="mobile"]) .design-viewport{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important;z-index:1!important}
-html.fade-on .m-layout{
+html.fade-on:not([data-layout="mobile"]) .m-layout{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;
   width:100%!important;height:100vh!important;height:100dvh!important;overflow:hidden!important;z-index:1!important}
-html.fade-on .design-canvas,
-html.fade-on .m-layout > main{
+html.fade-on:not([data-layout="mobile"]) .design-canvas,
+html.fade-on:not([data-layout="mobile"]) .m-layout > main{
   position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important}
-html.fade-on .design-canvas main > section,
-html.fade-on .m-layout > section,
-html.fade-on .m-layout > main > section{
+html.fade-on:not([data-layout="mobile"]) .design-canvas main > section,
+html.fade-on:not([data-layout="mobile"]) .m-layout > section,
+html.fade-on:not([data-layout="mobile"]) .m-layout > main > section{
   position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;
   min-height:0!important;max-height:none!important;margin:0!important;
   overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch;
@@ -6646,22 +6646,22 @@ html.fade-on .m-layout > main > section{
 html.fade-noanim .design-canvas main > section,
 html.fade-noanim .m-layout > section,
 html.fade-noanim .m-layout > main > section{transition:none!important}
-html.fade-on .design-canvas main > section.fade-overflow,
-html.fade-on .m-layout > section.fade-overflow,
-html.fade-on .m-layout > main > section.fade-overflow{align-items:flex-start!important}
+html.fade-on:not([data-layout="mobile"]) .design-canvas main > section.fade-overflow,
+html.fade-on:not([data-layout="mobile"]) .m-layout > section.fade-overflow,
+html.fade-on:not([data-layout="mobile"]) .m-layout > main > section.fade-overflow{align-items:flex-start!important}
 /* The phone sections are centred columns: centre-packed content that is
    taller than the screen overflows above the top edge, where scrollTop can
    never reach. Pin an overflowing column to the start so every line - the
    custom-work block and the LET'S TALK pill included - is scrollable to. */
-html.fade-on .m-layout > section.fade-overflow,
-html.fade-on .m-layout > main > section.fade-overflow{justify-content:flex-start!important}
-html.fade-on .design-canvas main > section.fade-cur,
-html.fade-on .m-layout > section.fade-cur,
-html.fade-on .m-layout > main > section.fade-cur{
+html.fade-on:not([data-layout="mobile"]) .m-layout > section.fade-overflow,
+html.fade-on:not([data-layout="mobile"]) .m-layout > main > section.fade-overflow{justify-content:flex-start!important}
+html.fade-on:not([data-layout="mobile"]) .design-canvas main > section.fade-cur,
+html.fade-on:not([data-layout="mobile"]) .m-layout > section.fade-cur,
+html.fade-on:not([data-layout="mobile"]) .m-layout > main > section.fade-cur{
   opacity:1!important;visibility:visible!important;pointer-events:auto!important;z-index:2!important}
-html.fade-on .design-canvas main > section.fade-out,
-html.fade-on .m-layout > section.fade-out,
-html.fade-on .m-layout > main > section.fade-out{
+html.fade-on:not([data-layout="mobile"]) .design-canvas main > section.fade-out,
+html.fade-on:not([data-layout="mobile"]) .m-layout > section.fade-out,
+html.fade-on:not([data-layout="mobile"]) .m-layout > main > section.fade-out{
   opacity:0!important;visibility:visible!important;pointer-events:none!important;z-index:1!important}
 @media (prefers-reduced-motion: reduce){
   html.fade-on .design-canvas main > section,
@@ -7447,7 +7447,8 @@ function turnLightsOn(){
     try { lastW = Math.round(viewportWidth()); } catch (e) {}
   }
   unlockPage();
-  if (window.Fade) { try { Fade.enable(); } catch (e) {} }
+  var isMobileNow = (document.documentElement.getAttribute('data-layout') === 'mobile');
+  if (!isMobileNow && window.Fade) { try { Fade.enable(); } catch (e) {} }
   if (lightToggle) lightToggle.querySelector('span:last-child').textContent = 'LIGHTS ON';
   document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
