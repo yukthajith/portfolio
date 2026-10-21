@@ -6017,11 +6017,20 @@ html:not(.lights-unlocked) .design-viewport,
 html:not(.lights-unlocked) .design-canvas {
   height: 100%;
 }
-/* Keep mobile layout scale stable during unlock */
+/* The room already fills the whole artboard before the lights go on, exactly
+   as tall as the fade panel it turns into. So turning the moon on changes the
+   light, never the geometry: nothing shifts, nothing rescales. */
+html:not(.lights-unlocked) .design-canvas main,
+html:not(.lights-unlocked) .design-canvas main > .scene-hero {
+  height: 100%;
+}
+/* The phone layout is one full screen per section. The small viewport height
+   is the one that stays put when the browser bar slides away, so the screen
+   the hero fills before the moon is the screen the panel uses after it. */
 html[data-layout="mobile"]:not(.lights-unlocked),
 html[data-layout="mobile"]:not(.lights-unlocked) body {
   height: 100vh !important;
-  height: 100dvh !important;
+  height: 100svh !important;
 }
 
 /* USER REQUEST — ABOUT: minimal backdrop, no arc.
@@ -6630,7 +6639,7 @@ html.fade-on .design-viewport{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .m-layout{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;
-  width:100%!important;height:100vh!important;height:100dvh!important;overflow:hidden!important;z-index:1!important}
+  width:100%!important;height:100vh!important;height:var(--m-panel-h,100svh)!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .design-canvas,
 html.fade-on .m-layout > main{
   position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important}
@@ -8096,6 +8105,18 @@ $$('a[href^="#"]').forEach(a => {
 
   function enable(){
     if (on) return;
+    /* Phone: the fade panel is pinned to the exact height the hero already
+       fills on screen. The viewport unit would be the wrong size here - the
+       dynamic height grows when the browser bar slides away, which would
+       stretch the panel and move every element inside it. A measured pixel
+       value cannot change under us, so the transition is a pure cross-fade. */
+    if (isMobile()){
+      var hero = document.querySelector('.m-layout .m-hero');
+      if (hero){
+        var hh = Math.round(hero.getBoundingClientRect().height);
+        if (hh > 0) root.style.setProperty('--m-panel-h', hh + 'px');
+      }
+    }
     panels = collect();
     if (!panels.length) return;
     on = true;
