@@ -6006,16 +6006,22 @@ html:not(.lights-unlocked), html:not(.lights-unlocked) body {
   overflow: hidden;
   overscroll-behavior-y: none;
 }
-html:not(.lights-unlocked) main > section:not(.scene-hero) {
+html:not(.lights-unlocked):not([data-layout="mobile"]) main > section:not(.scene-hero) {
   display: none !important;
 }
-html:not(.lights-unlocked) .site-nav nav {
+html:not(.lights-unlocked):not([data-layout="mobile"]) .site-nav nav {
   opacity: 0 !important;
   pointer-events: none !important;
 }
 html:not(.lights-unlocked) .design-viewport,
 html:not(.lights-unlocked) .design-canvas {
   height: 100%;
+}
+/* Keep mobile layout scale stable during unlock */
+html[data-layout="mobile"]:not(.lights-unlocked),
+html[data-layout="mobile"]:not(.lights-unlocked) body {
+  height: 100vh !important;
+  height: 100dvh !important;
 }
 
 /* USER REQUEST — ABOUT: minimal backdrop, no arc.
