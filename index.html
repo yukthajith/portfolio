@@ -7441,7 +7441,7 @@ function turnLightsOn(){
     try { lastW = Math.round(viewportWidth()); } catch (e) {}
   }
   unlockPage();
-  if (window.Fade) Fade.enable();
+  if (window.Fade) { try { Fade.enable(); } catch (e) {} }
   if (lightToggle) lightToggle.querySelector('span:last-child').textContent = 'LIGHTS ON';
   document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
