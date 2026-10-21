@@ -5712,7 +5712,7 @@ html[data-layout="mobile"] .m-hero .note-left{display:none!important}
   transition:opacity .45s ease,transform .45s ease}
 .m-moon{
   position:relative;display:block;width:76px;height:76px;margin:0 auto;
-  border:0;padding:0;border-radius:50%;cursor:pointer;
+  border:0;padding:0;border-radius:50%;cursor:pointer;touch-action:manipulation;
   background:radial-gradient(circle at 33% 28%,#fff9d9 0 8%,#ffe89a 22%,#e7bd55 58%,#b77f2d 100%);
   box-shadow:0 0 22px rgba(255,236,178,.42),0 0 60px rgba(240,203,110,.22),0 0 130px rgba(231,189,85,.10);
   transition:transform .3s ease,box-shadow .8s ease,filter .8s ease;
@@ -6648,7 +6648,8 @@ html.fade-on .design-viewport{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .m-layout{
   position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:auto!important;
-  width:100%!important;height:100vh!important;height:var(--m-panel-h,100svh)!important;overflow:hidden!important;z-index:1!important}
+  width:100%!important;height:100svh!important;height:var(--m-panel-h,100svh)!important;
+  min-height:var(--m-panel-h,100svh)!important;overflow:hidden!important;z-index:1!important}
 html.fade-on .design-canvas,
 html.fade-on .m-layout > main{
   position:absolute!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important}
