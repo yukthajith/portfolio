@@ -6003,8 +6003,17 @@ html:not(.fade-on)[data-layout="desktop"] .design-canvas main > section:not(.sce
 /* Pre-unlock: lock to home */
 html:not(.lights-unlocked), html:not(.lights-unlocked) body {
   height: 100%;
-  overflow: hidden;
+  overflow: hidden !important;
   overscroll-behavior-y: none;
+}
+/* The document must never be scrollable while the lights come on. A
+   scrollbar that appears (or vanishes) changes the layout width by its own
+   thickness, and that is what re-scales the artboard: the page then jumps
+   sideways for a fraction of a second. Locked here, before and during the
+   transition, the width is constant and nothing moves. */
+html.scroll-locked, html.scroll-locked body {
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
 }
 html:not(.lights-unlocked) main > section:not(.scene-hero) {
   display: none !important;
@@ -6716,26 +6725,43 @@ html.fade-on .m-layout > main > section.fade-out{
       }
 
       var lastW = -1;
+      // While the lights are turning on the artboard's scale is frozen. Any
+      // viewport change in that window (a scrollbar appearing or vanishing,
+      // the address bar sliding, a browser re-applying the viewport) must not
+      // re-scale the page: that is exactly what makes the whole page jump
+      // for a fraction of a second after the moon is touched.
+      var scaleLockUntil = 0;
+      // Writing the same viewport meta again makes the browser re-apply the
+      // viewport, and some browsers answer that by resetting the page zoom -
+      // a small "everything scales" jump. Only write when it really changes.
+      function setViewport(vp, value) {
+        if (vp && vp.getAttribute('content') !== value) vp.setAttribute('content', value);
+      }
   function fit(force) {
         var vp = document.getElementById('vp');
         var vw = Math.round(viewportWidth());
+        var modeWrong = (mobileLayout() !== (root.getAttribute('data-layout') === 'mobile'));
         // Recompute only when the CSS viewport width actually changed, so a
         // collapsing address bar (a height-only change) or a pinch never
         // triggers a needless re-layout. Also allow re-fit when layout mode
         // needs to be corrected.
         if (!force && vw === lastW) {
-          if (mobileLayout() && root.getAttribute('data-layout') !== 'mobile') {
-            force = true;
-          } else if (!mobileLayout() && root.getAttribute('data-layout') !== 'desktop') {
+          if (modeWrong) {
             force = true;
           } else {
             return;
           }
         }
+        // A frozen scale ignores transient width changes. A genuine change of
+        // layout mode (a rotation across the phone breakpoint) is always
+        // allowed through.
+        if (!modeWrong && Date.now() < scaleLockUntil) {
+          return;
+        }
         lastW = vw;
         if (mobileLayout()) {
           root.setAttribute('data-layout', 'mobile');
-          vp.setAttribute('content', 'width=device-width, initial-scale=1.0, viewport-fit=cover');
+          setViewport(vp, 'width=device-width, initial-scale=1.0, viewport-fit=cover');
           root.style.zoom = '';
           root.style.minWidth = '';
           root.style.minHeight = '';
@@ -6751,7 +6777,7 @@ html.fade-on .m-layout > main > section.fade-out{
           root.style.setProperty('--design-vh', (viewportHeight() / s) + 'px');
         } else {
           root.setAttribute('data-layout', 'desktop');
-          vp.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
+          setViewport(vp, 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
           root.style.setProperty('--s', '1');
           root.style.setProperty('--design-vh', window.innerHeight + 'px');
           var z = Math.max(0.2, (window.innerWidth || root.clientWidth || BASE) / BASE);
@@ -6773,6 +6799,11 @@ html.fade-on .m-layout > main > section.fade-out{
       if (window.visualViewport) {
         window.visualViewport.addEventListener('resize', function () { fit(); });
       }
+      // The moon handler freezes the scale for the length of the transition,
+      // so nothing that happens while the lights come on can re-scale the
+      // artboard and make the page jump.
+      window.__fitLock = function (ms) { scaleLockUntil = Date.now() + (ms || 1500); };
+      window.__fitUnlock = function () { scaleLockUntil = 0; };
     })();
   </script>
 </head>
@@ -7333,7 +7364,10 @@ const $$ = (s, p=document) => [...p.querySelectorAll(s)];
 const unlockPage = () => {
   document.documentElement.classList.add('lights-unlocked');
   document.body.style.overflowX = 'hidden';
-  document.body.style.overflowY = 'auto';
+  // The fade panels own the scrolling from here on. The body stays locked so
+  // the document can never become scrollable (and grow a scrollbar) while
+  // the transition runs.
+  document.body.style.overflowY = 'hidden';
 };
 
 
@@ -7449,16 +7483,34 @@ function preloadProject(key){
 
 function turnLightsOn(){
   if(document.body.classList.contains('light-on')) return;
-  document.body.classList.add('light-on');
-  // Snapshot CSS viewport width at the moment of click to avoid timing-driven
-  // re-measurements during the transition (prevents any potential zoom jitter).
-  if (typeof viewportWidth === 'function') {
-    try { lastW = Math.round(viewportWidth()); } catch (e) {}
+  const root = document.documentElement;
+  // Nothing may move or rescale while the lights come on. The artboard's
+  // scale is frozen and the page stays locked, so no scrollbar can appear
+  // and no viewport can be re-measured in the middle of the transition.
+  if (window.__fitLock) { try { window.__fitLock(2000); } catch (e) {} }
+  root.classList.add('scroll-locked');
+  // Measure the phone hero before anything changes. The fade panel is
+  // pinned to exactly the height the hero already fills on screen, so the
+  // cross-fade can change the light, never the geometry.
+  if (root.getAttribute('data-layout') === 'mobile') {
+    const hero = document.querySelector('.m-layout .m-hero');
+    if (hero) {
+      const hh = Math.round(hero.getBoundingClientRect().height);
+      if (hh > 0) root.style.setProperty('--m-panel-h', hh + 'px');
+    }
   }
+  document.body.classList.add('light-on');
   unlockPage();
-  if (window.Fade) { try { Fade.enable(); } catch (e) {} }
+  let faded = false;
+  if (window.Fade) { try { Fade.enable(); faded = !!Fade.isOn(); } catch (e) {} }
+  if (faded) {
+    document.body.style.overflow = '';
+  } else {
+    // No fade panels on this page: fall back to normal document scrolling.
+    root.classList.remove('scroll-locked');
+    document.body.style.overflowY = 'auto';
+  }
   if (lightToggle) lightToggle.querySelector('span:last-child').textContent = 'LIGHTS ON';
-  document.body.style.overflow = '';
   const cue = $('.hero-scroll-text');
   if (cue) cue.setAttribute('aria-hidden','false');
   setTimeout(() => document.body.classList.add('lights-settled'), 900);
@@ -8109,8 +8161,10 @@ $$('a[href^="#"]').forEach(a => {
        fills on screen. The viewport unit would be the wrong size here - the
        dynamic height grows when the browser bar slides away, which would
        stretch the panel and move every element inside it. A measured pixel
-       value cannot change under us, so the transition is a pure cross-fade. */
-    if (isMobile()){
+       value cannot change under us, so the transition is a pure cross-fade.
+       The height is measured by the moon handler before anything changes;
+       this is only a fallback for a panel enabled some other way. */
+    if (isMobile() && !root.style.getPropertyValue('--m-panel-h')) {
       var hero = document.querySelector('.m-layout .m-hero');
       if (hero){
         var hh = Math.round(hero.getBoundingClientRect().height);
@@ -8124,7 +8178,15 @@ $$('a[href^="#"]').forEach(a => {
     root.classList.add('fade-on');
     cur = 0;
     paint();
-    window.scrollTo(0, 0);
+    /* Reset any scroll instantly. <html> asks for smooth scrolling, and an
+       animated scroll back to the top would move the whole page just as the
+       fade starts - it reads as the page jumping. */
+    try {
+      var sb = root.style.scrollBehavior;
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      root.style.scrollBehavior = sb;
+    } catch (e) { window.scrollTo(0, 0); }
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.remove('fade-noanim'); }); });
     requestAnimationFrame(markOverflow);
   }
