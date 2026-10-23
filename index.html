@@ -6028,10 +6028,14 @@ html:not(.lights-unlocked) .design-canvas {
 }
 /* The room already fills the whole artboard before the lights go on, exactly
    as tall as the fade panel it turns into. So turning the moon on changes the
-   light, never the geometry: nothing shifts, nothing rescales. */
+   light, never the geometry: nothing shifts, nothing rescales.
+   The 800px floor of .scene must not stretch the room past the viewport: on a
+   short desktop window it would make the room taller than the screen before
+   the moon and shorter after it, and the whole scene would hop up. */
 html:not(.lights-unlocked) .design-canvas main,
 html:not(.lights-unlocked) .design-canvas main > .scene-hero {
   height: 100%;
+  min-height: 0;
 }
 /* The phone layout is one full screen per section. The small viewport height
    is the one that stays put when the browser bar slides away, so the screen
@@ -6186,29 +6190,67 @@ html[data-layout="mobile"]:not(.lights-unlocked) body {
    nothing else on the site is touched. Character shape/pose/proportions are
    unchanged — only the backdrop, the desk and the outline treatment.
    ========================================================================= */
-/* 1. Backdrop: a warm floor pooled under the character that fades to the page
-      black (#050505) on every edge, with a vignette so no rectangle shows. */
+/* 1. Backdrop — RECTANGLE ROOT CAUSE (confirmed by layer isolation on the real
+      render): this rule. Its stops used to resolve to OPAQUE colours (#050505,
+      warm browns) at 0%/100%, so the box's overflow:hidden clip painted a solid
+      slab whose straight edges read exactly like a pasted rectangle/card. Fix =
+      NO layer here may place an opaque pixel anywhere near a box edge. The
+      warmth is now a small interior pool that is fully transparent well before
+      it reaches every edge, and each layer's last stop is rgba(...,0) so the
+      box boundary physically cannot draw a line. Nothing animates here; the
+      moving mist lives on the separate .about-atmosphere layer (below). */
 .desk-story .about-illustration,
 .m-band .about-illustration{
   background:
-    radial-gradient(116% 96% at 30% 60%, rgba(5,5,5,0) 46%, rgba(5,5,5,.5) 76%, #050505 100%),
-    radial-gradient(380px 300px at 33% 44%, rgba(231,189,85,.12), rgba(231,189,85,0) 72%),
-    linear-gradient(90deg, rgba(5,5,5,0) 44%, rgba(5,5,5,.6) 72%, #050505 92%),
-    linear-gradient(180deg, #050505 0%, #0a0907 22%, #120f0a 52%, #1b150c 68%, #241b0f 72%, #120e08 90%, #060504 100%)!important;
+    radial-gradient(58% 46% at 40% 74%, rgba(150,120,74,.16), rgba(150,120,74,0) 72%),
+    radial-gradient(46% 40% at 30% 60%, rgba(231,189,85,.07), rgba(231,189,85,0) 74%),
+    radial-gradient(40% 38% at 66% 52%, rgba(120,150,170,.05), rgba(120,150,170,0) 76%)!important;
   box-shadow:none!important;
 }
-/* a soft lamp pool behind the whole scene (lives under the character) */
+/* a soft lamp pool behind the whole scene (lives under the character).
+   Layer 1 (top) is a broad, very gentle NEUTRAL/cool pocket centred behind the
+   character's hair: the hair highlight is a warm inset band (#1c1913) and was
+   reading against an equally warm lamp glow, so it disappeared. Deepening just
+   this background pocket makes the highlight separate from what is behind it —
+   the hair, its highlight colour and every object are untouched. The radius is
+   large and the falloff gradual on purpose, so no patch/spotlight edge shows. */
 .desk-story .about-illustration:before,
 .m-band .about-illustration:before{
   content:""!important;
   display:block!important;
   position:absolute!important;
-  inset:0!important;
+  inset:-6%!important;
   z-index:0!important;
   pointer-events:none!important;
   background:
-    radial-gradient(360px 300px at 33% 44%, rgba(231,189,85,.13), rgba(231,189,85,0) 72%)!important;
+    radial-gradient(62% 74% at 52% 56%, rgba(4,6,9,.42), rgba(4,6,9,.2) 52%, rgba(4,6,9,0) 100%),
+    radial-gradient(340px 300px at 30% 44%, rgba(231,189,85,.13), rgba(231,189,85,0) 72%),
+    radial-gradient(46% 62% at 68% 40%, rgba(120,150,170,.05), rgba(120,150,170,0) 70%),
+    radial-gradient(40% 55% at 44% 62%, rgba(231,189,85,.05), rgba(231,189,85,0) 74%);
+  background-repeat:no-repeat;
+  background-size:100% 100%,160% 160%,160% 160%,160% 160%;
+  background-position:center,46% 44%,60% 40%,44% 58%;
   opacity:.9!important;
+}
+/* Debug helper (disabled): outline the illustration so its live boundary can be
+   seen at a glance while tuning. Kept inert so it never affects production. */
+.about-illustration.debug-outline{outline:1px dashed rgba(255,0,0,.5);outline-offset:0}
+/* 2. Edge dissolve — RETIRED. This overlay used to paint OPAQUE #050505 radial
+      slabs inward from the top/left/right edges to hide the box clip. On the
+      black section those slabs merely reproduced a rectangular dark field whose
+      own radial boundary became the visible "pasted image" edge. Since the
+      section is already #050505 there is nothing to dissolve into, so the fill
+      is now fully transparent (kept only so nothing else shifts); the warm pool
+      sits on the illustration and the drifting mist sits on .about-atmosphere. */
+.desk-story .about-illustration:after,
+.m-band .about-illustration:after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  inset:0!important;
+  z-index:14!important;
+  pointer-events:none!important;
+  background:none!important;
 }
 /* USER REQUEST — ABOUT WINDOW: the glass now shows the view OUTSIDE — a
    quiet night forest. Deep navy-green sky, dark tree and treetop
@@ -6252,6 +6294,11 @@ html[data-layout="mobile"]:not(.lights-unlocked) body {
     linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 46%),
     /* deep navy-green night sky */
     linear-gradient(180deg, #060b12 0%, #0a1620 40%, #0f1f1b 68%, #0a1611 100%)!important;
+  /* Feather the window's outer boundary so its 9px frame + opaque pane never
+     read as a hard pasted rectangle against the black wall. The centre (sky,
+     trees, moon, cross-bars) stays fully crisp; only the very outer rim melts. */
+  -webkit-mask-image:radial-gradient(118% 116% at 50% 42%, #000 0%, #000 34%, rgba(0,0,0,.28) 60%, rgba(0,0,0,0) 86%)!important;
+  mask-image:radial-gradient(118% 116% at 50% 42%, #000 0%, #000 34%, rgba(0,0,0,.28) 60%, rgba(0,0,0,0) 86%)!important;
 }
 /* A natural, softly-lit moon sits in the sky — a pale warm sphere shaded
    like a real disc, with only a gentle moonlight bloom (no hard halo). It
@@ -6273,17 +6320,32 @@ html[data-layout="mobile"]:not(.lights-unlocked) body {
 /* Stars are painted into the pane background above, so the old star
    element is retired (it also keeps them behind the cross-bars). */
 .about-window .window-stars{display:none!important}
-/* 2. Table (.about-desk): no hard border, top edge fades up into the wall and
-      the left/right ends are masked away so the board never looks clipped. */
+/* 2. Table (.about-desk): the board is a rectangle, so its straight top and
+      bottom edges were the visible "pasted image" boundary. Fix = the PAINT
+      itself now starts and ends fully TRANSPARENT (top melts into the wall,
+      bottom melts into the page black) with only smooth, widely-spaced stops -
+      no bright horizontal band and no hard line at 74%/88% any more. The
+      left/right ends are removed by the horizontal mask; top/bottom by the
+      transparent paint; the corners therefore dissolve on both axes at once,
+      and the whole table reads as an irregular atmospheric pool of light under
+      the sketchbook + pen - never an oval, card or panel. */
 .desk-story .about-desk,
 .m-band .about-desk{
   border:0!important;
   background:
-    radial-gradient(54% 92% at 52% -8%, rgba(0,0,0,.5), rgba(0,0,0,0) 72%),
-    linear-gradient(180deg, rgba(58,49,38,0) 0%, rgba(58,49,38,.72) 8%, #2c2619 42%, #1b1409 76%, #0c0a07 100%)!important;
-  -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 10%, #000 82%, rgba(0,0,0,0) 99%)!important;
-  mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 10%, #000 82%, rgba(0,0,0,0) 99%)!important;
-  box-shadow:inset 0 1px 0 rgba(231,189,85,.08)!important;
+    radial-gradient(78% 150% at 48% 30%, rgba(150,120,74,.40), rgba(150,120,74,0) 74%),
+    linear-gradient(180deg,
+      rgba(5,5,5,0) 0%,
+      rgba(58,48,33,.42) 13%,
+      rgba(106,86,54,.86) 34%,
+      #6a5636 46%,
+      #584628 58%,
+      rgba(48,38,25,.72) 74%,
+      rgba(18,14,9,.42) 88%,
+      rgba(5,5,5,0) 100%)!important;
+  -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 14%, #000 82%, rgba(0,0,0,0) 100%)!important;
+  mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 14%, #000 82%, rgba(0,0,0,0) 100%)!important;
+  box-shadow:none!important;
 }
 /* 3. Character + laptop: drop the cream hairlines; use soft contact shadows
       so the dark pieces sit in the light instead of being traced. */
@@ -6310,10 +6372,88 @@ html[data-layout="mobile"]:not(.lights-unlocked) body {
   from{filter:brightness(.94)}
   to{filter:brightness(1.08)}
 }
+/* Very slow, low-contrast ambient drift for the light around the scene. Moves
+   the layered radial gradients by a few percent only, so it reads as breathing
+   night air — never a moving blob, never a flicker, never a size change. */
+@keyframes about-ambient-drift{
+  0%  {background-position:46% 44%, 60% 40%, 44% 58%}
+  33% {background-position:52% 47%, 55% 44%, 50% 55%}
+  66% {background-position:44% 49%, 64% 38%, 46% 60%}
+  100%{background-position:46% 44%, 60% 40%, 44% 58%}
+}
+/* ============================================================================
+   ABOUT ATMOSPHERE — a dedicated, non-interactive decorative layer AROUND the
+   illustration. It lives on the SECTION (.desk-story) / band-box, NOT inside
+   .about-illustration, so it is never clipped by the artwork box and can bleed
+   freely outside it. Several large, soft radial-gradient "mist" pools drift
+   slowly and asymmetrically (position + size + opacity), always fading to fully
+   transparent at every edge, so no rectangle, corner, outline or fixed blob is
+   ever visible. It sits BEHIND the artwork (z-index below the illustration) and
+   has pointer-events:none, so it can never catch the cursor or affect scroll.
+   A hover state (set from JS on the near-black -- about-hover var) gently
+   lifts the overall intensity. The artwork itself never moves/scales.
+   ========================================================================= */
+@keyframes about-mist-a{
+  0%   {transform:translate3d(0,0,0)   scale(1);   opacity:.55}
+  50%  {transform:translate3d(3%,-2%,0) scale(1.06);opacity:.8}
+  100% {transform:translate3d(0,0,0)   scale(1);   opacity:.55}
+}
+@keyframes about-mist-b{
+  0%   {transform:translate3d(0,0,0)    scale(1);  opacity:.45}
+  50%  {transform:translate3d(-4%,2%,0) scale(1.08);opacity:.7}
+  100% {transform:translate3d(0,0,0)    scale(1);  opacity:.45}
+}
+.desk-story .about-atmosphere,
+.m-about .about-atmosphere{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  pointer-events:none!important;
+  overflow:hidden!important;
+  opacity:calc(.85 + .25 * var(--about-hover,0))!important;
+  transition:opacity .6s ease!important;
+  contain:paint!important;
+}
+.desk-story .about-atmosphere::before,
+.m-about .about-atmosphere::before{
+  content:""!important;
+  position:absolute!important;
+  inset:-12%!important;
+  background:
+    radial-gradient(42% 54% at 26% 42%, rgba(231,189,85,.10), rgba(231,189,85,0) 70%),
+    radial-gradient(38% 50% at 70% 56%, rgba(120,150,170,.06), rgba(120,150,170,0) 72%),
+    radial-gradient(34% 44% at 50% 72%, rgba(196,150,80,.07), rgba(196,150,80,0) 74%),
+    radial-gradient(30% 40% at 40% 24%, rgba(231,189,85,.05), rgba(231,189,85,0) 72%);
+  background-repeat:no-repeat!important;
+  will-change:transform,opacity!important;
+}
+.desk-story .about-atmosphere::after,
+.m-about .about-atmosphere::after{
+  content:""!important;
+  position:absolute!important;
+  inset:-16%!important;
+  background:
+    radial-gradient(40% 48% at 62% 40%, rgba(120,150,170,.07), rgba(120,150,170,0) 72%),
+    radial-gradient(44% 52% at 34% 60%, rgba(231,189,85,.08), rgba(231,189,85,0) 72%),
+    radial-gradient(28% 38% at 54% 30%, rgba(196,150,80,.05), rgba(196,150,80,0) 74%);
+  background-repeat:no-repeat!important;
+  will-change:transform,opacity!important;
+}
+@media (prefers-reduced-motion: no-preference){
+  .desk-story .about-atmosphere::before,
+  .m-about .about-atmosphere::before{
+    animation:about-mist-a 26s ease-in-out infinite;
+  }
+  .desk-story .about-atmosphere::after,
+  .m-about .about-atmosphere::after{
+    animation:about-mist-b 34s ease-in-out infinite -7s;
+  }
+}
 @media (prefers-reduced-motion: no-preference){
   .desk-story .about-illustration:before,
   .m-band .about-illustration:before{
-    animation:about-lamp-breathe 7s ease-in-out infinite alternate;
+    animation:about-lamp-breathe 7s ease-in-out infinite alternate,
+              about-ambient-drift 34s ease-in-out infinite;
   }
   .desk-story .about-window span,
   .m-band .about-window span{
@@ -6360,27 +6500,40 @@ html[data-layout="mobile"]:not(.lights-unlocked) body {
 .aw-sketch{position:absolute!important;left:49px;top:69px;width:44px;height:44px;overflow:visible!important;pointer-events:none!important}
 
 /* the pencil holder: upright, proportionate, resting on the tabletop */
-.aw-cup{left:592px;top:436px;width:42px;height:60px;z-index:1;background:linear-gradient(90deg,#332c23,#5a4d3a 44%,#2c261d 100%);border-radius:5px 5px 8px 8px;box-shadow:0 9px 13px rgba(0,0,0,.5),inset 0 -9px 13px rgba(0,0,0,.5),inset 0 2px 0 rgba(239,229,207,.08)}
+.aw-cup{left:592px;top:436px;width:42px;height:60px;z-index:1;background:linear-gradient(90deg,#413629,#6f5f45 44%,#342b20 100%);border-radius:5px 5px 8px 8px;box-shadow:0 9px 13px rgba(0,0,0,.5),inset 0 -9px 13px rgba(0,0,0,.45),inset 0 2px 0 rgba(239,229,207,.12)}
 .aw-cup i{bottom:60px;width:5px;height:56px;border-radius:2px;transform-origin:50% 100%}
-.aw-k1{left:6px;background:#c79a5b;transform:rotate(-6deg)}
-.aw-k2{left:15px;background:#8a6d4a;transform:rotate(-1deg)}
-.aw-k3{left:24px;background:#3f5a46;transform:rotate(4deg)}
-.aw-k4{left:33px;background:#2b2a27;transform:rotate(9deg)}
+.aw-k1{left:6px;background:#e0b46f;transform:rotate(-6deg)}
+.aw-k2{left:15px;background:#b0885c;transform:rotate(-1deg)}
+.aw-k3{left:24px;background:#5f7f66;transform:rotate(4deg)}
+.aw-k4{left:33px;background:#4a4740;transform:rotate(9deg)}
 
-/* the desk's front lip: a pixel-exact slice of the desk surface repainted OVER the
-   sketchbook's lower edge (SAME gradients + mask as the desk, clipped to its lower
-   20px) so the book reads as resting on the tabletop and tucked under the desk's
-   front edge. It is invisible where it overlaps the desk itself (identical paint)
-   and only the book's lower edge is covered. The arms/hands render above it. */
+/* the desk's front lip: a slice of the desk surface repainted OVER the
+   sketchbook's lower edge so the book reads as resting on the tabletop and
+   tucked under the desk's front edge. The old version used clip-path, which
+   produced a razor-sharp straight horizontal line across the whole width — the
+   exact "rectangular panel" edge the eye caught. It is now faded in with a
+   SOFT vertical alpha ramp (transparent at its top edge) on top of the
+   horizontal fade, and the paint itself melts to transparent top AND bottom,
+   so there is no hard edge on any side. Arms/hands still render above it. */
 .about-workspace::after{
   content:""!important;position:absolute!important;
   left:0;top:426.4px;width:100%;height:93.6px;z-index:3;pointer-events:none;border:0!important;
   background:
-    radial-gradient(54% 92% at 52% -8%, rgba(0,0,0,.5), rgba(0,0,0,0) 72%),
-    linear-gradient(180deg, rgba(58,49,38,0) 0%, rgba(58,49,38,.72) 8%, #2c2619 42%, #1b1409 76%, #0c0a07 100%)!important;
-  clip-path:inset(73.6px 0 0 0);
-  -webkit-mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 10%, #000 82%, rgba(0,0,0,0) 99%)!important;
-  mask-image:linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 10%, #000 82%, rgba(0,0,0,0) 99%)!important;
+    radial-gradient(70% 120% at 52% -6%, rgba(0,0,0,.22), rgba(0,0,0,0) 74%),
+    linear-gradient(180deg,
+      rgba(5,5,5,0) 0%,
+      rgba(58,49,38,.28) 58%,
+      rgba(60,50,36,.72) 82%,
+      rgba(30,24,15,.42) 94%,
+      rgba(5,5,5,0) 100%)!important;
+  -webkit-mask-image:
+    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 66%, rgba(0,0,0,.6) 84%, #000 100%),
+    linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 12%, #000 82%, rgba(0,0,0,0) 100%)!important;
+  -webkit-mask-composite:source-in!important;
+  mask-image:
+    linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 66%, rgba(0,0,0,.6) 84%, #000 100%),
+    linear-gradient(90deg, rgba(0,0,0,0) 0%, #000 12%, #000 82%, rgba(0,0,0,0) 100%)!important;
+  mask-composite:intersect!important;
 }
 
 /* USER REQUEST — ABOUT proportions: lower the whole upper body (head + hair +
@@ -6641,7 +6794,7 @@ a:focus-visible,button:focus-visible,[role="button"]:focus-visible,
    travel, no snap, and no sticky behaviour. Long panels (e.g. Work)
    keep their own inner scroll so nothing is clipped.
    ========================================================= */
-html.fade-on{--fade-ms:.5s}
+html.fade-on{--fade-ms:.36s}
 html.fade-on,
 html.fade-on body{height:100%!important;overflow:hidden!important;overscroll-behavior:none!important}
 html.fade-on .design-viewport{
@@ -6662,10 +6815,25 @@ html.fade-on .m-layout > main > section{
   touch-action:pan-y pinch-zoom!important;overscroll-behavior:contain!important;
   opacity:0!important;visibility:hidden!important;pointer-events:none!important;
   transition:opacity var(--fade-ms) ease!important;z-index:0!important}
+/* The room is one fixed composition, not a page to scroll: it must not grow a
+   scrollbar when it becomes a fade panel, or the art would be clipped by the
+   scrollbar's width the moment the lights come on. The other panels keep
+   their own inner scroll. */
+html.fade-on .design-canvas main > section.scene-hero{
+  overflow:hidden!important;scrollbar-width:none!important}
+html.fade-on .design-canvas main > section.scene-hero::-webkit-scrollbar{display:none!important}
+/* A long panel still scrolls by touch/keyboard, but its scrollbar is never
+   drawn - the sidebar appears and disappears between sections otherwise. */
+html.fade-on .design-canvas main > section,
+html.fade-on .m-layout > section,
+html.fade-on .m-layout > main > section{scrollbar-width:none!important;-ms-overflow-style:none!important}
+html.fade-on .design-canvas main > section::-webkit-scrollbar,
+html.fade-on .m-layout > section::-webkit-scrollbar,
+html.fade-on .m-layout > main > section::-webkit-scrollbar{
+  width:0!important;height:0!important;display:none!important}
 html.fade-noanim .design-canvas main > section,
 html.fade-noanim .m-layout > section,
 html.fade-noanim .m-layout > main > section{transition:none!important}
-html.fade-on .design-canvas main > section.fade-overflow,
 html.fade-on .m-layout > section.fade-overflow,
 html.fade-on .m-layout > main > section.fade-overflow{align-items:flex-start!important}
 /* The phone sections are centred columns: centre-packed content that is
@@ -6686,6 +6854,52 @@ html.fade-on .m-layout > main > section.fade-out{
   html.fade-on .design-canvas main > section,
   html.fade-on .m-layout > section,
   html.fade-on .m-layout > main > section{transition-duration:.01ms!important}
+}
+
+/* --- THE ROOM COMES IN ----------------------------------------------------
+   Opening index.html is the first thing a visitor sees, so the hero arrives
+   as one piece instead of a flat picture: the room, the desk, the character,
+   the moon and the words all come in together.
+
+   One keyframe set, one start time, one length - so the text is never the
+   last thing to arrive and never lags behind the picture. Only opacity and
+   transform are animated, so nothing reflows, nothing resizes and the room
+   keeps the exact geometry it had: the entrance cannot shift the page.
+
+   The fill mode is "backwards", not "both": it holds the first frame during
+   the short delay and then lets go, so the rules that come later (the moon
+   instruction fading away when the lights go on, for one) still apply. */
+@keyframes roomIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:none}
+}
+@keyframes roomInFlat{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes roomInStars{
+  from{opacity:0}
+  to{opacity:.55}
+}
+@keyframes roomInInk{
+  from{opacity:0;filter:blur(4px)}
+  to{opacity:1;filter:none}
+}
+@media (prefers-reduced-motion: no-preference){
+  .design-canvas .scene-hero .room-copy,
+  .design-canvas .scene-hero .desk-scene,
+  .design-canvas .scene-hero .moon-control,
+  .m-layout .m-hero .m-hero-copy,
+  .m-layout .m-hero .m-hero-art,
+  .m-layout .m-hero .m-moon-wrap{
+    animation:roomIn .6s var(--ui-ease) .1s backwards}
+  .design-canvas .scene-hero .moon-instruction{
+    animation:roomInInk .6s var(--ui-ease) .1s backwards}
+  .design-canvas .scene-hero .note-left{
+    animation:roomInInk .6s var(--ui-ease) .1s backwards}
+  .design-canvas .scene-hero .stars,
+  .m-layout .m-hero .stars{
+    animation:roomInStars .6s var(--ui-ease) .1s backwards}
 }
 </style>
   <script>
@@ -6900,6 +7114,7 @@ html.fade-on .m-layout > main > section.fade-out{
 
     <!-- ABOUT / MOVING DESK -->
     <section class="desk-story" id="about">
+      <div class="about-atmosphere" aria-hidden="true"></div>
       <div class="floating-paper paper-a">SKETCH<br>→<br>MAKE<br>→<br>REFINE</div>
       <div class="floating-paper paper-b">less noise.<br>more meaning.</div>
 
@@ -7165,7 +7380,8 @@ html.fade-on .m-layout > main > section.fade-out{
         <div class="m-notes">
           <div class="m-note">less noise.<br>more meaning.</div>
         </div>
-        <div class="m-band-box" style="--dh:560px">
+        <div class="m-band-box m-about-band-box" style="--dh:560px">
+          <div class="about-atmosphere" aria-hidden="true"></div>
           <div class="m-band">
             <div class="about-illustration">
               <div class="about-window"><span></span><i class="window-stars"></i></div>
@@ -7596,6 +7812,29 @@ if (matchMedia('(hover:hover) and (pointer:fine)').matches &&
 }
 
 
+// About atmosphere — a soft, atmospheric response to the pointer on desktop
+// only. Moving over the About section gently raises the mist intensity (via the
+// --about-hover custom property, which only feeds the decorative .about-atmosphere
+// layer's opacity); leaving eases it back. The artwork never moves. Kept off for
+// touch/reduced-motion so mobile just shows the calm ambient drift.
+if (matchMedia('(hover:hover) and (pointer:fine)').matches &&
+    !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const aboutSection = document.getElementById('about');
+  if (aboutSection) {
+    let target = 0, cur = 0, raf = null;
+    const tick = () => {
+      cur += (target - cur) * 0.08;
+      if (Math.abs(target - cur) < 0.002) cur = target;
+      aboutSection.style.setProperty('--about-hover', cur.toFixed(3));
+      raf = (cur === target) ? null : requestAnimationFrame(tick);
+    };
+    const run = () => { if (raf === null) raf = requestAnimationFrame(tick); };
+    aboutSection.addEventListener('pointermove', () => { target = 1; run(); });
+    aboutSection.addEventListener('pointerleave', () => { target = 0; run(); });
+  }
+}
+
+
 // Project modal.
 // `name`   = display name shown when a card is clicked (edit it to match your project).
 // `title`  = the category heading on the card.
@@ -7969,10 +8208,9 @@ $$('a[href^="#"]').forEach(a => {
    than the screen (e.g. Work) keep their own inner scroll. */
 (function(){
   var root = document.documentElement;
-  var DUR = 520;           // must match --fade-ms (0.5s)
-  var WHEEL_STEP = 42;     // accumulated wheel delta that means "go"
+  var DUR = 360;           // must match --fade-ms (0.36s)
   var TOUCH_STEP = 42;     // touch travel (px) that means "go"
-  var panels = [], cur = 0, busy = false, queued = 0, on = false;
+  var panels = [], cur = 0, busy = false, on = false;
 
   function isMobile(){ return root.getAttribute('data-layout') === 'mobile'; }
   function collect(){
@@ -8007,9 +8245,9 @@ $$('a[href^="#"]').forEach(a => {
     neo.classList.add('fade-cur');
     cur = i;
     busy = true;
-    // Settle the incoming panel's layout while it is still transparent, so a
-    // tall column (Approach, Intro) is pinned to its start before anyone
-    // sees it and nothing is left stranded above the top edge.
+    acc = 0;
+    queuedDir = 0;
+    // Settle the incoming panel's layout while it is still transparent
     if (neo.scrollHeight > neo.clientHeight + 2) neo.classList.add('fade-overflow');
     else neo.classList.remove('fade-overflow');
     clearTimeout(show._t);
@@ -8017,37 +8255,74 @@ $$('a[href^="#"]').forEach(a => {
       if (old) old.classList.remove('fade-out');
       busy = false;
       markOverflow();
-      if (queued){ var d = queued; queued = 0; step(d); }
-    }, DUR + 40);
+    }, DUR + 10);
   }
   function step(dir){
     if (!on) return;
-    if (busy){ queued = dir; return; }
+    if (busy){ return; }
     var t = cur + dir;
     if (t < 0 || t > panels.length - 1) return;
     show(t);
   }
   function goTo(i){ if (on) show(i); }
 
-  // wheel - one scroll gesture moves exactly one section, then it stops and
-  // waits for the next gesture (continuous/momentum scroll cannot chain on).
-  var acc = 0, gestureLock = false, gestureTimer = 0;
-  function endGesture(){
-    clearTimeout(gestureTimer);
-    gestureTimer = setTimeout(function(){ gestureLock = false; acc = 0; }, 300);
+  // wheel - every scroll belongs to the reader, so nothing is ever queued and
+  // nothing ever plays back on its own.
+  //
+  //   1) If the current panel has its own scroll (Work / Approach / Contact
+  //      are taller than the screen), the wheel moves that panel's content
+  //      first - exactly like a normal page. A small trackpad nudge can
+  //      therefore be read without the section snapping away.
+  //   2) Only a real wheel notch (a large deltaY - a mouse wheel, or the end
+  //      of a trackpad flick), and only once the panel can go no further in
+  //      that direction, turns the next (or previous) section. Slow, small
+  //      deltas never cross a section, so a long section can always be read.
+  // A direction change resets the accumulator; a fade in progress swallows
+  // input for its short life instead of remembering it for later.
+  var WHEEL_NOTCH = 50;    // a delta at least this big is a deliberate wheel notch
+  var WHEEL_FULL = 100;    // accumulated travel that means "cross to the next section"
+  var acc = 0;
+  function wheelPx(e){
+    var d = e.deltaY;
+    if (e.deltaMode === 1) d *= 16;        // lines
+    else if (e.deltaMode === 2) d *= 600;   // pages
+    return d;
   }
   function onWheel(e){
     if (!on || overlayOpen()) return;
-    var el = panels[cur];
-    var canDown = el.scrollTop + el.clientHeight < el.scrollHeight - 1;
-    var canUp = el.scrollTop > 1;
-    if (!busy && !gestureLock && ((e.deltaY > 0 && canDown) || (e.deltaY < 0 && canUp))){ acc = 0; endGesture(); return; }
+    var d = wheelPx(e);
     e.preventDefault();
-    endGesture();
-    if (busy || gestureLock) return;
-    if ((acc > 0) !== (e.deltaY > 0)) acc = 0;
-    acc += e.deltaY;
-    if (Math.abs(acc) >= WHEEL_STEP){ gestureLock = true; step(acc > 0 ? 1 : -1); acc = 0; }
+    e.stopPropagation();
+    e.stopImmediatePropagation();
+    if (busy || d === 0) return;
+    var dir = d > 0 ? 1 : -1;
+    var el = panels[cur];
+    // 1) Let the panel scroll its own long content first. Any delta, large or
+    //    small, moves the content the reader is looking at.
+    if (el){
+      var max = el.scrollHeight - el.clientHeight;
+      if (max > 1){
+        if (dir > 0 && el.scrollTop < max - 0.5){
+          el.scrollTop = Math.min(max, el.scrollTop + Math.abs(d));
+          acc = 0;
+          return;
+        }
+        if (dir < 0 && el.scrollTop > 0.5){
+          el.scrollTop = Math.max(0, el.scrollTop - Math.abs(d));
+          acc = 0;
+          return;
+        }
+      }
+    }
+    // 2) The panel is at its edge. A small trackpad delta is spent here and
+    //    never crosses a section on its own; only a real notch (WHEEL_NOTCH)
+    //    is allowed to accumulate toward crossing.
+    if (Math.abs(d) < WHEEL_NOTCH) return;
+    if ((acc > 0) !== (d > 0)) acc = 0;
+    acc += d;
+    if (Math.abs(acc) < WHEEL_FULL) return;
+    acc = 0;
+    step(dir);
   }
 
   // touch - the panel is moved by hand, so a phone scrolls it the same way
@@ -8209,7 +8484,7 @@ $$('a[href^="#"]').forEach(a => {
     index: function(){ return cur; }
   };
 
-  window.addEventListener('wheel', onWheel, { passive: false });
+  window.addEventListener('wheel', onWheel, { passive: false, capture: true });
   window.addEventListener('touchstart', onTouchStart, { passive: true });
   window.addEventListener('touchmove', onTouchMove, { passive: false });
   window.addEventListener('touchend', onTouchEnd, { passive: true });
